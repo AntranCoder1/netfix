@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.scss';
 import Google from '../../img/google.png';
+import { login } from '../../redux/ApiCall';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Login = () => {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch= useDispatch();
+    const { sFetching, error } = useSelector(state => state.user);
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        login(dispatch, { email, password });
+    }
+
     return (
         <div className="login">
             <div className="top">
@@ -20,12 +33,14 @@ const Login = () => {
                     <input 
                         type="email"
                         placeholder="Email or phone number"
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     <input 
                         type="password"
                         placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button className="loginButton">Sign In</button>
+                    <button className="loginButton" onClick={handleClick}>Sign In</button>
                     <br />
                     <span className="google">
                         <img src={Google} alt="" className="icon" />

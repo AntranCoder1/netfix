@@ -9,10 +9,11 @@ import { BrowserRouter as Router,
   Route,
   Redirect
 } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 function App() {
 
-  const user = true;
+  const user = useSelector(state => state.user.currentUser);
 
   return (
     <Router>
