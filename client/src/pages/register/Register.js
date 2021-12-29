@@ -1,7 +1,37 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState, useRef } from 'react';
 import './Register.scss';
+import { useHistory } from 'react-router-dom';
 
 const Register = () => {
+
+    const [email, setEmail] = useState("");
+    const [displayName, setDisplayName] = useState("");
+    const [password, setPassword] = useState("");
+    const history = useHistory();
+
+    const emailRef = useRef();
+    const displayNameRef = useRef();
+    const passwordRer = useRef();
+
+    const handleStart = () => {
+        setEmail(emailRef.current.value)
+    }
+
+    const handleClick = async (e) => {
+        e.preventDefault();
+        setDisplayName(displayNameRef.current.value);
+        setPassword(passwordRer.current.value);
+        try {
+            await axios.post("/auth/register", {
+                email, displayName, password
+            });
+            history.push("/login");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className="register">
             <div className="top">
@@ -20,23 +50,25 @@ const Register = () => {
                 <p>
                     Ready to watch? Enter your email to create or restart your membership.
                 </p>
-                <div className="input">
-                    <input type="email" placeholder="email address" />
-                    <button 
-                        className="registerButton"
-                    >
-                        Get Started
-                    </button>
-                </div>
-                <form className="input">
-                    <input type="username" placeholder="Username" />
-                    <input type="password" placeholder="Password" />
-                    <button 
-                        className="registerButton"
-                    >
-                        Start
-                    </button>
-                </form>
+                { !email ? (
+                    <div className="input">
+                        <input type="email" placeholder="email address" ref={emailRef} />
+                        <button 
+                            className="registerButton"
+                            onClick={handleStart}
+                        >
+                            Get Started
+                        </button>
+                    </div>
+                ) : (
+                    <form className="input">
+                        <input type="displayName" placeholder="Username" ref={displayNameRef} />
+                        <input type="password" placeholder="Password" ref={passwordRer} />
+                        <button className="registerButton" onClick={handleClick}>
+                            Start
+                        </button>
+                    </form>
+                ) }
             </div>
         </div>
     )

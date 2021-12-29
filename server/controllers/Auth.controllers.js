@@ -22,7 +22,7 @@ module.exports.register = async (req, res) => {
 
     try {
         const user = await newUser.save();
-        res.status(200).json({ user: user._id });
+        res.status(200).json(user);
     } catch (error) {
         // res.status(500).json({ success: false, message: "Internal server error" });
         console.log(error)
