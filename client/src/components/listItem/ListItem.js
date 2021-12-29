@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './ListItem.scss';
 import {
     PlayArrow,
@@ -6,28 +6,61 @@ import {
     ThumbUpAltOutlined,
     ThumbDownOutlined,
 } from "@material-ui/icons";
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-const ListItem = () => {
+const ListItem = ({ index, list }) => {
+
+    const [isHovered, setIsHovered] = useState(false);
+    const [movie, setMovie] = useState({});
+
+    useEffect(() => {
+        const getMovie = async () => {
+            try {
+                const res = await axios.get("/movies/find/" + list, {
+                    headers: {
+                        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxY2E5MjI1NjcwNjI5M2YzODNkOTJhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MDc2MTM3MywiZXhwIjoxODk5OTYxMzczfQ.K6PUlRVEpHvOiJEOQWB6t8s3Q1fvLoEvZHdiLGt-0Zk" 
+                    }
+                });
+                setMovie(res.data);  
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getMovie();
+    }, [movie]);
+
     return (
-        <div className="listItem">
-            <img src="https://firebasestorage.googleapis.com/v0/b/movie-24107.appspot.com/o/items%2F1637839950314imgSmbackground_desktop3.jpg?alt=media&token=61308191-1276-490b-a3e3-860f4bd2c77c" alt="" />
-            <video src="https://firebasestorage.googleapis.com/v0/b/movie-24107.appspot.com/o/items%2F1637839950314trailerZig%20%26%20Sharko%20-%20Season%202%20Official%20Trailer%20(2016).mp4?alt=media&token=86c6d553-0f20-4a81-90f3-5a6a16662aae" autoPlay={true} loop />
-            <div className="itemInfo">
-                <div className="icons">
-                    <PlayArrow className="icon" />
-                    <Add className="icon" />
-                    <ThumbUpAltOutlined className="icon" />
-                    <ThumbDownOutlined className="icon" />
-                </div>
-                <div className="itemInfoTop">
-                    <span>29.50</span>
-                    <span className="limit">+</span>
-                    <span>2021</span>
-                </div>
-                <div className="desc">Zig & Sharko 🦞😻 ANIMAL CROSSING 🦞😻 Amazing MAGIC TRICK 🎭 </div>
-                <div className="genre">Animation</div>
+        <Link to={{ pathname: "/watch", movie: movie }}>
+            <div 
+                className="listItem"
+                style={{ left: isHovered && index * 255 - 50  + index * 2.5 }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
+                <img src={movie?.imgSm} alt="" />
+                { isHovered && (
+                    <>
+                        <video src={movie.trailer} autoPlay={true} loop />
+                        <div className="itemInfo">
+                            <div className="icons">
+                                <PlayArrow className="icon" />
+                                <Add className="icon" />
+                                <ThumbUpAltOutlined className="icon" />
+                                <ThumbDownOutlined className="icon" />
+                            </div>
+                            <div className="itemInfoTop">
+                                <span>{movie.duration}</span>
+                                <span className="limit">+{movie.limit}</span>
+                                <span>{movie.year}</span>
+                            </div>
+                            <div className="desc">{movie.desc}</div>
+                            <div className="genre">{movie.genre}</div>
+                        </div>
+                    </>
+                ) }
             </div>
-        </div>
+        </Link>
     )
 }
 

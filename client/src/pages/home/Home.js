@@ -32,7 +32,9 @@ const Home = ({ type }) => {
         <div className="home">
             <NavBar />
             <Featured type={type} setGenre={setGenre} />
-            <List />
+            { lists.map((item) => (
+                <List key={item._id} list={item} />
+            )) }
         </div>
     )
 }
