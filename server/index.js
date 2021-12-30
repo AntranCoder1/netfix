@@ -3,6 +3,11 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const passportSetup = require('./passport');
+const passport = require("passport");
+const cookieSession = require("cookie-session");
+const cors = require('cors');
+
 
 const authRoutes = require('./routes/Auth.routes');
 const usersRoutes = require('./routes/Users.routes');
@@ -32,6 +37,23 @@ connectDB();
 // middleware
 app.use(express.json());
 app.use(morgan("common"));
+
+// app.use(cookieSession(
+//     {
+//         name: "Session",
+//         keys: ["anTran"],
+//         maxAge: 24 * 60 * 60 * 100
+//     }
+// ));
+
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+// app.use(cors({
+//     origin: "http://localhost:3000",
+//     methods: "GET, POST, PUT, DELETE",
+//     credentials: true
+// }))
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);

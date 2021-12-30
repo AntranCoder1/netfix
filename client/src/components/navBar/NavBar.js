@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './NavBar.scss';
 import { ArrowDropDown, Notifications, Search } from "@material-ui/icons";
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
+
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    window.onscroll = () => {
+        setIsScrolled(window.pageYOffset === 0 ? false : true );
+        return () => (window.onscroll = null);
+    };
+
     return (
-        <div className="navBar scrolled">
+        <div className={ isScrolled ? "navBar scrolled" : "navBar"}>
             <div className="container">
                 <div className="left">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png" alt="" />
-                    <span>Homepage</span>
-                    <span>Series</span>
-                    <span>Movies</span>
+                    <Link to="/">
+                        <span>Homepage</span>
+                    </Link>
+                    <Link to="/series">
+                        <span>Series</span>
+                    </Link>
+                    <Link to="/movies">
+                        <span>Movies</span>
+                    </Link>
                     <span>New and Popular</span>
                     <span>My List</span>
                 </div>

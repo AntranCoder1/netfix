@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useRef } from 'react';
 import './Register.scss';
 import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
 
 const Register = () => {
 
@@ -41,7 +42,11 @@ const Register = () => {
                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
                         alt=""
                     />
-                    <button className="loginButton">Sign In</button>
+                    <button className="loginButton">
+                        <Link to="/login">
+                            Sign In
+                        </Link>
+                    </button>
                 </div>
             </div>
             <div className="container">

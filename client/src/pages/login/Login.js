@@ -16,6 +16,10 @@ const Login = () => {
         login(dispatch, { email, password });
     }
 
+    const google = () => {
+        // window.open("http://localhost:5000/api/auth/google", "_self")
+    }
+
     return (
         <div className="login">
             <div className="top">
@@ -42,7 +46,7 @@ const Login = () => {
                     />
                     <button className="loginButton" onClick={handleClick}>Sign In</button>
                     <br />
-                    <span className="google">
+                    <span className="google" onClick={google}>
                         <img src={Google} alt="" className="icon" />
                         Sign in with google
                     </span>
