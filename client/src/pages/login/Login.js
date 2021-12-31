@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './Login.scss';
-import Google from '../../img/google.png';
 import { login } from '../../redux/ApiCall';
 import { useSelector, useDispatch } from 'react-redux';
+import GoogleLogin from 'react-google-login';
+import axios from 'axios';
 
-const Login = () => {
+const Login = ({ responseSuccessGoogle }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -18,6 +19,21 @@ const Login = () => {
 
     const google = () => {
         // window.open("http://localhost:5000/api/auth/google", "_self")
+    }
+
+    // const responseSuccessGoogle = (response) => {
+    //     console.log(response);
+    //     axios({
+    //         method: "POST",
+    //         url: "/auth/googlelogin",
+    //         data: { tokenId: response.tokenId }
+    //     }).then(response =>  {
+    //         console.log("Google login success", response);
+    //     })
+    // }
+
+    const responseErrorGoogle = (response) => {
+        
     }
 
     return (
@@ -46,10 +62,17 @@ const Login = () => {
                     />
                     <button className="loginButton" onClick={handleClick}>Sign In</button>
                     <br />
-                    <span className="google" onClick={google}>
+                    {/* <span className="google" onClick={google}>
                         <img src={Google} alt="" className="icon" />
                         Sign in with google
-                    </span>
+                    </span> */}
+                    <GoogleLogin
+                        clientId="718778022741-nqeapv7qq7no0vs77v5dv2s70jcbcdnf.apps.googleusercontent.com"
+                        buttonText="Login with google"
+                        onSuccess={responseSuccessGoogle}
+                        onFailure={responseErrorGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />
                     <span>
                         New to Netfix? <b>Sign up now.</b>
                     </span>

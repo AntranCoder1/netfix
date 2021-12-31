@@ -10,51 +10,40 @@ import { BrowserRouter as Router,
   Redirect
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 function App() {
 
-  const [users, setUsers] = useState(null);
-
   const user = useSelector(state => state.user.currentUser);
+  const [googleAccount, setGoogleAccount] = useState("");
 
-  useEffect(() => {
-    const getUser = async () => {
-      fetch("http://localhost:5000/api/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      }).then(response => {
-        if (response.status === 200) return response.json();
-        throw new Error("authentication has been failed!")
-      }).then(resObject => {
-        setUsers(resObject.users)
-      }).catch(err => {
-        console.log(err)
-      });
-    }
-    getUser();
-  }, []);
+  const getAccount = (response) => {
+    axios({
+        method: "POST",
+        url: "/auth/googlelogin",
+        data: { tokenId: response.tokenId }
+    }).then(response =>  {
+        console.log("Google login success", response);
+        setGoogleAccount(response)
+    })
+  }
 
-  console.log(users)
+  console.log(googleAccount.data)
 
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          { user || users ? <Home /> : <Redirect to="/register" /> }
+          { user || googleAccount ? <Home /> : <Redirect to="/register" /> }
         </Route>
         <Route exact path="/register">
-          { user ? <Redirect to="/" /> : <Register /> }
+          { user || googleAccount ? <Redirect to="/" /> : <Register /> }
         </Route>
         <Route exact path="/login">
-          { user || users ? <Redirect to="/" /> : <Login /> }
+          { user || googleAccount ? <Redirect to="/" /> : <Login responseSuccessGoogle={getAccount} /> }
         </Route>
         {
-          user && (
+          user || googleAccount && (
             <>
               <Route exact path='/movies'>
                 <Home type='movies' />

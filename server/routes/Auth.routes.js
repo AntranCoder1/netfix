@@ -1,8 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const passport = require("passport");
-
-const CLIENT_URL = "http://localhost:3000/"
 
 const authControllers = require('../controllers/Auth.controllers');
 
@@ -15,6 +12,9 @@ router.post("/register", authControllers.register);
 // @routes POST login
 // @access public
 router.post("/login", authControllers.login);
+
+// @routes api/auth/googlelogin
+router.post("/googlelogin", authControllers.googlelogin);
 
 // @routes api/auth/login/success
 // @desc login with google
