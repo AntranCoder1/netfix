@@ -1,4 +1,5 @@
 server/node_modules
 server/package-lock.json
 client/package-lock.json
+admin/package-lock.json
 server/.env

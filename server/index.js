@@ -35,6 +35,7 @@ const connectDB = async () => {
 connectDB();
 
 // middleware
+app.use(cors());
 app.use(express.json());
 app.use(morgan("common"));
 
