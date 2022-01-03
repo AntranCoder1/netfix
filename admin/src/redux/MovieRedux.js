@@ -5,7 +5,7 @@ const movieSlice = createSlice({
     initialState: {
         movies: [],
         isFetching: false,
-        error: false
+        error: false,
     },
     reducers: {
         // GET ALL
@@ -15,7 +15,7 @@ const movieSlice = createSlice({
         },
         getMovieSuccess: (state, action) => {
             state.isFetching = false;
-            state.products = action.payload;
+            state.movies = action.payload;
         },
         getMovieFailure: (state) => {
             state.isFetching = false;
@@ -24,9 +24,9 @@ const movieSlice = createSlice({
     }
 });
 
-export const { 
-    getMovieStart, 
-    getMovieSuccess, 
+export const {
+    getMovieStart,
+    getMovieSuccess,
     getMovieFailure,
 } = movieSlice.actions;
 

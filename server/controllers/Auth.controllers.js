@@ -54,7 +54,7 @@ module.exports.login = async (req, res) => {
         res.cookie('jwt', token, { httpOnly: true, maxAge });
 
         const { password, email, createdAt, updatedAt, __v, ...orthers } = user._doc;
-        res.status(200).json({ ...orthers, token })
+        res.status(200).json({ ...orthers, Token })
     } catch (error) {
         res.status(500).json({ success: false, message: "Internal server error" });
     }

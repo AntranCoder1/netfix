@@ -1,4 +1,4 @@
-import { publicRequest } from '../requestMethod';
+import { publicRequest, userRequest } from '../requestMethod';
 import { loginStart, loginSuccess, loginFailure } from './UserRedux'; 
 import { 
     getMovieStart,

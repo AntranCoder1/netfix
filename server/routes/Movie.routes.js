@@ -27,7 +27,7 @@ router.get("/find/:id", verify, movieControllers.findMovie);
 // @routes api/movies/
 // @desc find all movie
 // @access pivate
-router.get("/", verify, movieControllers.getAllMovie);
+router.get("/", movieControllers.getAllMovie);
 
 // @routes api/movies/random?type=series
 // @desc get random movie

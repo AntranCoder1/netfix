@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './Product.css';
 import { DataGrid } from '@material-ui/data-grid';
 import { Link } from 'react-router-dom';
 import { DeleteOutline } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMovies } from '../../redux/ApiCall';
-import axios from 'axios';
 
 const Product = () => {
 
-    const dispatch = useDispatch();
     const movies = useSelector(state => state.movie.movies);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        getMovies(dispatch);
+    }, [dispatch]);
 
     const handleChangeDelete = (id) => {
         // setProduct(products.filter(item => item.id !== id));
