@@ -51,6 +51,22 @@ const movieSlice = createSlice({
             state.isFetching = false;
             state.error = true;
         },
+
+        // UPDATE MOVIE
+        updatedMovieStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        updatedMovieSuccess: (state, action) => {
+            state.isFetching = false;
+            state.movies[
+                state.movies.findIndex((item) => item._id === action.payload.id)
+            ] = action.payload.movie;
+        },
+        updatedMovieFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
+        }
     }
 });
 
@@ -64,6 +80,9 @@ export const {
     deleteMovieStart,
     deleteMovieSuccess,
     deleteMovieFailure,
+    updatedMovieStart,
+    updatedMovieSuccess,
+    updatedMovieFailure,
 } = movieSlice.actions;
 
 export default movieSlice.reducer;

@@ -36,7 +36,7 @@ const Product = () => {
         { field: 'action', headerName: 'Action', width: 150, renderCell: (params) => {
             return (
                 <>
-                    <Link to={{ pathname: "/products/" + params.row._id, movie: params.row }}>
+                    <Link to={"/products/" + params.row._id}>
                         <button className="userListEdit">Edit</button>
                     </Link>
                     <DeleteOutline className="userListDelete" onClick={() => handleChangeDelete(params.row._id)} />

@@ -1,12 +1,32 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import './productEdit.css';
 import { Publish } from '@material-ui/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { updatedMovie } from '../../redux/ApiCall';
 
 const ProductEdit = () => {
 
+    const [movie, setMovie] = useState(null);
+    const dispatch = useDispatch();
+    const history = useHistory();
+
     const location = useLocation();
-    const movies = location.movie;
+    const movieId = location.pathname.split('/')[2];
+
+    const movies = useSelector(state => 
+        state.movie.movies.find((item) => item._id === movieId)    
+    );
+
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setMovie({ ...movie, [e.target.name]: value });
+    };
+
+    const handleUpdate = () => {
+        updatedMovie(movieId, movie, dispatch);
+        history.push("/products");
+    }
 
     return (
         <div className="productEdit">
@@ -46,17 +66,50 @@ const ProductEdit = () => {
                 <form className="productEditForm">
                     <div className="productEditFormLeft">
                         <label>Movie Title</label>
-                        <input type="text" placeholder={movies.title} />
+                        <input 
+                            type="text" 
+                            placeholder={movies.title} 
+                            name="title" 
+                            onChange={handleChange}
+                        />
+                        <label>Description</label>
+                        <input 
+                            type="text" 
+                            placeholder={movies.desc} 
+                            name="desc"
+                            onChange={handleChange}
+                        />
                         <label>Year</label>
-                        <input type="text" placeholder={movies.year} />
+                        <input 
+                            type="text" 
+                            placeholder={movies.year}
+                            name="year" 
+                            onChange={handleChange}
+                        />
                         <label>Genre</label>
-                        <input type="text" placeholder={movies.genre} />
+                        <input 
+                            type="text" 
+                            placeholder={movies.genre}
+                            name="genre"
+                            onChange={handleChange}
+                        />
                         <label>Limit</label>
-                        <input type="text" placeholder={movies.limit} />
+                        <input 
+                            type="text" 
+                            placeholder={movies.limit}
+                            name="limit"
+                            onChange={handleChange}
+                        />
                         <label>Trailer</label>
-                        <input type="text" placeholder={movies.trailer} />
+                        <input 
+                            type="text" 
+                            placeholder={movies.trailer}
+                        />
                         <label>Video</label>
-                        <input type="text" placeholder={movies.video} />
+                        <input 
+                            type="text" 
+                            placeholder={movies.video}
+                        />
                     </div>
                     <div className="productEditFormRight">
                         <div className="productEditUpload">
@@ -66,7 +119,7 @@ const ProductEdit = () => {
                             </label>
                             <input type="file" id="file" style={{ display: 'none' }} />
                         </div>
-                        <button className="productEditButton">Update</button>
+                        <button className="productEditButton" onClick={handleUpdate}>Update</button>
                     </div>
                 </form>
             </div>
