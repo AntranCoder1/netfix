@@ -1,44 +1,43 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Chart from '../chart/Chart';
-import { productData } from '../../data';
+import { Link, useLocation } from 'react-router-dom';
 import './productEdit.css';
 import { Publish } from '@material-ui/icons';
 
-const productEdit = () => {
+const ProductEdit = () => {
+
+    const location = useLocation();
+    const movies = location.movie;
+
     return (
         <div className="productEdit">
             <div className="productEditContainer">
-                <h1 className="productEditTitle">Product</h1>
+                <h1 className="productEditTitle">Movie</h1>
                 <Link to="/newProduct">
                     <button className="productEditAddButton">Create</button>
                 </Link>
             </div>
             <div className="productEditTop">
-                <div className="productEditTopLeft">
-                    <Chart title="Sales Performance" data={productData} grid datakey="sales" />
-                </div>
                 <div className="productEditTopRight">
                     <div className="productEditInfoTop">
-                        <img src="https://i.pinimg.com/564x/03/d7/c4/03d7c44f97b9b40facec6064df85107c.jpg" alt="" className="productEditImg" />
-                        <span className="productEditName">buttermilk pancakes</span>
+                        <img src={movies.img} alt="" className="productEditImg" />
+                        <span className="productEditName">{movies.title}</span>
                     </div>
                     <div className="productEditInfoBottom">
                         <div className="productEditInfoItem">
                             <div className="productEditInfoKey">id:</div>
-                            <div className="productEditInfoValue">123</div>
+                            <div className="productEditInfoValue">{movies._id}</div>
                         </div>
                         <div className="productEditInfoItem">
-                            <div className="productEditInfoKey">sales:</div>
-                            <div className="productEditInfoValue">5123</div>
+                            <div className="productEditInfoKey">genre:</div>
+                            <div className="productEditInfoValue">{movies.genre}</div>
                         </div>
                         <div className="productEditInfoItem">
-                            <div className="productEditInfoKey">active:</div>
-                            <div className="productEditInfoValue">yes</div>
+                            <div className="productEditInfoKey">year:</div>
+                            <div className="productEditInfoValue">{movies.year}</div>
                         </div>
                         <div className="productEditInfoItem">
-                            <div className="productEditInfoKey">in stock:</div>
-                            <div className="productEditInfoValue">no</div>
+                            <div className="productEditInfoKey">limit:</div>
+                            <div className="productEditInfoValue">{movies.limit}</div>
                         </div>
                     </div>
                 </div>
@@ -46,23 +45,22 @@ const productEdit = () => {
             <div className="productEditBottom">
                 <form className="productEditForm">
                     <div className="productEditFormLeft">
-                        <label>Product Name</label>
-                        <input type="text" placeholder="" />
-                        <label>In Stock</label>
-                        <select name="inStock" id="idStock">
-                            <option value="yes">Yes</option>
-                            <option vlaue="no">No</option>
-                        </select>
-
-                        <label>Active</label>
-                        <select name="active" id="idActive">
-                            <option value="yes">Yes</option>
-                            <option vlaue="no">No</option>
-                        </select>
+                        <label>Movie Title</label>
+                        <input type="text" placeholder={movies.title} />
+                        <label>Year</label>
+                        <input type="text" placeholder={movies.year} />
+                        <label>Genre</label>
+                        <input type="text" placeholder={movies.genre} />
+                        <label>Limit</label>
+                        <input type="text" placeholder={movies.limit} />
+                        <label>Trailer</label>
+                        <input type="text" placeholder={movies.trailer} />
+                        <label>Video</label>
+                        <input type="text" placeholder={movies.video} />
                     </div>
                     <div className="productEditFormRight">
                         <div className="productEditUpload">
-                            <img src="https://i.pinimg.com/564x/03/d7/c4/03d7c44f97b9b40facec6064df85107c.jpg" alt="" className="productEditUploadImg" />
+                            <img src={movies.img} alt="" className="productEditUploadImg" />
                             <label for="file">
                                 <Publish />
                             </label>
@@ -76,4 +74,4 @@ const productEdit = () => {
     )
 }
 
-export default productEdit
+export default ProductEdit
