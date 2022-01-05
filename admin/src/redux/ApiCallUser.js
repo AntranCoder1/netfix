@@ -1,7 +1,10 @@
 import { 
     getUserStart,
     getUserSuccess,
-    getUserFailure
+    getUserFailure,
+    updatedUserStart,
+    updatedUserSuccess,
+    updatedUserFailure,
 } from './UserRedux';
 import axios from 'axios';
 
@@ -17,4 +20,18 @@ export const getUser = async (dispatch) => {
     } catch (error) {
         dispatch(getUserFailure());
     }
-}
+};
+
+export const updatedUser = async (id, user, dispatch) => {
+    dispatch(updatedUserStart());
+    try {
+        const res = await axios.put(`/users/${id}`, user, {
+            headers: {
+                token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDJiOTgzNzg3Y2M5MGRmMDlmM2FhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MTM3MjM3OSwiZXhwIjoxOTAwNTcyMzc5fQ.TEZD4Bw2Ehstep1BOd7oaMtG_BAmxJvhQnMNWFKZBc4"
+            },
+        });
+        dispatch(updatedUserSuccess(id, res.data));
+    } catch (error) {
+        dispatch(updatedUserFailure());
+    }
+};

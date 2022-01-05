@@ -16,8 +16,6 @@ const UserList = () => {
         getUser(dispatch);
     }, [dispatch]);
 
-    console.log(users);
-
     const handleChangeDelete = (id) => {
         // setUser(user.filter(item => item.id !== id));
     }
@@ -49,7 +47,7 @@ const UserList = () => {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/users/" + params.row.id}>
+                        <Link to={"/users/" + params.row._id}>
                             <button className="userListEdit">Edit</button>
                         </Link>
                         <DeleteOutline className="userListDelete" onClick={() => handleChangeDelete(params.id)} />
