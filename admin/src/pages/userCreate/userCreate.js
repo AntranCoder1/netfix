@@ -1,57 +1,114 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './userCreate.css';
+import storage from '../../firebase';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { addUser } from '../../redux/ApiCallUser';
 
-const userCreate = () => {
+const UserCreate = () => {
+
+    const [user, setUser] = useState(null);
+    const [picture, setPicture] = useState(null);
+    const [uploaded, setUploaded] = useState(0);
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setUser({ ...user, [e.target.name]: value })
+    };
+
+    const upload = (items) => {
+        items.forEach(item => {
+            const fileName = new Date().getTime() + item.label + item.file.name;
+            const uploadTask = storage.ref(`/users/${fileName}`).put(item.file);
+            uploadTask.on('state_changed', snapshot => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + ' % done.');
+            }, err => {
+                console.log(err);
+            }, () => {
+                uploadTask.snapshot.ref.getDownloadURL().then(url => {
+                    setUser(prev => {
+                        return { ...prev, [item.label]: url }
+                    });
+                    setUploaded(prev => prev + 1);
+                })
+            })
+        })
+    };
+
+    const handleUpload = (e) => {
+        e.preventDefault();
+        upload([
+            { file: picture, label: 'picture' },
+        ])
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        addUser(user, dispatch);
+        history.push("/users");
+    };
+
     return (
         <div className="userCreate">
             <h1 className="userCreateTitle">New User</h1>
             <form className="userCreateForm">
                 <div className="createUserItem">
                     <label className="">Username</label>
-                    <input type="text" placeholder="username" />
-                </div>
-                <div className="createUserItem">
-                    <label className="">Full Name</label>
-                    <input type="text" placeholder="full name" />
+                    <input 
+                        type="text" 
+                        placeholder="username"
+                        name="name"
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="createUserItem">
                     <label className="">Email</label>
-                    <input type="text" placeholder="email" />
+                    <input 
+                        type="text" 
+                        placeholder="email"
+                        name="email"
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="createUserItem">
                     <label className="">Password</label>
-                    <input type="text" placeholder="password" />
+                    <input 
+                        type="text" 
+                        placeholder="password"
+                        name="password"
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="createUserItem">
-                    <label className="">Phone</label>
-                    <input type="text" placeholder="phone" />
+                    <label>Image</label>
+                    <input 
+                        type="file" 
+                        id="picture"
+                        name="picture" 
+                        onChange={(e) => setPicture(e.target.files[0])}
+                    />
                 </div>
-                <div className="createUserItem">
-                    <label className="">Address</label>
-                    <input type="text" placeholder="address" />
-                </div>
-                <div className="createUserItem">
-                    <label className="">Gender</label>
-                    <div className="userCreateGender">
-                        <input type="radio" placeholder="gender" id="male" value="male" />
-                        <label htmlFor="male">Male</label>
-                        <input type="radio" placeholder="gender" id="female" value="female" />
-                        <label htmlFor="female">Female</label>
-                        <input type="radio" placeholder="gender" id="others" value="others" />
-                        <label htmlFor="others">Others</label>
-                    </div>
-                </div>
-                <div className="createUserItem">
-                    <label>Active</label>
-                    <select className="userCreateSelect" name="active" id="active">
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                </div>
-                <button className="userCreateButton">Create</button>
+                { uploaded === 1 ? (
+                    <button 
+                        className="userCreateButton"
+                        onClick={handleUpload}
+                    >
+                        Upload
+                    </button>
+                ) : (
+                    <button 
+                        className="userCreateButton"
+                        onClick={handleSubmit}
+                    >
+                        Create
+                    </button>
+                ) }
             </form>
         </div>
     )
 }
 
-export default userCreate
+export default UserCreate

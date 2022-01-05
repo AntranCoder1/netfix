@@ -12,7 +12,8 @@ import {
     ChatBubbleOutline,
     WorkOutline,
     Report,  
-    MovieFilter
+    MovieFilter,
+    ListAlt
 } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
@@ -53,6 +54,12 @@ const SideBar = () => {
                             <li className="sidebarListItem">
                                 <MovieFilter className="sidebarIcon" />
                                 Movies
+                            </li>
+                        </Link>
+                        <Link to="/lists">
+                            <li className="sidebarListItem">
+                                <ListAlt className="sidebarIcon" />
+                                Movies Lists
                             </li>
                         </Link>
                         <li className="sidebarListItem">

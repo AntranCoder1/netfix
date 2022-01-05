@@ -4,7 +4,7 @@ import { DataGrid } from '@material-ui/data-grid';
 import { DeleteOutline } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUser } from '../../redux/ApiCallUser';
+import { getUser, deleteUser } from '../../redux/ApiCallUser';
 import { dateParser } from '../../Utils'; 
 
 const UserList = () => {
@@ -17,7 +17,7 @@ const UserList = () => {
     }, [dispatch]);
 
     const handleChangeDelete = (id) => {
-        // setUser(user.filter(item => item.id !== id));
+        deleteUser(id, dispatch);
     }
 
     const columns = [
@@ -50,7 +50,7 @@ const UserList = () => {
                         <Link to={"/users/" + params.row._id}>
                             <button className="userListEdit">Edit</button>
                         </Link>
-                        <DeleteOutline className="userListDelete" onClick={() => handleChangeDelete(params.id)} />
+                        <DeleteOutline className="userListDelete" onClick={() => handleChangeDelete(params.row._id)} />
                     </>
                 )
             }

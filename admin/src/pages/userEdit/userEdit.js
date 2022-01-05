@@ -32,6 +32,7 @@ const UserEdit = () => {
     const handleChange = (e) => {
         const value = e.target.value;
         setUsers({ ...users, [e.target.name]: value });
+        setUploaded(prev => prev + 1);
     };
 
     const upload = (items) => {
@@ -66,14 +67,13 @@ const UserEdit = () => {
         history.push("/users");
     };
 
-
     return (
         <div className="userEdit">
             <div className="userTitleContainer">
                 <h1 className="userTitle">Edit User</h1>
-                    <Link to="/create">
-                        <button className="userAddButton">Create</button>   
-                    </Link>
+                <Link to="/create">
+                    <button className="userAddButton">Create</button>   
+                </Link>
             </div>
             <div className="userContainer">
                 <div className="userShow">
@@ -131,6 +131,18 @@ const UserEdit = () => {
                                     name="email"
                                     onChange={handleChange}
                                 />
+                            </div>
+                            <div className="userUpdateItem">
+                                <label>Admin</label>
+                                <select 
+                                    className="userCreateSelect" 
+                                    id="isAdmin"
+                                    name="isAdmin" 
+                                    onChange={handleChange}
+                                >
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
                             </div>
                         </div>
                         <div className="userUpdateRight">

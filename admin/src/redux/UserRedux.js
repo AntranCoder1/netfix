@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const userSlice = createSlice({
     name: "user",
@@ -37,6 +38,36 @@ const userSlice = createSlice({
             state.isFetching = false;
             state.error = true;
         },
+
+        // DELETE USER
+        deleteUserStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        deleteUserSuccess: (state, action) => {
+            state.isFetching = false;
+            state.users.splice(
+                state.users.findIndex((item) => item._id === action.payload), 1
+            )
+        },
+        deleteUserFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
+        },
+
+        // ADD USER
+        addUserStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        addUserSuccess: (state, action) => {
+            state.isFetching = false;
+            state.users.push(action.payload);
+        },
+        addUserFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
+        },
     }
 });
 
@@ -47,6 +78,12 @@ export const {
     updatedUserStart,
     updatedUserSuccess,
     updatedUserFailure,
+    deleteUserStart,
+    deleteUserSuccess,
+    deleteUserFailure,
+    addUserStart,
+    addUserSuccess,
+    addUserFailure,
 } = userSlice.actions;
 
 export default userSlice.reducer;

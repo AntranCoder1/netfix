@@ -20,7 +20,7 @@ const Product = () => {
     }
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 90 },
+        { field: '_id', headerName: 'ID', width: 90 },
         { field: 'img', headerName: 'Movie Image', width: 160, renderCell: (params) => {
             return (
                 <div className="userListUser">

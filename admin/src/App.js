@@ -10,11 +10,13 @@ import {
 } from 'react-router-dom';
 import UserList from './pages/userList/UserList';
 import UserEdit from './pages/userEdit/UserEdit';
-import userCreate from './pages/userCreate/userCreate';
+import UserCreate from './pages/userCreate/UserCreate';
 import Product from './pages/product/Product';
 import ProductEdit from './pages/productEdit/ProductEdit';
 import NewProduct from './pages/newProduct/NewProduct';
-
+import List from './pages/list/List';
+import ListList from './pages/listlist/ListList';
+import NewList from './pages/newList/NewList';
 
 function App() {
   return (
@@ -26,10 +28,13 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/users" component={UserList} />
           <Route exact path="/users/:userId" component={UserEdit} />
-          <Route exact path="/create" component={userCreate} />
+          <Route exact path="/create" component={UserCreate} />
           <Route exact path="/products" component={Product} />
           <Route exact path="/products/:productId" component={ProductEdit} />
           <Route exact path="/newproduct" component={NewProduct} />
+          <Route exact path="/lists" component={ListList} />
+          <Route exact path="/lists/:listId" component={List} />
+          <Route exact path="/newlist" component={NewList} />
         </Switch>
       </div>
     </Router>
