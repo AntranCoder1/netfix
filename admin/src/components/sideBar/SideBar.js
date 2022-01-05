@@ -5,7 +5,6 @@ import {
     Timeline, 
     TrendingUp,
     PermIdentity,
-    Storefront,
     AttachMoney,
     BarChart,
     MailOutline,
@@ -13,6 +12,7 @@ import {
     ChatBubbleOutline,
     WorkOutline,
     Report,  
+    MovieFilter
 } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
@@ -51,8 +51,8 @@ const SideBar = () => {
                         </Link>
                         <Link to="/products">
                             <li className="sidebarListItem">
-                                <Storefront className="sidebarIcon" />
-                                Products
+                                <MovieFilter className="sidebarIcon" />
+                                Movies
                             </li>
                         </Link>
                         <li className="sidebarListItem">
