@@ -15,7 +15,7 @@ import Product from './pages/product/Product';
 import ProductEdit from './pages/productEdit/ProductEdit';
 import NewProduct from './pages/newProduct/NewProduct';
 import List from './pages/list/List';
-import ListList from './pages/listlist/ListList';
+import ListEdit from './pages/ListEdit/ListEdit';
 import NewList from './pages/newList/NewList';
 
 function App() {
@@ -32,8 +32,8 @@ function App() {
           <Route exact path="/products" component={Product} />
           <Route exact path="/products/:productId" component={ProductEdit} />
           <Route exact path="/newproduct" component={NewProduct} />
-          <Route exact path="/lists" component={ListList} />
-          <Route exact path="/lists/:listId" component={List} />
+          <Route exact path="/lists" component={List} />
+          <Route exact path="/lists/:listId" component={ListEdit} />
           <Route exact path="/newlist" component={NewList} />
         </Switch>
       </div>

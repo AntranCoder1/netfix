@@ -21,6 +21,20 @@ const listSlice = createSlice({
             state.isFetching = false;
             state.error = true;
         },
+
+        // ADD LIST
+        addListStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        addListSuccess: (state, action) => {
+            state.isFetching = false;
+            state.lists.push(action.payload);
+        },
+        addListFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
+        },
     }
 });
 
@@ -28,6 +42,9 @@ export const {
     getListStart,
     getListSuccess,
     getListFailure,
+    addListStart,
+    addListSuccess,
+    addListFailure,
 } = listSlice.actions;
 
 export default listSlice.reducer;
