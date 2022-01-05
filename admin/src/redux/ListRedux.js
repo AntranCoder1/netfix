@@ -35,6 +35,22 @@ const listSlice = createSlice({
             state.isFetching = false;
             state.error = true;
         },
+
+        // DELETE LIST
+        deleteListStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        deleteListSuccess: (state, action) => {
+            state.isFetching = false;
+            state.lists.splice(
+                state.lists.findIndex((item) => item._id === action.payload), 1
+            );
+        },
+        deleteListFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
+        },
     }
 });
 
@@ -45,6 +61,9 @@ export const {
     addListStart,
     addListSuccess,
     addListFailure,
+    deleteListStart,
+    deleteListSuccess,
+    deleteListFailure,
 } = listSlice.actions;
 
 export default listSlice.reducer;
