@@ -14,12 +14,16 @@ import {
 } from './ListRedux';
 import axios from 'axios';
 
+const admin = JSON.parse(localStorage.getItem("persist:root")).admin;
+const currentAdmin = admin && JSON.parse(admin).currentAdmin;
+const TOKEN = currentAdmin.token;
+
 export const getList = async (dispatch) => {
     dispatch(getListStart());
     try {
         const res = await axios.get("/lists", {
             headers: {
-                token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDJiOTgzNzg3Y2M5MGRmMDlmM2FhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MTM5NTQyNiwiZXhwIjoxOTAwNTk1NDI2fQ.ay9FjQnjV8xLIrBwPcYbs-RAr7m9KsDpZqZVXQe4PkA"
+                token: "Bearer " + TOKEN
             },
         });
         dispatch(getListSuccess(res.data));
@@ -33,7 +37,7 @@ export const addList = async (list, dispatch) => {
     try {
         const res = await axios.post("/lists", list, {
             headers: {
-                token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDJiOTgzNzg3Y2M5MGRmMDlmM2FhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MTM5NTQyNiwiZXhwIjoxOTAwNTk1NDI2fQ.ay9FjQnjV8xLIrBwPcYbs-RAr7m9KsDpZqZVXQe4PkA"
+                token: "Bearer " + TOKEN
             },
         });
         dispatch(addListSuccess(list, res.data));
@@ -47,7 +51,7 @@ export const deleteList = async (id, dispatch) => {
     try {
         await axios.delete("/lists/" + id, {
             headers: {
-                token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDJiOTgzNzg3Y2M5MGRmMDlmM2FhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MTM5NTQyNiwiZXhwIjoxOTAwNTk1NDI2fQ.ay9FjQnjV8xLIrBwPcYbs-RAr7m9KsDpZqZVXQe4PkA"
+                token: "Bearer " + TOKEN
             },
         });
         dispatch(deleteListSuccess(id));
@@ -61,7 +65,7 @@ export const updatedList = async (id, list, dispatch) => {
     try {
         const res = await axios.put(`/lists/${id}`, list, {
             headers: {
-                token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDJiOTgzNzg3Y2M5MGRmMDlmM2FhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MTQ0MTM5NiwiZXhwIjoxOTAwNjQxMzk2fQ.4J8HZwoVRnagkiZYr3oIx5sPqpwM1AjsrsfoPLZHd4g"
+                token: "Bearer " + TOKEN
             },
         });
         dispatch(updatedListSuccess(id, res.data));

@@ -14,12 +14,16 @@ import {
 } from './UserRedux';
 import axios from 'axios';
 
+const admin = JSON.parse(localStorage.getItem("persist:root")).admin;
+const currentAdmin = admin && JSON.parse(admin).currentAdmin;
+const TOKEN = currentAdmin.token;
+
 export const getUser = async (dispatch) => {
     dispatch(getUserStart());
     try {
         const res = await axios.get("/users", {
             headers: {
-                token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDJiOTgzNzg3Y2M5MGRmMDlmM2FhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MTM1NDA1OSwiZXhwIjoxOTAwNTU0MDU5fQ.Jg3rc4EFwWirofSTiglkG9z4k4Ug8K_waK1tgAVbNUI"
+                token: "Bearer " + TOKEN
             },
         });
         dispatch(getUserSuccess(res.data));
@@ -33,7 +37,7 @@ export const updatedUser = async (id, user, dispatch) => {
     try {
         const res = await axios.put(`/users/${id}`, user, {
             headers: {
-                token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDJiOTgzNzg3Y2M5MGRmMDlmM2FhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MTM3MjM3OSwiZXhwIjoxOTAwNTcyMzc5fQ.TEZD4Bw2Ehstep1BOd7oaMtG_BAmxJvhQnMNWFKZBc4"
+                token: "Bearer " + TOKEN
             },
         });
         dispatch(updatedUserSuccess(id, res.data));
@@ -47,7 +51,7 @@ export const deleteUser = async (id, dispatch) => {
     try {
         await axios.delete("/users/" + id, {
             headers: {
-                token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDJiOTgzNzg3Y2M5MGRmMDlmM2FhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MTM3MjM3OSwiZXhwIjoxOTAwNTcyMzc5fQ.TEZD4Bw2Ehstep1BOd7oaMtG_BAmxJvhQnMNWFKZBc4"
+                token: "Bearer " + TOKEN
             },
         })
         dispatch(deleteUserSuccess(id));
