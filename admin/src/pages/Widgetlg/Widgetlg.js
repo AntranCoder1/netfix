@@ -1,67 +1,58 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Widgetlg.css';
+import axios from 'axios';
+import { dateParser } from '../../Utils';
 
 const Widgetlg = () => {
 
-    const Button = ({ type }) => {
-        return <button className={"widgetlgButton " + type}>{type}</button>
-    }
+    const [newMovieList, setNewMovieList] = useState([]);
+    const admin = JSON.parse(localStorage.getItem("persist:root")).admin;
+    const currentAdmin = admin && JSON.parse(admin).currentAdmin;
+    const TOKEN = currentAdmin.token;
+
+    useEffect(() => {
+        const getNewMovieList = async () => {
+            try {
+                const res = await axios.get("/lists?new=true", {
+                    headers: {
+                        token: "Bearer " + TOKEN
+                    },
+                })
+                setNewMovieList(res.data.sort((l1, l2) => {
+                    return new Date(l2.createdAt) - new Date(l1.createdAt);
+                }));
+            } catch (error) {}
+        };
+        getNewMovieList();
+    }, []);
+
+    // const Button = ({ type }) => {
+    //     return <button className={"widgetlgButton " + type}>{type}</button>
+    // }
 
     return (
         <div className="Widgetlg">
-            <h3 className="widgetlgTitle">Latest transactions</h3>
+            <h3 className="widgetlgTitle">List of latest movies</h3>
             <table className="widgetlgTable">
                 <tr className="widgetlgTr">
-                    <th className="widgetlgTh">Customer</th>
-                    <th className="widgetlgTh">Date</th>
-                    <th className="widgetlgTh">Amount</th>
-                    <th className="widgetlgTh">Status</th>
+                    <th className="widgetlgTh">Title</th>
+                    <th className="widgetlgTh">Genre</th>
+                    <th className="widgetlgTh">Type</th>
+                    <th className="widgetlgTh">Date created</th>
                 </tr>
-
-                <tr className="widgetlgTr">
-                    <td className="widgetlgUser">
-                        <img src="https://i.pinimg.com/564x/db/ed/1a/dbed1aa7eb42f356978b909dccd31e9b.jpg" alt="" className="widgetlgImg" />
-                        <span className="widgetlgName">Susan Carol</span>
-                    </td>
-                    <td className="widgetlgDate">2 Jun 2021</td>
-                    <td className="widgetlgAmount">$122.00</td>
-                    <td className="widgetlgStatus">
-                        <Button type="Approved"/>
-                    </td>
-                </tr>
-                <tr className="widgetlgTr">
-                    <td className="widgetlgUser">
-                        <img src="https://i.pinimg.com/564x/db/ed/1a/dbed1aa7eb42f356978b909dccd31e9b.jpg" alt="" className="widgetlgImg" />
-                        <span className="widgetlgName">Susan Carol</span>
-                    </td>
-                    <td className="widgetlgDate">2 Jun 2021</td>
-                    <td className="widgetlgAmount">$122.00</td>
-                    <td className="widgetlgStatus">
-                        <Button type="Declined"/>
-                    </td>
-                </tr>
-                <tr className="widgetlgTr">
-                    <td className="widgetlgUser">
-                        <img src="https://i.pinimg.com/564x/db/ed/1a/dbed1aa7eb42f356978b909dccd31e9b.jpg" alt="" className="widgetlgImg" />
-                        <span className="widgetlgName">Susan Carol</span>
-                    </td>
-                    <td className="widgetlgDate">2 Jun 2021</td>
-                    <td className="widgetlgAmount">$122.00</td>
-                    <td className="widgetlgStatus">
-                        <Button type="Pending"/>
-                    </td>
-                </tr>
-                <tr className="widgetlgTr">
-                    <td className="widgetlgUser">
-                        <img src="https://i.pinimg.com/564x/db/ed/1a/dbed1aa7eb42f356978b909dccd31e9b.jpg" alt="" className="widgetlgImg" />
-                        <span className="widgetlgName">Susan Carol</span>
-                    </td>
-                    <td className="widgetlgDate">2 Jun 2021</td>
-                    <td className="widgetlgAmount">$122.00</td>
-                    <td className="widgetlgStatus">
-                        <Button type="Approved"/>
-                    </td>
-                </tr>
+                
+                { newMovieList.map((list) => (
+                    <tr className="widgetlgTr" key={list._id}>
+                        <td className="widgetlgUser">
+                            <span className="widgetlgName">{list.title}</span>
+                        </td>
+                        <td className="widgetlgDate">{list.genre}</td>
+                        <td className="widgetlgAmount">{list.type}</td>
+                        <td className="widgetlgStatus">
+                            {dateParser(list.createdAt)}
+                        </td>
+                    </tr>
+                )) }
             </table>
         </div>
     )

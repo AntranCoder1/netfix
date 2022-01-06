@@ -75,3 +75,19 @@ module.exports.getListMovie = async (req, res) => {
         res.status(500).json("Internal server error");
     }
 };
+
+module.exports.getNewList = async (req, res) => {
+    const query = req.query.new;
+    if (req.user.isAdmin) {
+        try {
+            const lists = query 
+                ? await List.find().sort({ _id: -1 }).limit()
+                : await List.find();
+            res.status(200).json(lists); 
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    } else {
+        res.status(403).json("You are not allowed to see all list movie");
+    }
+};

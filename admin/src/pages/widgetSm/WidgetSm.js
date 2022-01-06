@@ -31,7 +31,7 @@ const WidgetSm = () => {
             <span className="widgetsmTitle">New Join Members</span>
             <ul className="widgetsmList">
                 { newUser.map((user) => (
-                    <li className="widgetsmListItem">
+                    <li className="widgetsmListItem" key={user._id}>
                         <img src={user.picture || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"} alt="" className="widgetsmImg" />
                         <div className="widgetsmuser">
                             <span className="widgetsmUsername">{user.name}</span>
@@ -42,7 +42,6 @@ const WidgetSm = () => {
                             Display
                         </button>
                     </li>
-
                 )) }
             </ul>
         </div>

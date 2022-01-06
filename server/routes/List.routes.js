@@ -24,4 +24,9 @@ router.delete("/:id", verify, listControllers.deletedListMovie);
 // @access private
 router.get("/", verify, listControllers.getListMovie);
 
+// @route api/lists
+// @desc get new list movie
+// @access private
+router.get("/", verify, listControllers.getNewList);
+
 module.exports = router;
