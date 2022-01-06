@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./ListEdit.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
+import { updatedList } from '../../redux/ApiCallList';
 
 const ListEdit = () => {
 
+    const [lists, setLists] = useState(null);
     const location = useLocation();
     const listId = location.pathname.split('/')[2];
 
@@ -12,6 +14,18 @@ const ListEdit = () => {
         state.list.lists.find((item) => item._id === listId)  
     );
     const dispatch = useDispatch();
+    const history = useHistory();
+
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setLists({ ...lists, [e.target.name]: value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        updatedList(listId, lists, dispatch);
+        history.push("/lists");
+    };
 
     return (
         <div className="product">
@@ -49,20 +63,31 @@ const ListEdit = () => {
                         <input 
                             type="text" 
                             placeholder={list.title}
+                            name="title"
+                            onChange={handleChange}
                         />
                         <label>Type</label>
                         <input 
                             type="text" 
                             placeholder={list.type}
+                            name="type"
+                            onChange={handleChange}
                         />
                         <label>Genre</label>
                         <input 
                             type="text" 
                             placeholder={list.genre}
+                            name="genre"
+                            onChange={handleChange}
                         />
                     </div>
                     <div className="productFormRight">
-                        <button className="productButton">Update</button>
+                        <button 
+                            className="productButton"
+                            onClick={handleSubmit}
+                        >
+                            Update
+                        </button>
                     </div>
                 </form>
             </div>

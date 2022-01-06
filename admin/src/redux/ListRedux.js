@@ -51,6 +51,22 @@ const listSlice = createSlice({
             state.isFetching = false;
             state.error = true;
         },
+
+        // UPDATE LIST
+        updatedListStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        updatedListSuccess: (state, action) => {
+            state.isFetching = false;
+            state.lists[
+                state.lists.findIndex((item) => item._id === action.payload.id)
+            ] = action.payload.list;
+        },
+        updatedListFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
+        },
     }
 });
 
@@ -64,6 +80,9 @@ export const {
     deleteListStart,
     deleteListSuccess,
     deleteListFailure,
+    updatedListStart,
+    updatedListSuccess,
+    updatedListFailure,
 } = listSlice.actions;
 
 export default listSlice.reducer;
