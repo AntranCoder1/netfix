@@ -1,28 +1,46 @@
 import axios from 'axios';
 import React, { useState, useRef } from 'react';
 import './Register.scss';
-import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom'; 
+import { useHistory, Link } from 'react-router-dom';
+import { validEmail, validPassword } from '../../regex';
 
 const Register = () => {
 
     const [email, setEmail] = useState("");
     const [displayName, setDisplayName] = useState("");
     const [password, setPassword] = useState("");
+    const [emailErr, setEmailErr] = useState(false);
+    const [pwdError, setPwdError] = useState(false);
     const history = useHistory();
 
     const emailRef = useRef();
     const displayNameRef = useRef();
     const passwordRer = useRef();
 
+    // const validate = () => {
+    //     if (!validEmail.test(emailRef)) {
+    //         setEmailErr(true);
+    //     }
+    //     if (!validPassword.test(passwordRer)) {
+    //         setPwdError(true);
+    //     }
+    // }
+
     const handleStart = () => {
-        setEmail(emailRef.current.value)
+        if (!validEmail.test(emailRef)) {
+            setEmailErr(true);
+            setEmail(emailRef.current.value)
+        }
     }
 
     const handleClick = async (e) => {
         e.preventDefault();
         setDisplayName(displayNameRef.current.value);
-        setPassword(passwordRer.current.value);
+        if (!validPassword.test(passwordRer)) {
+            setPwdError(true);
+        } else {
+            setPassword(passwordRer.current.value);
+        }
         try {
             await axios.post("/auth/register", {
                 email, displayName, password
@@ -43,10 +61,8 @@ const Register = () => {
                         alt=""
                     />
                     <button className="loginButton">
-                        <Link to="/login">
-                            Sign In
-                        </Link>
-                    </button>
+                        <Link to="/login">Sign In</Link>
+                    </button>             
                 </div>
             </div>
             <div className="container">
@@ -72,6 +88,8 @@ const Register = () => {
                         <button className="registerButton" onClick={handleClick}>
                             Start
                         </button>
+                        { emailErr && <p>Your email is invalid</p> }
+                        { pwdError && <p>Your password is invalid</p> }
                     </form>
                 ) }
             </div>

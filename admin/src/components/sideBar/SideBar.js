@@ -15,21 +15,26 @@ import {
     MovieFilter,
     ListAlt
 } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const SideBar = () => {
+
+    const isActive = {
+        backgroundColor: "rgb(240, 240, 255)",
+    };
+
     return (
         <div classNam="sidebar">
             <div className="sidebarWrapper">
                 <div className="sidebarMenu">
                     <h3 className="sidebarTitle">Dashboard</h3>
                     <ul className="sidebarList">
-                        <Link to="/">
-                            <li className="sidebarListItem active">
+                        <li className="sidebarListItem">
+                            <NavLink to="/home" activeClassName='active'>
                                 <LineStyle className="sidebarIcon" />
                                 Home
-                            </li>
-                        </Link>
+                            </NavLink>
+                        </li>
                         <li className="sidebarListItem">
                             <Timeline className="sidebarIcon" />
                             Analytics
@@ -44,24 +49,24 @@ const SideBar = () => {
                 <div className="sidebarMenu">
                     <h3 className="sidebarTitle">Quick Menu</h3>
                     <ul className="sidebarList">
-                        <Link to="/users">
-                            <li className="sidebarListItem">
+                        <li className="sidebarListItem">
+                            <NavLink to="/users" activeClassName='active'>
                                 <PermIdentity className="sidebarIcon" />
                                 Users
-                            </li>
-                        </Link>
-                        <Link to="/products">
-                            <li className="sidebarListItem">
+                            </NavLink>
+                        </li>
+                        <li className="sidebarListItem">
+                            <NavLink to="/products" activeClassName='active'>
                                 <MovieFilter className="sidebarIcon" />
                                 Movies
-                            </li>
-                        </Link>
-                        <Link to="/lists">
-                            <li className="sidebarListItem">
+                            </NavLink>
+                        </li>
+                        <li className="sidebarListItem">
+                            <NavLink to="/lists" activeClassName='active'>
                                 <ListAlt className="sidebarIcon" />
                                 Movies Lists
-                            </li>
-                        </Link>
+                            </NavLink>
+                        </li>
                         <li className="sidebarListItem">
                             <AttachMoney className="sidebarIcon" />
                             Transactions

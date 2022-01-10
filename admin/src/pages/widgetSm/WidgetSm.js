@@ -6,9 +6,9 @@ import axios from 'axios';
 const WidgetSm = () => {
 
     const [newUser, setNewUser] = useState([]);
-    const admin = JSON.parse(localStorage.getItem("persist:root")).admin;
+    const admin = JSON.parse(localStorage.getItem("persist:root"))?.admin;
     const currentAdmin = admin && JSON.parse(admin).currentAdmin;
-    const TOKEN = currentAdmin.token;
+    const TOKEN = currentAdmin?.token;
 
     useEffect(() => {
         const getNewUser = async() => {
@@ -18,13 +18,13 @@ const WidgetSm = () => {
                         token: "Bearer " + TOKEN
                     },
                 })
-                setNewUser(res.data);
+                setNewUser(res.data.sort((l1, l2) => {
+                    return new Date(l2.createdAt) - new Date(l1.createdAt);
+                }));
             } catch (error) {}
         };
         getNewUser();
     }, []);
-
-    console.log(newUser)
 
     return (
         <div className="widgetsm">

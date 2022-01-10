@@ -55,6 +55,8 @@ const UserEdit = () => {
         })
     };
 
+    console.log(uploaded)
+
     const handleUpload = (e) => {
         e.preventDefault();
         upload([
@@ -163,7 +165,7 @@ const UserEdit = () => {
                                     onChange={(e) => setPicture(e.target.files[0])}        
                                 />
                             </div>
-                            { uploaded === 1 ? (
+                            { uploaded > 0 ? (
                                 <button 
                                     className="userUpdateButton" 
                                     onClick={handleUpdated}

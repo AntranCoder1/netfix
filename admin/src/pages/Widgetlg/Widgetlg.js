@@ -6,9 +6,9 @@ import { dateParser } from '../../Utils';
 const Widgetlg = () => {
 
     const [newMovieList, setNewMovieList] = useState([]);
-    const admin = JSON.parse(localStorage.getItem("persist:root")).admin;
+    const admin = JSON.parse(localStorage.getItem("persist:root"))?.admin;
     const currentAdmin = admin && JSON.parse(admin).currentAdmin;
-    const TOKEN = currentAdmin.token;
+    const TOKEN = currentAdmin?.token;
 
     useEffect(() => {
         const getNewMovieList = async () => {

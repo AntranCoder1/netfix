@@ -37,7 +37,7 @@ function App() {
             <div className="container">
               <SideBar />
               <Switch>
-                <Route exact path="/" component={Home} />
+                <Route exact path="/home" component={Home} />
                 <Route exact path="/users" component={UserList} />
                 <Route exact path="/users/:userId" component={UserEdit} />
                 <Route exact path="/create" component={UserCreate} />

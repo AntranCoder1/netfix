@@ -52,7 +52,9 @@ module.exports.login = async (req, res) => {
 
         const token = createToken(user._id, user.isAdmin);
         res.cookie('jwt', token, { httpOnly: true, maxAge });
-        res.status(200).json({ user: user._id, token })
+
+        const { password, __v, email, updatedAt, createdAt, ...others } = user._doc;
+        res.status(200).json({ ...others, token })
     } catch (error) {
         res.status(500).json({ success: false, message: "Internal server error" });
     }

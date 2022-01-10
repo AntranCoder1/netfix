@@ -14,9 +14,9 @@ import {
 } from './ListRedux';
 import axios from 'axios';
 
-const admin = JSON.parse(localStorage.getItem("persist:root")).admin;
+const admin = JSON.parse(localStorage.getItem("persist:root"))?.admin;
 const currentAdmin = admin && JSON.parse(admin).currentAdmin;
-const TOKEN = currentAdmin.token;
+const TOKEN = currentAdmin?.token;
 
 export const getList = async (dispatch) => {
     dispatch(getListStart());

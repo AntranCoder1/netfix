@@ -10,7 +10,7 @@ const Login = ({ responseSuccessGoogle }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const dispatch= useDispatch();
-    const { sFetching, error } = useSelector(state => state.user);
+    const { isFetching, error } = useSelector(state => state.user);
 
     const handleClick = (e) => {
         e.preventDefault();

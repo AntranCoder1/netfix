@@ -9,7 +9,7 @@ import { BrowserRouter as Router,
   Route,
   Redirect
 } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 function App() {
@@ -28,8 +28,6 @@ function App() {
     })
   }
 
-  console.log(googleAccount.data)
-
   return (
     <Router>
       <Switch>
@@ -43,7 +41,7 @@ function App() {
           { googleAccount || user ? <Redirect to="/" /> : <Login responseSuccessGoogle={getAccount} /> }
         </Route>
         {
-          googleAccount && (
+          googleAccount || user && (
             <>
               <Route exact path='/movies'>
                 <Home type='movies' />

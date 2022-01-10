@@ -24,6 +24,10 @@ sidebar {
     list-style: none;
     padding: 5px;
 }
+
+/* .sidebarList > a.active {
+    background-color: rgb(240, 240, 255);
+} */
   
 .sidebarListItem {
     padding: 5px;
@@ -32,8 +36,20 @@ sidebar {
     align-items: center;
     border-radius: 10px;
 }
+
+a {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.sidebarListItem > .active {
+    background-color: rgb(240, 240, 255);
+    padding: 5px;
+}
   
-.sidebarListItem.active,
 .sidebarListItem:hover {
     background-color: rgb(240, 240, 255);
 }
