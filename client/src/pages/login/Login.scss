@@ -68,6 +68,40 @@
                 font-weight: 500;
                 cursor: pointer;
                 padding: 10px 0 10px 0;
+                position: relative;
+            }
+
+            .loginButton::before,
+            .loginButton::after {
+                border: 0 solid transparent;
+                transition: all 0.25s;
+                content: '';
+                height: 24px;
+                position: absolute;
+                width: 24px;
+            }
+
+            .loginButton::before {
+                border-top: 2px solid #c47135;
+                left: 0px;
+                top: -5px;
+            }
+
+            .loginButton::after {
+                border-bottom: 2px solid #c47135;
+                bottom: -5px;
+                right: 0px;
+            }
+              
+            .loginButton:hover {
+                background-color: red;
+              
+            }
+              
+            .loginButton:hover:before,  
+            .loginButton:hover:after {
+                height: 100%;
+                width: 100%;
             }
 
             .google {
@@ -89,5 +123,18 @@
                 }
             }
         }
+    }
+    
+    .footer {
+        margin-top: 40rem;
+    }
+
+    .footer-login {
+        background-color: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 1),
+            rgba(0, 0, 0, 0)
+        );
+        color: #fff;
     }
 }

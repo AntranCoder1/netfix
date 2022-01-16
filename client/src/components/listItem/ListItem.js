@@ -14,16 +14,12 @@ const ListItem = ({ index, list }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [movie, setMovie] = useState({});
 
-    const user = JSON.parse(localStorage.getItem("persist:root")).user;
-    const currentUser = user && JSON.parse(user).currentUser;
-    const TOKEN = currentUser.token;
-
     useEffect(() => {
         const getMovie = async () => {
             try {
                 const res = await axios.get("/movies/find/" + list, {
                     headers: {
-                        token: "Bearer " + TOKEN 
+                        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxY2E5MjI1NjcwNjI5M2YzODNkOTJhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MDc2MTM3MywiZXhwIjoxODk5OTYxMzczfQ.K6PUlRVEpHvOiJEOQWB6t8s3Q1fvLoEvZHdiLGt-0Zk"
                     }
                 });
                 setMovie(res.data);  

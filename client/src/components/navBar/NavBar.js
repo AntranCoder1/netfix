@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './NavBar.scss';
 import { ArrowDropDown, Notifications, Search } from "@material-ui/icons";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { logout } from '../../redux/User.redux';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,9 +9,9 @@ const NavBar = () => {
 
     const [isScrolled, setIsScrolled] = useState(false);
     const user = useSelector(state => state.user.currentUser);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); 
 
-    console.log(user)
+    console.log(user);
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true );
@@ -20,6 +20,10 @@ const NavBar = () => {
 
     const handleLogout = () => {
         dispatch(logout())
+    }
+
+    const handleClick = () => {
+        localStorage.removeItem("userGoogle");
     }
 
     return (
@@ -41,18 +45,29 @@ const NavBar = () => {
                 </div>
                 <div className="right">
                     <Search className="icon" />
-                    <span>{user.name}</span>
+                    <span>KID</span>
                     <Notifications className="icon" />
                     <img  
-                        src={user.picture}
+                        src="https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"
                         alt=""
                     />
                     <div className="profile">
                         <ArrowDropDown className="icon" />
                         <div className="options">
                             <span>Settings</span>
-                            <span onClick={handleLogout}>Logout</span>
+                            <span onClick={handleClick}>Logout Google</span>
                         </div>
+                        {/* { user ? (
+                            <div className="options">
+                                <span>Settings</span>
+                                <span onClick={handleLogout}>Logout</span>
+                            </div>
+                        ) : (
+                            <div className="options">
+                                <span>Settings</span>
+                                <span onClick={handleClick}>Logout Google</span>
+                            </div>
+                        ) } */}
                     </div>
                 </div>
             </div>
