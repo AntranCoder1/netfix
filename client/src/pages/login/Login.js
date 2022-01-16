@@ -1,39 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.scss';
 import { login } from '../../redux/ApiCall';
 import { useSelector, useDispatch } from 'react-redux';
 import GoogleLogin from 'react-google-login';
-import axios from 'axios';
+import { useHistory, Redirect, Link } from 'react-router-dom';
 
 const Login = ({ responseSuccessGoogle }) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const dispatch= useDispatch();
-    const { isFetching, error } = useSelector(state => state.user);
+    const history = useHistory();
 
     const handleClick = (e) => {
         e.preventDefault();
         login(dispatch, { email, password });
     }
 
-    const google = () => {
-        // window.open("http://localhost:5000/api/auth/google", "_self")
-    }
-
-    // const responseSuccessGoogle = (response) => {
-    //     console.log(response);
-    //     axios({
-    //         method: "POST",
-    //         url: "/auth/googlelogin",
-    //         data: { tokenId: response.tokenId }
-    //     }).then(response =>  {
-    //         console.log("Google login success", response);
-    //     })
-    // }
-
     const responseErrorGoogle = (response) => {
-        
+        console.log("Google login Failure", response);
     }
 
     return (
@@ -62,10 +47,6 @@ const Login = ({ responseSuccessGoogle }) => {
                     />
                     <button className="loginButton" onClick={handleClick}>Sign In</button>
                     <br />
-                    {/* <span className="google" onClick={google}>
-                        <img src={Google} alt="" className="icon" />
-                        Sign in with google
-                    </span> */}
                     <GoogleLogin
                         clientId="718778022741-nqeapv7qq7no0vs77v5dv2s70jcbcdnf.apps.googleusercontent.com"
                         buttonText="Login with google"
@@ -74,13 +55,41 @@ const Login = ({ responseSuccessGoogle }) => {
                         cookiePolicy={'single_host_origin'}
                     />
                     <span>
-                        New to Netfix? <b>Sign up now.</b>
+                        New to Netfix? 
+                        <Link to="/register" style={{ marginLeft: "4px" }}>
+                            <b>Sign up now.</b>
+                        </Link>
                     </span>
                     <small>
                         This page is protected by Google reCAPTCHA to ensure you're not a
                         bot. <b>Learn more</b>
                     </small>
                 </form>
+            </div>
+            <div className="footer footer-login">
+                <div className="footer-title">Question? Contact us.</div>
+                <p className="footer-break"></p>
+                <div className="footer-row">
+                    <div className="footer-column">
+                        <a href="#" className="footer-link">FAQ</a>
+                        <a href="#" className="footer-link">Cookie Preferences</a>
+                    </div>
+
+                    <div className="footer-column">
+                        <a href="#" className="footer-link">Help Center</a>
+                        <a href="#" className="footer-link">Corporate Information</a>
+                    </div>
+
+                    <div className="footer-column">
+                        <a href="#" className="footer-link">Terms of Use</a>
+                    </div>
+
+                    <div className="footer-column">
+                        <a href="#" className="footer-link">Privacy</a>
+                    </div>
+                </div>
+                <p className="footer-break"></p>
+                <p className="footer-text">Netflix Vietnam</p>
             </div>
         </div>
     )

@@ -15,33 +15,35 @@ import axios from 'axios';
 function App() {
 
   const user = useSelector(state => state.user.currentUser);
-  const [googleAccount, setGoogleAccount] = useState("");
-
-  const getAccount = (response) => {
+  const [googleAccount, setGoogleAccount] = useState(null);
+  
+  const responseSuccessGoogle = (response) => {
+    console.log(response);
     axios({
-        method: "POST",
-        url: "/auth/googlelogin",
-        data: { tokenId: response.tokenId }
+      method: "POST",
+      url: "/auth/googlelogin",
+      data: { tokenId: response.tokenId }
     }).then(response =>  {
-        console.log("Google login success", response);
-        setGoogleAccount(response)
+      console.log("Google login success", response);
+      setGoogleAccount(localStorage.setItem("userGoogle", JSON.stringify(response.data)));
     })
   }
-
+  const userGoogle = localStorage.getItem("userGoogle");
+  
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          { googleAccount || user ? <Home /> : <Redirect to="/register" /> }
+          { userGoogle ? <Home /> : <Redirect to="/register" /> }
         </Route>
         <Route exact path="/register">
-          { googleAccount || user ? <Redirect to="/" /> : <Register /> }
+          { userGoogle ? <Redirect to="/" /> : <Register /> }
         </Route>
         <Route exact path="/login">
-          { googleAccount || user ? <Redirect to="/" /> : <Login responseSuccessGoogle={getAccount} /> }
+          { userGoogle ? <Redirect to="/" /> : <Login responseSuccessGoogle={responseSuccessGoogle} /> }
         </Route>
         {
-          googleAccount || user && (
+          userGoogle && (
             <>
               <Route exact path='/movies'>
                 <Home type='movies' />
