@@ -34,16 +34,16 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          { userGoogle ? <Home /> : <Redirect to="/register" /> }
+          { userGoogle || user ? <Home /> : <Redirect to="/register" /> }
         </Route>
         <Route exact path="/register">
-          { userGoogle ? <Redirect to="/" /> : <Register /> }
+          { userGoogle || user ? <Redirect to="/" /> : <Register /> }
         </Route>
         <Route exact path="/login">
-          { userGoogle ? <Redirect to="/" /> : <Login responseSuccessGoogle={responseSuccessGoogle} /> }
+          { userGoogle || user ? <Redirect to="/" /> : <Login responseSuccessGoogle={responseSuccessGoogle} /> }
         </Route>
         {
-          userGoogle && (
+          userGoogle || user && (
             <>
               <Route exact path='/movies'>
                 <Home type='movies' />

@@ -11,7 +11,10 @@ const NavBar = () => {
     const user = useSelector(state => state.user.currentUser);
     const dispatch = useDispatch(); 
 
-    console.log(user);
+    const checkUserGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.name;
+    const checkImageGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.picture;
+
+    console.log(checkImageGoogle)
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true );
@@ -44,20 +47,30 @@ const NavBar = () => {
                     <span>My List</span>
                 </div>
                 <div className="right">
-                    <Search className="icon" />
-                    <span>KID</span>
-                    <Notifications className="icon" />
-                    <img  
-                        src="https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"
-                        alt=""
-                    />
+                    { user ? (
+                        <>
+                            <Search className="icon" />
+                            <span>{user.name}</span>
+                            <Notifications className="icon" />
+                            <img  
+                                src={user.picture || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
+                                alt="netfix-user"
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <Search className="icon" />
+                            <span>{checkUserGoogle}</span>
+                            <Notifications className="icon" />
+                            <img  
+                                src={checkImageGoogle || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
+                                alt="netfix-user"
+                            />
+                        </>    
+                    ) }
                     <div className="profile">
                         <ArrowDropDown className="icon" />
-                        <div className="options">
-                            <span>Settings</span>
-                            <span onClick={handleClick}>Logout Google</span>
-                        </div>
-                        {/* { user ? (
+                        { user ? (
                             <div className="options">
                                 <span>Settings</span>
                                 <span onClick={handleLogout}>Logout</span>
@@ -67,7 +80,7 @@ const NavBar = () => {
                                 <span>Settings</span>
                                 <span onClick={handleClick}>Logout Google</span>
                             </div>
-                        ) } */}
+                        ) }
                     </div>
                 </div>
             </div>

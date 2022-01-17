@@ -1,4 +1,9 @@
 .home {
     background-color: var(--main-color);
     overflow: hidden;
+
+    .footer {
+        margin-top: 7rem;
+        background-color: var(--main-color);
+    }
 }
