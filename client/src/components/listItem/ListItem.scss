@@ -39,6 +39,16 @@
             display: flex;
             flex-direction: column;
             padding: 5px;
+            overflow-y: scroll;
+            height: 150px;
+            
+            &::-webkit-scrollbar {
+                width: 1px; 
+            }
+
+            &::-webkit-scrollbar-track {
+                background: #000;
+            }
     
             .icons {
                 display: flex;

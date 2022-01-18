@@ -43,7 +43,19 @@ function App() {
           { userGoogle || user ? <Redirect to="/" /> : <Login responseSuccessGoogle={responseSuccessGoogle} /> }
         </Route>
         {
-          userGoogle || user && (
+          userGoogle ? (
+            <>
+              <Route exact path='/movies'>
+                <Home type='movies' />
+              </Route>
+              <Route exact path='/series'>
+                <Home type='series' />
+              </Route>
+              <Route path='/watch'>
+                <Watch />
+              </Route>
+            </>
+          ) : (
             <>
               <Route exact path='/movies'>
                 <Home type='movies' />
