@@ -30,8 +30,12 @@ const ListItem = ({ index, list }) => {
         getMovie();
     }, [movie]);
 
+    console.log(movie)
+
+    // { pathname: "/watch", movie: movie }
+
     return (
-        <Link to={{ pathname: "/watch", movie: movie }}>
+        <Link to={`/watch/${movie._id}`}>
             <div 
                 className="listItem"
                 style={{ left: isHovered && index * 255 - 50  + index * 2.5 }}
