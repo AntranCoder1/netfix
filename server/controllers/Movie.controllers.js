@@ -84,3 +84,16 @@ module.exports.getRandom = async (req, res) => {
         res.status(500).json(error);
     }
 };
+
+module.exports.searchMovie = async (req, res) => {
+    const value = req.query.value;
+    try {
+        const movie = await Movie.find();
+        const matchMovies = movie.filter(movies => {
+            return movies.title.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+        });
+        res.status(200).json(matchMovies);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};

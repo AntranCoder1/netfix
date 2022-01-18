@@ -34,4 +34,6 @@ router.get("/", verify, movieControllers.getAllMovie);
 // @access private
 router.get("/random", verify, movieControllers.getRandom);
 
+router.get("/search", verify, movieControllers.searchMovie);
+
 module.exports = router;

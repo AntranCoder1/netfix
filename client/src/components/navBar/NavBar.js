@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './NavBar.scss';
 import { ArrowDropDown, Notifications, Search } from "@material-ui/icons";
 import { Link, useHistory } from 'react-router-dom';
 import { logout } from '../../redux/User.redux';
 import { useDispatch, useSelector } from 'react-redux';
+import { getMovie } from '../../redux/ApiMovieCall';
 
-const NavBar = () => {
+const NavBar = (props) => {
 
     const [isScrolled, setIsScrolled] = useState(false);
+    const [seatchItem, setSearchItem] = useState("");
     const user = useSelector(state => state.user.currentUser);
+    const movie = useSelector(state => state.movie.movies);
     const dispatch = useDispatch(); 
 
     const checkUserGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.name;
     const checkImageGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.picture;
-
-    console.log(checkImageGoogle)
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true );
@@ -27,6 +28,24 @@ const NavBar = () => {
 
     const handleClick = () => {
         localStorage.removeItem("userGoogle");
+    }
+
+    useEffect(() => {
+        getMovie(dispatch);
+    }, [dispatch]);
+
+    const handleChange = e => {
+        setSearchItem(e.target.value)
+    }
+
+    const resetInputField = () => {
+        setSearchItem("")
+    }
+
+    const callSearchFunction = (e) => {
+        e.preventDefault();
+        props.search(seatchItem);
+        resetInputField();
     }
 
     return (
@@ -49,7 +68,24 @@ const NavBar = () => {
                 <div className="right">
                     { user ? (
                         <>
-                            <Search className="icon" />
+                            <div id="wrap">
+                                <form action="" autocomplete="on">
+                                    <input 
+                                        id="search"
+                                        name="search"
+                                        type="text"
+                                        placeholder="Search..."
+                                        value={seatchItem}
+                                        onChange={handleChange}
+                                    />
+                                    <input 
+                                        id="search_submit" 
+                                        value="Rechercher" 
+                                        type="submit"
+                                        onClick={callSearchFunction}
+                                    />
+                                </form>
+                            </div>
                             <span>{user.name}</span>
                             <Notifications className="icon" />
                             <img  
@@ -59,7 +95,21 @@ const NavBar = () => {
                         </>
                     ) : (
                         <>
-                            <Search className="icon" />
+                            <div id="wrap">
+                                <form action="" autocomplete="on">
+                                    <input 
+                                        id="search"
+                                        name="search"
+                                        type="text"
+                                        placeholder="Search..."
+                                    />
+                                    <input 
+                                        id="search_submit" 
+                                        value="Rechercher" 
+                                        type="submit"
+                                    />
+                                </form>
+                            </div>
                             <span>{checkUserGoogle}</span>
                             <Notifications className="icon" />
                             <img  

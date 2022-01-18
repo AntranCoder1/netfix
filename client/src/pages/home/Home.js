@@ -4,11 +4,15 @@ import NavBar from '../../components/navBar/NavBar';
 import Featured from '../../components/featured/Featured';
 import List from '../../components/list/List';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const Home = ({ type }) => {
 
     const [lists, setLists] = useState([]);
     const [genre, setGenre] = useState(null);
+    const movie = useSelector(state => state.movie.movies);
+    const [loading, setLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     useEffect(() => {
         const getRandomList = async () => {
@@ -28,9 +32,10 @@ const Home = ({ type }) => {
         getRandomList();
     }, [type, genre]);
 
+
     return (
         <div className="home">
-            <NavBar />
+            <NavBar  />
             <Featured type={type} setGenre={setGenre} />
             { lists.map((item) => (
                 <List key={item._id} list={item} />
