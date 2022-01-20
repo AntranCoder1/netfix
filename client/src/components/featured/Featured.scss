@@ -47,6 +47,13 @@
 
         .desc {
             margin: 20px 0px;
+
+            overflow-y: scroll;
+            height: 70px;
+
+            &::-webkit-scrollbar {
+                width: 0px; 
+            }
         }
 
         .buttons {

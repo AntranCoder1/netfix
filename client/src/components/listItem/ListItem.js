@@ -30,8 +30,6 @@ const ListItem = ({ index, list }) => {
         getMovie();
     }, [movie]);
 
-    console.log(movie)
-
     // { pathname: "/watch", movie: movie }
 
     return (
