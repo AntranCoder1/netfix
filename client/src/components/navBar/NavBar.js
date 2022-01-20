@@ -4,14 +4,12 @@ import { ArrowDropDown, Notifications, Search } from "@material-ui/icons";
 import { Link, useHistory } from 'react-router-dom';
 import { logout } from '../../redux/User.redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMovie } from '../../redux/ApiMovieCall';
 
 const NavBar = (props) => {
 
     const [isScrolled, setIsScrolled] = useState(false);
     const [seatchItem, setSearchItem] = useState("");
     const user = useSelector(state => state.user.currentUser);
-    const movie = useSelector(state => state.movie.movies);
     const dispatch = useDispatch(); 
 
     const checkUserGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.name;
@@ -30,10 +28,6 @@ const NavBar = (props) => {
         localStorage.removeItem("userGoogle");
     }
 
-    useEffect(() => {
-        getMovie(dispatch);
-    }, [dispatch]);
-
     const handleChange = e => {
         setSearchItem(e.target.value)
     }
@@ -45,8 +39,9 @@ const NavBar = (props) => {
     const callSearchFunction = (e) => {
         e.preventDefault();
         props.search(seatchItem);
-        resetInputField();
     }
+
+    console.log(seatchItem)
 
     return (
         <div className={ isScrolled ? "navBar scrolled" : "navBar"}>
@@ -102,11 +97,14 @@ const NavBar = (props) => {
                                         name="search"
                                         type="text"
                                         placeholder="Search..."
+                                        value={seatchItem}
+                                        onChange={handleChange}
                                     />
                                     <input 
                                         id="search_submit" 
                                         value="Rechercher" 
                                         type="submit"
+                                        onClick={callSearchFunction}
                                     />
                                 </form>
                             </div>

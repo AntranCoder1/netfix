@@ -3,14 +3,14 @@ import './Home.scss';
 import NavBar from '../../components/navBar/NavBar';
 import Featured from '../../components/featured/Featured';
 import List from '../../components/list/List';
+import MovieItem from '../../components/MovieItem/MovieItem';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 const Home = ({ type }) => {
 
     const [lists, setLists] = useState([]);
     const [genre, setGenre] = useState(null);
-    const movie = useSelector(state => state.movie.movies);
+    const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
 
@@ -32,11 +32,30 @@ const Home = ({ type }) => {
         getRandomList();
     }, [type, genre]);
 
+    const search = async (searchValue) => {
+        try {
+            const res = await axios.get(`/movies/search?value=${searchValue}`, {
+                headers: {
+                    token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDJiOTgzNzg3Y2M5MGRmMDlmM2FhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MjU0Mzg3OSwiZXhwIjoxOTAxNzQzODc5fQ.2Urif1oO5B4Kc_jnhmgmbuZVjpjcArhaQEpEF4dTYIA"
+                }
+            });
+            setMovies(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    console.log(movies)
 
     return (
         <div className="home">
-            <NavBar  />
+            <NavBar search={search} />
             <Featured type={type} setGenre={setGenre} />
+            <div className="movieSearch">
+                { movies.map((item, i) => (
+                    <MovieItem key={item._id} index={i} movie={item} />
+                )) }
+            </div>
             { lists.map((item) => (
                 <List key={item._id} list={item} />
             )) }

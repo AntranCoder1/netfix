@@ -19,7 +19,7 @@ const movieSlice = createSlice({
         getMovieFailure: (state) => {
             state.isFetching = false;
             state.error = true
-        }
+        },
     }
 });
 
