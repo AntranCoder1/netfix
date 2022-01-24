@@ -1,29 +1,132 @@
+// .watch {
+//     width: 100vw;
+//     height: 100vh;
+
+//     .back {
+//         display: flex;
+//         align-items: center;
+//         position: absolute;
+//         top: 10px;
+//         left: 10px;
+//         color: #fff;
+//         cursor: pointer;
+//         z-index: 2;
+//     }
+
+//     p {
+//         position: absolute;
+//         top: 12px;
+//         left: 100px;
+//         color: #fff;
+//         z-index: 2;
+//     }
+
+//     .video {
+//         height: 100%;
+//         width: 100%;
+//         object-fit: cover;
+//     }
+// }
+
 .watch {
-    width: 100vw;
-    height: 100vh;
+    background-color: rgba(24, 24, 24, 0.9);
+    color: #fff;
 
-    .back {
-        display: flex;
-        align-items: center;
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        color: #fff;
-        cursor: pointer;
-        z-index: 2;
-    }
+    .watch-content {
+        padding-top: 50px;
 
-    p {
-        position: absolute;
-        top: 12px;
-        left: 100px;
-        color: #fff;
-        z-index: 2;
-    }
+        .watch-video {
+            padding-top: 5px;
+            padding-left: 180px;
+    
+            .video {
+                height: 700px;
+                width: 1170px;
+            }
+        }
+    
+        .watch-title {
+            margin-top: 20px;
+            margin-left: 180px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            
+            .feel {
+                display: flex;
+                position: absolute;
+                right: 150px;
+    
+                .feel-like {
+                    margin: 0 20px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+    
+                    .icon {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    
+        .watch-bottom {
+            margin: auto 170px auto 180px;
+            border-bottom: 1px solid lightgray;
+        }
+    
+        .watch-desc {
+            display: flex;
+            align-items: center;
+            margin-top: 40px;
+            margin-bottom: 150px;
+    
+            .left {
+                height: 100px;
+                width: 641px;
+                margin-left: 180px;
+    
+                .desc {
+                    font-size: 20px;
+                    overflow-y: scroll;
+                    height: 170px;
 
-    .video {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
+                    &::-webkit-scrollbar {
+                        width: 1px; 
+                    }
+        
+                    &::-webkit-scrollbar-track {
+                        background: #000;
+                    }
+                }
+            }
+    
+            .right {
+                display: flex;
+                flex-direction: column;
+                margin-left: 250px;
+                margin-top: -10px;
+    
+                span {
+                    font-size: 20px;
+                    line-height: 1.5;
+                    word-spacing: 4px;
+                }
+            }
+        }
+
+        .watch-img {
+            margin-left: 180px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 180px;
+
+            img {
+                height: 150px;
+                width: 300px;
+                margin-right: 20px;
+            }
+        }
     }
 }

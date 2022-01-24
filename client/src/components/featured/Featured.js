@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Featured.scss';
 import { PlayArrow, InfoOutlined } from '@material-ui/icons';
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 const Featured = ({ type, setGenre }) => {
 
@@ -22,6 +23,8 @@ const Featured = ({ type, setGenre }) => {
         };
         getRandomContent();
     }, [type]);
+
+    console.log(content.video);
 
     return (
         <div className="featured">
@@ -67,8 +70,10 @@ const Featured = ({ type, setGenre }) => {
                 </span>
                 <div className="buttons">
                     <button className="play">
-                        <PlayArrow />
-                        <span>Play</span>
+                        <Link to={`/watch/${content._id}`} style={{ display: 'flex', alignItems: 'center' }}>
+                            <PlayArrow />
+                            <span>Play</span>
+                        </Link>
                     </button>
                     <button className="more">
                         <InfoOutlined />

@@ -3,7 +3,7 @@
     display: block;
     width: 700px;
     height: 350px;
-    margin: 50px auto; 
+    margin: 120px auto 0px auto; 
     overflow: hidden;
     border-radius: 10px;
     transition: all 0.4s;
@@ -172,13 +172,13 @@
     }
 }
     
-// #bright{
-//     box-shadow: 0px 0px 150px -45px rgba(255, 51, 0, 0.5);
+#bright{
+    box-shadow: 0px 0px 150px -45px rgba(255, 51, 0, 0.5);
 
-//     &:hover{
-//         box-shadow: 0px 0px 120px -55px rgba(255, 51, 0, 0.5);
-//     }
-// }
+    &:hover{
+        box-shadow: 0px 0px 120px -55px rgba(255, 51, 0, 0.5);
+    }
+}
 
 .bright_back {
     img {
