@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Home from './pages/home/Home';
 import Watch from './pages/watch/Watch';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
+import Profile from './pages/profile/Profile';
 import { BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
+  useHistory
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -16,13 +18,14 @@ function App() {
 
   const user = useSelector(state => state.user.currentUser);
   const [googleAccount, setGoogleAccount] = useState(null);
+  const history = useHistory();
   
   const responseSuccessGoogle = (response) => {
     console.log(response);
     axios({
       method: "POST",
       url: "/auth/googlelogin",
-      data: { tokenId: response.tokenId }
+      data: { tokenId: response.tokenId },
     }).then(response =>  {
       console.log("Google login success", response);
       setGoogleAccount(localStorage.setItem("userGoogle", JSON.stringify(response.data)));
@@ -34,16 +37,16 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          { userGoogle || user ? <Home /> : <Redirect to="/register" /> }
+          { userGoogle || user && <Profile /> ? <Home /> : <Redirect to="/register" /> }
         </Route>
         <Route exact path="/register">
-          { userGoogle || user ? <Redirect to="/" /> : <Register /> }
+          { userGoogle || user && <Profile /> ? <Redirect to="/" /> : <Register /> }
         </Route>
         <Route exact path="/login">
-          { userGoogle || user ? <Redirect to="/" /> : <Login responseSuccessGoogle={responseSuccessGoogle} /> }
+          { userGoogle || user && <Profile /> ? <Redirect to="/" /> : <Login responseSuccessGoogle={responseSuccessGoogle} /> }
         </Route>
         {
-          userGoogle ? (
+          userGoogle && <Profile /> ? (
             <>
               <Route exact path='/movies'>
                 <Home type='movies' />
@@ -53,6 +56,9 @@ function App() {
               </Route>
               <Route path='/watch'>
                 <Watch />
+              </Route>
+              <Route path='/profile'>
+                <Profile user={userGoogle} />
               </Route>
             </>
           ) : (
@@ -65,6 +71,9 @@ function App() {
               </Route>
               <Route path='/watch'>
                 <Watch />
+              </Route>
+              <Route path='/profile'>
+                <Profile user={user} />
               </Route>
             </>
           )

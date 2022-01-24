@@ -50,15 +50,20 @@ const Home = ({ type }) => {
     return (
         <div className="home">
             <NavBar search={search} />
-            <Featured type={type} setGenre={setGenre} />
-            <div className="movieSearch">
-                { movies.map((item, i) => (
-                    <MovieItem key={item._id} index={i} movie={item} />
-                )) }
-            </div>
-            { lists.map((item) => (
-                <List key={item._id} list={item} />
-            )) }
+            { movies.length === 0 ? (
+                <>
+                    <Featured type={type} setGenre={setGenre} />
+                    { lists.map((item) => (
+                        <List key={item._id} list={item} />
+                    )) }
+                </>
+            ) : (
+                <div className="movieSearch">
+                    { movies.map((item, i) => (
+                        <MovieItem key={item._id} index={i} movie={item} />
+                    )) }
+                </div>
+            ) }
             <div className="footer">
                 <div className="footer-title">Question? Contact us.</div>
                 <p className="footer-break"></p>

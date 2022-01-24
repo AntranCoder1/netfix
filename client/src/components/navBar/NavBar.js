@@ -14,6 +14,7 @@ const NavBar = (props) => {
 
     const checkUserGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.name;
     const checkImageGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.picture;
+    const checkIdGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.user;
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true );
@@ -47,7 +48,9 @@ const NavBar = (props) => {
         <div className={ isScrolled ? "navBar scrolled" : "navBar"}>
             <div className="container">
                 <div className="left">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png" alt="" />
+                    <Link to="/">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png" alt="" />
+                    </Link>
                     <Link to="/">
                         <span>Homepage</span>
                     </Link>
@@ -83,10 +86,12 @@ const NavBar = (props) => {
                             </div>
                             <span>{user.name}</span>
                             <Notifications className="icon" />
-                            <img  
-                                src={user.picture || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
-                                alt="netfix-user"
-                            />
+                            <Link to={`/profile/${user._id}`}>
+                                <img  
+                                    src={user.picture || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
+                                    alt="netfix-user"
+                                />
+                            </Link>
                         </>
                     ) : (
                         <>
@@ -110,10 +115,12 @@ const NavBar = (props) => {
                             </div>
                             <span>{checkUserGoogle}</span>
                             <Notifications className="icon" />
-                            <img  
-                                src={checkImageGoogle || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
-                                alt="netfix-user"
-                            />
+                            <Link to={`/profile/${checkIdGoogle}`}>
+                                <img  
+                                    src={checkImageGoogle || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
+                                    alt="netfix-user"
+                                />
+                            </Link>
                         </>    
                     ) }
                     <div className="profile">

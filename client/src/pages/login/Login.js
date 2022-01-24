@@ -3,7 +3,7 @@ import './Login.scss';
 import { login } from '../../redux/ApiCall';
 import { useSelector, useDispatch } from 'react-redux';
 import GoogleLogin from 'react-google-login';
-import { useHistory, Redirect, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 const Login = ({ responseSuccessGoogle }) => {
 
@@ -19,7 +19,7 @@ const Login = ({ responseSuccessGoogle }) => {
         e.preventDefault();
         try {
             login(dispatch, { email, password });
-            // history.push("/profile");
+            history.push("/profile");
         } catch (error) {
             setEmail("");
             setPassword("");
