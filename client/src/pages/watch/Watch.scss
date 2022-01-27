@@ -1,36 +1,7 @@
-// .watch {
-//     width: 100vw;
-//     height: 100vh;
-
-//     .back {
-//         display: flex;
-//         align-items: center;
-//         position: absolute;
-//         top: 10px;
-//         left: 10px;
-//         color: #fff;
-//         cursor: pointer;
-//         z-index: 2;
-//     }
-
-//     p {
-//         position: absolute;
-//         top: 12px;
-//         left: 100px;
-//         color: #fff;
-//         z-index: 2;
-//     }
-
-//     .video {
-//         height: 100%;
-//         width: 100%;
-//         object-fit: cover;
-//     }
-// }
-
 .watch {
     background-color: rgba(24, 24, 24, 0.9);
     color: #fff;
+    overflow: hidden;
 
     .watch-content {
         padding-top: 50px;
@@ -52,6 +23,10 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 40px;
+
+            .title {
+                width: 790px;
+            }
             
             .feel {
                 display: flex;
@@ -120,12 +95,71 @@
             margin-left: 180px;
             display: flex;
             align-items: center;
-            margin-bottom: 180px;
+            margin-bottom: 100px;
 
             img {
                 height: 150px;
                 width: 300px;
                 margin-right: 20px;
+            }
+        }
+
+        .watch-reco {
+            margin-left: 180px;
+            margin-bottom: 100px;
+            margin-right: 170px;
+
+            .slider {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+
+                .arrow {
+                    position: absolute;
+                    right: 130px;
+                    cursor: pointer;
+
+                    .sliderArrow {
+                        margin-right: 20px;
+                    }
+                }
+            }
+            
+            .watch-recommend {
+                transform: translateX(0px);
+                transition: all 1s ease;
+
+
+                .content {
+                    height: 150px;
+                    width: 300px;
+                    overflow: hidden;
+                    margin-right: 20px;
+                } 
+    
+                .zoomin {
+                    border-radius: 10px;
+                    cursor: pointer;
+                    margin-bottom: 20px;
+    
+                    &:hover {
+                        -webkit-box-shadow: 1px 2px 23px 5px rgba(255,151,45,0.81); 
+                        box-shadow: 1px 2px 23px 5px rgba(255,151,45,0.81); 
+                    }
+    
+                    img {
+                        height: 150px;
+                        width: 300px;
+                        -webkit-transition: all 1s ease;
+                        -moz-transition: all 1s ease;
+                        -ms-transition: all 1s ease;
+                        transition: all 1s ease;
+    
+                        &:hover {
+                            transform: scale(1.5);
+                        }
+                    }
+                }
             }
         }
     }

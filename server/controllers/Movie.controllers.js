@@ -97,3 +97,23 @@ module.exports.searchMovie = async (req, res) => {
         res.status(500).json(error);
     }
 };
+
+module.exports.getMovieList = async (req, res) => {
+    const type = req.query.genre;
+    let movie = [];
+    try {
+        if (type) {
+            movie = await Movie.aggregate([
+                { $match: { genre: type } },
+                { $sample: { size: 10 } }
+            ]);
+        } else {
+            movie = await Movie.aggregate([
+                { $sample: { size: 10 } }
+            ]);
+        }
+        res.status(200).json(movie);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
