@@ -7,6 +7,7 @@
     overflow: hidden;
     border-radius: 10px;
     transition: all 0.4s;
+    margin-left: 2px;
 
     &:hover{
         transform: scale(1.02);
@@ -26,10 +27,41 @@
             padding: 25px;
             height: 40%;
 
-            h1{
+            .tooltip-on-hover{
                 color: #fff;
                 font-weight: 400;
                 font-size: 27px;
+
+                display: -webkit-box;
+                max-height: 3.2rem;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+                -webkit-line-clamp: 2;
+                line-height: 1.6rem;
+                margin-bottom: 10px;
+
+                &:hover {
+                    + {
+                        .tooltip {
+                            display: block;
+                        }
+                    }
+                }
+            }
+
+            .tooltip {
+                display: none;
+                color: #fff;
+                font-size: 12px;
+                position: absolute;
+                border: 1px solid #000;
+                background-color: #000;
+                left: 445px;
+                right: -209px;
+                top: 27px;
+                padding: 8px;
             }
 
             h4{

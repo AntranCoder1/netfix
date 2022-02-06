@@ -34,7 +34,8 @@ const MovieItem = ({ movie, index }) => {
                                     controls    
                                 />
                             ) }
-                            <h1>{movie.title}</h1>
+                            <h1 className="tooltip-on-hover">{movie.title}</h1>
+                            <span className="tooltip">{movie.title}</span>
                             <h4>{movie.year}</h4>
                             <span className="minutes">{movie.limit} min</span>
                             <p className="type">{movie.genre}</p>
