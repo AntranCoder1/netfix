@@ -4,11 +4,14 @@ import { useLocation, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import NavBar from '../../components/navBar/NavBar';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import ChatIcon from '@material-ui/icons/Chat';
 import ShareIcon from '@material-ui/icons/Share';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import ChatIcon from '@material-ui/icons/Chat';
 import axios from 'axios';
 import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from '@material-ui/icons'
+import Modal from '../../components/modal/Modal';
+import ShareModal from '../../components/shareModal/ShareModal';
+import fileDownload from 'js-file-download';
 
 const Watch = () => {
 
@@ -17,6 +20,9 @@ const Watch = () => {
     const [movieList, setMovieList] = useState([]);
     const [isMoved, setIsMoved] = useState(false);
     const [slideNumber, setSlideNumber] = useState(0);
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [isModal, setIsModal] = useState(false);
 
     const movieReco = useRef();
 
@@ -57,6 +63,15 @@ const Watch = () => {
         }
     };
 
+    const handleDownload = (url, filename) => {
+        axios.get(url, {
+            responseType: 'blob',
+        })
+            .then((res) => {
+                fileDownload(res.data, filename)
+            })
+    };
+
     return (
         <div className="watch">
             <NavBar />
@@ -72,16 +87,18 @@ const Watch = () => {
                             <p>Like</p>
                         </div>
                         <div className="feel-like">
-                            <ChatIcon className="icon" />
-                            <p>comment</p>
+                            <ChatIcon className="icon" onClick={() => setIsOpen(true)} />
+                            <p>Feedback</p>
+                            { isOpen && <Modal setIsOpen={setIsOpen} /> }
                         </div>
                         <div className="feel-like">
-                            <ShareIcon className="icon" />
+                            <ShareIcon className="icon" onClick={() => setIsModal(true)} />
                             <p>Share</p>
+                            { isModal && <ShareModal setIsModal={setIsModal} movies={movies} /> }
                         </div>
                         <div className="feel-like">
                             <SaveAltIcon className="icon" />
-                            <p>Save</p>
+                            <p onClick={handleDownload(movies.video, 'test-download.png')}>Save</p>
                         </div>
                     </div>
                 </div>

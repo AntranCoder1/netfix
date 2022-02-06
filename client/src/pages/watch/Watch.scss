@@ -42,6 +42,11 @@
                     .icon {
                         margin-bottom: 10px;
                     }
+
+                    &:hover {
+                        cursor: pointer;
+                        color: #ccccb3;
+                    }
                 }
             }
         }
@@ -68,7 +73,7 @@
                     height: 170px;
 
                     &::-webkit-scrollbar {
-                        width: 1px; 
+                        width: 0px; 
                     }
         
                     &::-webkit-scrollbar-track {
@@ -84,7 +89,7 @@
                 margin-top: -10px;
     
                 span {
-                    font-size: 20px;
+                    font-size: 22px;
                     line-height: 1.5;
                     word-spacing: 4px;
                 }
