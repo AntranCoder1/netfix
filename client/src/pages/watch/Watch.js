@@ -11,7 +11,6 @@ import axios from 'axios';
 import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from '@material-ui/icons'
 import Modal from '../../components/modal/Modal';
 import ShareModal from '../../components/shareModal/ShareModal';
-import fileDownload from 'js-file-download';
 
 const Watch = () => {
 
@@ -63,15 +62,6 @@ const Watch = () => {
         }
     };
 
-    const handleDownload = (url, filename) => {
-        axios.get(url, {
-            responseType: 'blob',
-        })
-            .then((res) => {
-                fileDownload(res.data, filename)
-            })
-    };
-
     return (
         <div className="watch">
             <NavBar />
@@ -98,7 +88,7 @@ const Watch = () => {
                         </div>
                         <div className="feel-like">
                             <SaveAltIcon className="icon" />
-                            <p onClick={handleDownload(movies.video, 'test-download.png')}>Save</p>
+                            <p>Save</p>
                         </div>
                     </div>
                 </div>

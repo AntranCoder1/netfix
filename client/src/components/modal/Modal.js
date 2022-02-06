@@ -1,36 +1,26 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import './Modal.scss';
 import { RiCloseLine } from 'react-icons/ri';
 import Select from 'react-select';
+import { useDispatch } from 'react-redux';
+import { addFeedback } from '../../redux/ApiFeedbackCall';
 
 const Modal = ({ setIsOpen }) => {
 
-    const options = useMemo(
-        () => [
-            { value: 1, label: "Vui lòng chọn mục phản hồi" },
-            { value: 2, label: "Không xem được video" },
-            { value: 3, label: "Lỗi không hiển thị nội dung (mờ/méo/lệch hình...)" },
-            { value: 4, label: "Lỗi âm thanh" },
-            { value: 5, label: "Lỗi chức năng (xem tập kế/tua nhanh/dừng video...)" },
-            { value: 0, label: "Khác" }
-        ]
-    );
+    const [feedback, setFeedback] = useState(null);
 
-    const customStyles = useMemo(
-        () => ({
-            option: (provided, state) => ({
-                ...provided,
-                color: "F5F5F5",
-                cursor: "pointer",
-            }),
-            control: (provided) => ({
-                ...provided,
-                border: "1px solid red",
-                padding: 5,
-                cursor: "pointer",
-            }),
-        })
-    );
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setFeedback({ ...feedback, [e.target.name]: value });
+    }
+
+    const handleSubmmit = (e) => {
+        e.preventDefault();
+        addFeedback(feedback, dispatch);
+        setIsOpen(false);
+    }
 
     return (
         <>
@@ -57,15 +47,23 @@ const Modal = ({ setIsOpen }) => {
                                 type="email" 
                                 placeholder="Vui lòng nhập địa chỉ email hợp lệ"
                                 name="email" 
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="comment-Email">
                             <label>Mục phản hổi</label>
-                            <Select 
-                                options={options} 
-                                defaultValue={options[1]} 
-                                styles={customStyles}
-                            />
+                            <select name="feedback" id="feedback" onChange={handleChange}>
+                                <option value="Vui lòng chọn mục phản hồi">Vui lòng chọn mục phản hồi</option>
+                                <option value="Không xem được video">Không xem được video</option>
+                                <option value="Lỗi không hiển thị nội dung (mờ/méo/lệch hình...)">
+                                    Lỗi không hiển thị nội dung (mờ/méo/lệch hình...)
+                                </option>
+                                <option value="Lỗi âm thanh">Lỗi âm thanh</option>
+                                <option value="Lỗi chức năng (xem tập kế/tua nhanh/dừng video...)">
+                                    Lỗi chức năng (xem tập kế/tua nhanh/dừng video...)
+                                </option>
+                                <option value="Khác">Khác</option>
+                            </select>
                         </div>
                         <div className="comment-Email" style={{ marginTop: "40px" }}>
                             <label>Tên bạn là</label>
@@ -73,11 +71,14 @@ const Modal = ({ setIsOpen }) => {
                                 type="text" 
                                 placeholder="Nhập tên của bạn"
                                 name="name" 
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="comment-Email" style={{ marginTop: "40px" }}>
                             <textarea 
                                 placeholder="Chi tiết về phản hổi"
+                                name="content"
+                                onChange={handleChange}
                             />
                         </div>
                         <div className="comment-Email" style={{ marginTop: "40px" }}>
@@ -86,10 +87,17 @@ const Modal = ({ setIsOpen }) => {
                                 type="text" 
                                 placeholder="Nhập số điện thoại"
                                 name="phone" 
+                                onChange={handleChange}
                             />
                         </div>
                     </div>
-                    <button type="submit" className="submit">Gửi</button>
+                    <button 
+                        type="submit" 
+                        className="submit"
+                        onClick={handleSubmmit}
+                    >
+                        Gửi
+                    </button>
                 </div>
             </div>
         </>
