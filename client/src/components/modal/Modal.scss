@@ -116,6 +116,18 @@
                 }
             }
 
+            .comment-Email > select {
+                padding: 15px;
+                border-radius: 5px;
+                border: 1px solid red;
+                outline: none;
+                cursor: pointer;
+
+                &::placeholder {
+                    font-size: 15px;
+                }
+            }
+
             .comment-Email > textarea {
                 position: absolute;
                 top: 382px;

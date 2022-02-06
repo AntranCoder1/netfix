@@ -13,6 +13,7 @@ const authRoutes = require('./routes/Auth.routes');
 const usersRoutes = require('./routes/Users.routes');
 const movieRoutes = require('./routes/Movie.routes');
 const listRoutes = require('./routes/List.routes');
+const feedbackRoutes = require('./routes/Feedback.routes');
 
 const connectDB = async () => {
     try {
@@ -59,6 +60,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/movies", movieRoutes);
 app.use("/api/lists", listRoutes);
+app.use("/api/feedback", feedbackRoutes);
 
 const port = 5000;
 app.listen(port, () => {
