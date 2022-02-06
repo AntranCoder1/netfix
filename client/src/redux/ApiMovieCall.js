@@ -1,5 +1,6 @@
 import { getMovieStart, getMovieSuccess, getMovieFailure } from './MovieRedux'; 
 import axios from 'axios';
+export const ADD_COMMENT = "ADD_COMMENT";
 
 export const getMovie = async (dispatch) => {
     dispatch(getMovieStart());

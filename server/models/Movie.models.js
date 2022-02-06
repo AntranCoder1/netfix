@@ -38,6 +38,17 @@ const MovieSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        comments: {
+            type: [
+                {
+                    commenterId:String,
+                    commenterUsername: String,
+                    text: String,
+                    timestamp: Number,
+                }
+            ],
+            required: true,
+        },
     },
     { timestamps: true }
 );

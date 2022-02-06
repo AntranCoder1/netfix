@@ -36,4 +36,21 @@ router.get("/random", verify, movieControllers.getRandom);
 
 router.get("/search", verify, movieControllers.searchMovie);
 
+router.get("/randomMovie", verify, movieControllers.getMovieList);
+
+// @routes api/movies/comment-movie/:id
+// @desc patch create movie comment
+// @access private
+router.patch("/comment-movie/:id", verify, movieControllers.comment);
+
+// @routes api/movies/edit-comment-movie/:id
+// @desc patch update movie comment
+// @access private
+router.patch("/edit-comment-movie/:id", verify, movieControllers.updateComment);
+
+// @roures api/movies/delete-comment-movie/:id
+// @desc patch delete movie comment
+// @access private
+router.patch("/delete-comment-movie/:id", verify, movieControllers.deleteComment);
+
 module.exports = router;

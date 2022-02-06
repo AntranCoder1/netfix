@@ -29,7 +29,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/login">
-          { admin ? <Redirect to="/" /> : <Login /> }
+          { admin ? <Redirect to="/home" /> : <Login /> }
         </Route>
         { admin ? (
           <>
