@@ -79,7 +79,7 @@ const Watch = () => {
                         <div className="feel-like">
                             <ChatIcon className="icon" onClick={() => setIsOpen(true)} />
                             <p>Feedback</p>
-                            { isOpen && <Modal setIsOpen={setIsOpen} /> }
+                            { isOpen && <Modal setIsOpen={setIsOpen} movieName={movies.title} /> }
                         </div>
                         <div className="feel-like">
                             <ShareIcon className="icon" onClick={() => setIsModal(true)} />

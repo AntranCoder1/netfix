@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { useDispatch } from 'react-redux';
 import { addFeedback } from '../../redux/ApiFeedbackCall';
 
-const Modal = ({ setIsOpen }) => {
+const Modal = ({ setIsOpen, movieName }) => {
 
     const [feedback, setFeedback] = useState(null);
 
@@ -13,8 +13,10 @@ const Modal = ({ setIsOpen }) => {
 
     const handleChange = (e) => {
         const value = e.target.value;
-        setFeedback({ ...feedback, [e.target.name]: value });
+        setFeedback({ movieName, ...feedback, [e.target.name]: value });
     }
+
+    console.log(feedback);
 
     const handleSubmmit = (e) => {
         e.preventDefault();

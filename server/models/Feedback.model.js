@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const FeedbackSchema = new mongoose.Schema(
     {
+        movieName: {
+            type: String,
+        },
         email: {
             type: String,
             required: true,
