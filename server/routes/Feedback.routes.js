@@ -9,4 +9,9 @@ const feedbackControllers = require('../controllers/Feedback.controllers');
 // @access private
 router.post("/", verify, feedbackControllers.createFeedback);
 
+// @routes api/feedback
+// @desc get all feedback
+// @access private
+router.get("/", verify, feedbackControllers.getFeedback);
+
 module.exports = router;

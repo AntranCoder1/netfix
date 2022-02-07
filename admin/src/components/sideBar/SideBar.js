@@ -5,7 +5,7 @@ import {
     Timeline, 
     TrendingUp,
     PermIdentity,
-    AttachMoney,
+    Feedback,
     BarChart,
     MailOutline,
     DynamicFeed,
@@ -68,12 +68,10 @@ const SideBar = () => {
                             </NavLink>
                         </li>
                         <li className="sidebarListItem">
-                            <AttachMoney className="sidebarIcon" />
-                            Transactions
-                        </li>
-                        <li className="sidebarListItem">
-                            <BarChart className="sidebarIcon" />
-                            Reports
+                            <NavLink to="/feedback" activeClassName='active'>
+                                <Feedback className="sidebarIcon" />
+                                Feedback
+                            </NavLink>
                         </li>
                     </ul>
                 </div>

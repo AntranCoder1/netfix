@@ -3,6 +3,7 @@ import MovieRedux from './MovieRedux';
 import UserRedux from './UserRedux';
 import ListRedux from './ListRedux';
 import LoginRedux from './loginAdmin/LoginRedux';
+import FeedbackRedux from './FeedbackRedux';
 import {
     persistStore,
     persistReducer,
@@ -21,7 +22,13 @@ const persistConfig = {
     storage,
 };
 
-const rootReducer = combineReducers({ admin: LoginRedux, user: UserRedux, movie: MovieRedux, list: ListRedux });
+const rootReducer = combineReducers({ 
+    admin: LoginRedux, 
+    user: UserRedux, 
+    movie: MovieRedux, 
+    list: ListRedux,
+    feedback: FeedbackRedux
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

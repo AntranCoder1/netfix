@@ -19,6 +19,7 @@ import List from './pages/list/List';
 import ListEdit from './pages/ListEdit/ListEdit';
 import NewList from './pages/newList/NewList';
 import Login from './pages/login/Login';
+import Feedback from './pages/feedback/Feedback';
 import { useSelector } from 'react-redux';
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
                 <Route exact path="/lists" component={List} />
                 <Route exact path="/lists/:listId" component={ListEdit} />
                 <Route exact path="/newlist" component={NewList} />
+                <Route exact path="/feedback" component={Feedback} />
               </Switch>
             </div>
           </>

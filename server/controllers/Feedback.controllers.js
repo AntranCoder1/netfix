@@ -9,3 +9,12 @@ module.exports.createFeedback = async (req, res) => {
         res.status(500).json(error);
     }
 };
+
+module.exports.getFeedback = async (req, res) => {
+    try {
+        const feedbacks = await Feedback.find();
+        res.status(200).json(feedbacks);
+    } catch (error) {
+        res.status(500).json("Internal server error");
+    }
+}
