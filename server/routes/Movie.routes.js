@@ -53,4 +53,14 @@ router.patch("/edit-comment-movie/:id", verify, movieControllers.updateComment);
 // @access private
 router.patch("/delete-comment-movie/:id", verify, movieControllers.deleteComment);
 
+// @routes api/movies/like-movie/:id
+// @desc path like
+// @access private
+router.patch("/like-movies/:id", verify, movieControllers.likeMovie);
+
+// @routes api/movies/unlike-movie/:id
+// @desc patch unlike
+// @access private
+router.patch("/unlike-movies/:id", verify, movieControllers.unlike);
+
 module.exports = router;
