@@ -38,17 +38,10 @@ const MovieSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
-        comments: {
-            type: [
-                {
-                    commenterId:String,
-                    commenterUsername: String,
-                    text: String,
-                    timestamp: Number,
-                }
-            ],
+        likers: {
+            type: [String],
             required: true,
-        },
+        }
     },
     { timestamps: true }
 );

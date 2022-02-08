@@ -1,7 +1,10 @@
 import { 
     getFeedbackStart, 
     getFeedbackSuccess, 
-    getFeedbackFailure 
+    getFeedbackFailure ,
+    deleteFeedbackStart,
+    deleteFeedbackSuccess,
+    deleteFeedbackFailure,
 } from './FeedbackRedux';
 import axios from 'axios';
 
@@ -20,5 +23,19 @@ export const getFeedback = async (dispatch) => {
         dispatch(getFeedbackSuccess(res.data));
     } catch (error) {
         dispatch(getFeedbackFailure());
+    }
+};
+
+export const deleteFeedback = async (id, dispatch) => {
+    dispatch(deleteFeedbackStart());
+    try {
+        await axios.delete("/feedback/" + id, {
+            headers: {
+                token: "Bearer " + TOKEN
+            },
+        })
+        dispatch(deleteFeedbackSuccess(id));
+    } catch (error) {
+        dispatch(deleteFeedbackFailure());
     }
 };

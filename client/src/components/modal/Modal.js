@@ -1,7 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import './Modal.scss';
 import { RiCloseLine } from 'react-icons/ri';
-import Select from 'react-select';
 import { useDispatch } from 'react-redux';
 import { addFeedback } from '../../redux/ApiFeedbackCall';
 
@@ -15,8 +14,6 @@ const Modal = ({ setIsOpen, movieName }) => {
         const value = e.target.value;
         setFeedback({ movieName, ...feedback, [e.target.name]: value });
     }
-
-    console.log(feedback);
 
     const handleSubmmit = (e) => {
         e.preventDefault();

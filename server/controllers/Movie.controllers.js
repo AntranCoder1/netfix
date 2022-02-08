@@ -1,4 +1,5 @@
 const Movie = require('../models/Movie.models');
+const User = require('../models/Users.models');
 
 module.exports.createMovie = async (req, res) => {
     if (req.user.isAdmin) {
@@ -186,5 +187,59 @@ module.exports.deleteComment = async (req, res) => {
         );
     } catch (error) {
         res.status(500).json("Internal sever error");
+    }
+};
+
+module.exports.likeMovie = async (req, res) => {
+    try {
+        await Movie.findByIdAndUpdate(
+            req.params.id,
+            {
+                $addToSet: { likers: req.body.id },
+            },
+            { new: true },
+            (err, docs) => {
+                if (err) return res.status(400).json(err);
+            }
+        );
+        await User.findByIdAndUpdate(
+            req.body.id,
+            {
+                $addToSet: { likes: req.params.id },
+            },
+            { new: true },
+            (err, docs) => {
+                if (!err) res.status(400).json(err);
+            }
+        );
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+module.exports.unlike = async (req, res) => {
+    try {
+        await Movie.findByIdAndUpdate(
+            req.params.id,
+            {
+                $pull: { likers: req.body.id }
+            },
+            { new: true },
+            (err, docs) => {
+                if (err) return res.status(400).json(err);
+            }
+        );
+        await User.findByIdAndUpdate(
+            req.body.id,
+            {
+                $pull: { likes: req.params.id }
+            },
+            { new: true },
+            (err, docs) => {
+                if (!err) return res.status(400).json(err);
+            }
+        );
+    } catch (error) {
+        res.status(500).json(error);
     }
 };

@@ -19,6 +19,9 @@ const UserSchema = new mongoose.Schema(
             type: String, 
             defaut: "" 
         },
+        likes: {
+            type: [String],
+        },
         isAdmin: { 
             type: Boolean, 
             default: false 
