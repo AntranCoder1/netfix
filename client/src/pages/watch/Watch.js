@@ -13,6 +13,7 @@ import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from '@material-ui/icon
 import Modal from '../../components/modal/Modal';
 import ShareModal from '../../components/shareModal/ShareModal';
 import { likeMovie, disLikeMovie, getMovie } from '../../redux/ApiMovieCall';
+import Comment from '../comment/Comment';
 
 const Watch = () => {
 
@@ -95,8 +96,6 @@ const Watch = () => {
         }
     };
 
-    console.log(movies);
-
     return (
         <div className="watch">
             <NavBar />
@@ -176,6 +175,7 @@ const Watch = () => {
                         )) }
                     </div>
                 </div>
+                <Comment movies={movies} />
                 <div className="footer">
                     <div className="footer-title">Question? Contact us.</div>
                     <p className="footer-break"></p>
