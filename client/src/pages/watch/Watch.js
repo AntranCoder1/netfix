@@ -43,7 +43,6 @@ const Watch = () => {
     const currentUser1 = admin1 && JSON.parse(admin).currentUser;
     const userId = currentUser1?._id;
 
-
     useEffect(() => {
         const getMovie = async () => {
             try {

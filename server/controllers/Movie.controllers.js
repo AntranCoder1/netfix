@@ -119,77 +119,6 @@ module.exports.getMovieList = async (req, res) => {
     }
 };
 
-module.exports.comment = async (req, res) => {
-
-    try {
-        return Movie.findByIdAndUpdate(
-            req.params.id,
-            {
-                $push: {
-                    comments: {
-                        commenterId: req.body.commenterId,
-                        commenterUsername: req.body.commenterUsername,
-                        text: req.body.text,
-                        timestamp: new Date().getTime(),
-                    },
-                },
-            },
-            { new: true },
-            (err, docs) => {
-                if (!err) return res.send(docs);
-                else return res.status(400).send(err);
-            }
-        )
-    } catch (error) {
-        res.status(500).json("Internal server error");
-    }
-};
-
-module.exports.updateComment = async (req, res) => {
-    try {
-        return Movie.findById(
-            req.params.id, 
-            (err, docs) => {
-                const theComment = docs.comments.find((comment) =>
-                    comment._id.equals(req.body.commentId)
-                );
-
-                if (!theComment) return res.status(404).send("Comment not found");
-                theComment.text = req.body.text;
-
-                return docs.save((err) => {
-                    if (!err) return res.status(200).send(docs);
-                    return res.status(500).send(err);
-                });
-            }
-        );
-    } catch (error) {
-        res.status(500).json("Internal server error");
-    }
-};
-
-module.exports.deleteComment = async (req, res) => {
-    try {
-        return Movie.findByIdAndUpdate(
-            req.params.id,
-            {
-                $pull: {
-                    comments: {
-                        _id: req.body.commentId,
-                    },
-                },
-            },
-            { new: true },
-            (err, docs) => {
-                if (!err) return res.send(docs);
-                else return res.status(400).send(err);
-            }
-        );
-    } catch (error) {
-        res.status(500).json("Internal sever error");
-    }
-};
-
 module.exports.likeMovie = async (req, res) => {
     try {
         await Movie.findByIdAndUpdate(
@@ -259,6 +188,73 @@ module.exports.feelMovie = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
+        res.status(500).json("Internal server error");
+    }
+};
+
+module.exports.comment = async (req, res) => {
+    try {
+        await Movie.findByIdAndUpdate(
+            req.params.id,
+            {
+                $addToSet : {
+                    comments: {
+                        commenterId: req.body.commenterId,
+                        commenterUsername: req.body.commenterUsername,
+                        text: req.body.text,
+                        timestamp: new Date().getTime(),
+                    },
+                },
+            },
+            { new: true },
+            (err, docs) => {
+                if (!err) return res.send(docs);
+                else return res.status(400).send(err);
+            }
+        );
+    } catch (error) {
+        res.status(500).json("Internal server error");
+    }
+};
+
+module.exports.updateComment = async (req, res) => {
+    try {
+        await Movie.findById(req.params.id, (err, docs) => {
+            const theComment = docs.comments.find((comment) => 
+                comment._id.equals(req.body.commentId)
+            );
+
+            if (!theComment) return res.status(404).send("Comment not found");
+            theComment.text = req.body.text;
+
+            return docs.save((err) => {
+                if (!err) return res.status(200).send(docs);
+                return res.status(500).send(err);
+            });
+        });
+    } catch (error) {
+        res.status(500).json("Internal server error");
+    }
+};
+
+module.exports.deleteComment = async (req, res) => {
+    try {
+        await Movie.findByIdAndUpdate(
+            req.params.id,
+            {
+                $pull: {
+                    comments: {
+                        _id: req.body.commentId,
+                    },
+                },
+            },
+            { new: true },
+            (err, docs) => {
+                if (!err) return res.send(docs);
+                else return res.status(400).send(err);
+            }
+        );
+    } catch (error) {
         res.status(500).json("Internal server error");
     }
 };

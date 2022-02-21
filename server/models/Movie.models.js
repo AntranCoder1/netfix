@@ -38,6 +38,17 @@ const MovieSchema = new mongoose.Schema(
             type: [String],
             required: true,
         },
+        comments: {
+            type: [
+                {
+                    commenterId:String,
+                    commenterUsername: String,
+                    text: String,
+                    timestamp: Number,
+                }
+            ],
+            required: true,
+        },
         isSeries: {
             type: Boolean,
             default: false,
