@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import "./Watch.scss";
 import { useLocation, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import NavBar from '../../components/navBar/NavBar';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ShareIcon from '@material-ui/icons/Share';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -11,6 +12,7 @@ import axios from 'axios';
 import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from '@material-ui/icons'
 import Modal from '../../components/modal/Modal';
 import ShareModal from '../../components/shareModal/ShareModal';
+import { likeMovie, disLikeMovie, getMovie } from '../../redux/ApiMovieCall';
 
 const Watch = () => {
 
@@ -23,18 +25,31 @@ const Watch = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isModal, setIsModal] = useState(false);
 
+    const dispatch = useDispatch();
+
     const movieReco = useRef();
 
     const movies = useSelector(state => 
         state.movie.movies.find((item) => item._id === movieId)    
     );
 
+    const [isLiked, setIsLiked] = useState(false);
+
+    const admin = JSON.parse(localStorage.getItem("persist:root"))?.user;
+    const currentUser = admin && JSON.parse(admin).currentUser;
+    const TOKEN = currentUser?.token;
+
+    const admin1 = JSON.parse(localStorage.getItem("persist:root"))?.user;
+    const currentUser1 = admin1 && JSON.parse(admin).currentUser;
+    const userId = currentUser1?._id;
+
+
     useEffect(() => {
         const getMovie = async () => {
             try {
                 const res = await axios.get(`/movies/randomMovie?genre=${movies.genre}`, {
                     headers: {
-                        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDJiOTgzNzg3Y2M5MGRmMDlmM2FhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MjU0Mzg3OSwiZXhwIjoxOTAxNzQzODc5fQ.2Urif1oO5B4Kc_jnhmgmbuZVjpjcArhaQEpEF4dTYIA"
+                        token: "Bearer " + TOKEN
                     }
                 })
                 setMovieList(res.data)
@@ -44,6 +59,25 @@ const Watch = () => {
         }
         getMovie();
     }, []);
+
+    useEffect(() => {
+        getMovie(dispatch);
+    });
+    
+    const handleLike = () => {
+        likeMovie(dispatch, userId, movieId);
+        setIsLiked(true);
+    }
+    
+    const handleDislike = () => {
+        disLikeMovie(dispatch, userId, movieId);
+        setIsLiked(false);
+    }
+
+    useEffect(() => {
+        if (movies.likers.includes(userId)) setIsLiked(true);
+        else setIsLiked(false);
+    }, [userId, movies.likers, isLiked]);
 
     const handleClick = (direction) => {
 
@@ -62,6 +96,8 @@ const Watch = () => {
         }
     };
 
+    console.log(movies);
+
     return (
         <div className="watch">
             <NavBar />
@@ -72,10 +108,19 @@ const Watch = () => {
                 <div className="watch-title">
                     <h1 className="title">{movies.title}</h1>
                     <div className="feel">
-                        <div className="feel-like">
-                            <ThumbUpAltIcon className="icon" />
-                            <p>Like</p>
-                        </div>
+                        { userId && isLiked === false && (
+                            <div className="feel-like" onClick={handleLike}>
+                                <ThumbUpAltOutlinedIcon className="icon" />
+                                <p>Like</p>
+                            </div>
+                        ) }
+                        { userId && isLiked && (
+                            <div className="feel-like" onClick={handleDislike}>
+                                <ThumbUpAltIcon className="icon" />
+                                <p>dislike</p>
+                            </div>
+                        ) }
+                        <span>{movies.likers.length}</span>
                         <div className="feel-like">
                             <ChatIcon className="icon" onClick={() => setIsOpen(true)} />
                             <p>Feedback</p>

@@ -20,9 +20,57 @@ const movieSlice = createSlice({
             state.isFetching = false;
             state.error = true
         },
+
+        // LIKE
+        likeMovieStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        likeMovieSuccess: (state, action) => {
+            state.isFetching = false;
+            state.movies.map((movies) => {
+                return {
+                    ...movies,
+                    likers: [action.payload.userId, ...movies.likers],
+                }
+            })
+        },
+        likeMovieFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
+        },
+
+        // DISLIKE
+        disLikeMovieStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        disLikeMovieSuccess: (state, action) => {
+            state.isFetching = false;
+            state.movies.map(function(item) {
+                return {
+                    ...item,
+                    likers: item.likers.filter((id) => id !== action.payload.userId)
+                }
+            })
+        },
+        disLikeMovieFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
+        }
     }
 });
 
-export const { getMovieStart, getMovieSuccess, getMovieFailure } = movieSlice.actions;
+export const { 
+    getMovieStart, 
+    getMovieSuccess, 
+    getMovieFailure,
+    likeMovieStart,
+    likeMovieSuccess,
+    likeMovieFailure,
+    disLikeMovieStart,
+    disLikeMovieSuccess,
+    disLikeMovieFailure,
+} = movieSlice.actions;
 
 export default movieSlice.reducer;

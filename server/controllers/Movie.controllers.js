@@ -199,7 +199,7 @@ module.exports.likeMovie = async (req, res) => {
             },
             { new: true },
             (err, docs) => {
-                if (err) return res.status(400).json(err);
+                if (err) return res.status(400).send(err);
             }
         );
         await User.findByIdAndUpdate(
@@ -209,37 +209,56 @@ module.exports.likeMovie = async (req, res) => {
             },
             { new: true },
             (err, docs) => {
-                if (!err) res.status(400).json(err);
+                if (!err) res.send(docs);
+                else return res.status(400).send(err);
             }
         );
-    } catch (error) {
-        res.status(500).json(error);
+    } catch (err) {
+        return res.status(400).send(err);
     }
 };
 
-module.exports.unlike = async (req, res) => {
+module.exports.dislikeMovie = async (req, res) => {
     try {
         await Movie.findByIdAndUpdate(
             req.params.id,
             {
-                $pull: { likers: req.body.id }
+                $pull: { likers: req.body.id },
             },
             { new: true },
             (err, docs) => {
-                if (err) return res.status(400).json(err);
+                if (err) return res.status(400).send(err);
             }
         );
         await User.findByIdAndUpdate(
             req.body.id,
             {
-                $pull: { likes: req.params.id }
+                $pull: { likes: req.params.id },
             },
             { new: true },
             (err, docs) => {
-                if (!err) return res.status(400).json(err);
+                if (!err) res.send(docs);
+                else return res.status(400).send(err);
             }
         );
+    } catch (err) {
+        return res.status(400).send(err);
+    }
+};
+
+module.exports.feelMovie = async (req, res) => {
+    try {
+        const movie = await Movie.findById(req.params.id);
+
+        if (!movie.likes.includes(req.body.userId)) {
+            await movie.updateOne({ $push: { likers: req.body.userId } });
+            res.status(200).json({ success: true, message: "Movie has been liked" });
+        } else {
+            await movie.updateOne({ $pull: { likers: req.body.userId } });
+            res.status(200).json({ success: true, message: "Movie has been disliked" });
+        }
     } catch (error) {
-        res.status(500).json(error);
+        console.log(error);
+        res.status(500).json("Internal server error");
     }
 };
