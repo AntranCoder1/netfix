@@ -45,8 +45,6 @@ const Home = ({ type }) => {
         }
     };
 
-    console.log(movies)
-
     return (
         <div className="home">
             <NavBar search={search} />

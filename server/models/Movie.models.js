@@ -34,14 +34,14 @@ const MovieSchema = new mongoose.Schema(
         genre: {
             type: String,
         },
+        likers: {
+            type: [String],
+            required: true,
+        },
         isSeries: {
             type: Boolean,
             default: false,
         },
-        likers: {
-            type: [String],
-            required: true,
-        }
     },
     { timestamps: true }
 );
