@@ -38,28 +38,34 @@ router.get("/search", verify, movieControllers.searchMovie);
 
 router.get("/randomMovie", verify, movieControllers.getMovieList);
 
-// @routes api/movies/comment-movie/:id
-// @desc patch create movie comment
-// @access private
-router.patch("/comment-movie/:id", verify, movieControllers.comment);
-
-// @routes api/movies/edit-comment-movie/:id
-// @desc patch update movie comment
-// @access private
-router.patch("/edit-comment-movie/:id", verify, movieControllers.updateComment);
-
-// @roures api/movies/delete-comment-movie/:id
-// @desc patch delete movie comment
-// @access private
-router.patch("/delete-comment-movie/:id", verify, movieControllers.deleteComment);
-
 // @routes api/movies/:id/like or api/movies/:id/dislike
 // @desc put like movie
 // @access private
 router.put("/:id/like", verify, movieControllers.feelMovie);
 
+// @routes api/movies/like/:id
+// @desc like movies
+// @access private
 router.patch("/like/:id", verify, movieControllers.likeMovie);
 
+// @routes api/movies/dislike/:id
+// @desc dislike movies
+// @access private
 router.patch("/dislike/:id", verify, movieControllers.dislikeMovie);
+
+// @routes api/movies/comment/:id
+// @desc comment movies
+// @access private
+router.patch("/comment/:id", verify, movieControllers.comment);
+
+// @routes api/movies/updateComment/:id
+// @desc update comment movies
+// @access private
+router.patch("/updateComment/:id", verify, movieControllers.updateComment);
+
+// @routes api/movies/deleteComment/:id
+// @desc delete comment movies
+// @access private
+router.patch("/deleteComment/:id", verify, movieControllers.deleteComment);
 
 module.exports = router;
