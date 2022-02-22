@@ -63,7 +63,7 @@ const Comment = ({ movies }) => {
                                 <DeleteIcon className="icon" />
                             </div>
                         </div>
-                        { isOpen && <CommentEdit comment={comment} setIsOpen={setIsOpen} /> }
+                        { isOpen && <CommentEdit comment={comment} setIsOpen={setIsOpen} movies={movies} /> }
                     </div>
                 </div>
             )) }
