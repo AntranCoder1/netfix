@@ -4,6 +4,10 @@ import { timestampParser, isEmpty } from '../../Utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUsers } from '../../redux/ApiUsersCall';
 import { comment, getMovie } from '../../redux/ApiMovieCall';
+import SendIcon from '@material-ui/icons/Send';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CommentEdit from '../commentEdit/CommentEdit';
 
 const Comment = ({ movies }) => {
     
@@ -12,6 +16,7 @@ const Comment = ({ movies }) => {
     const dispatch = useDispatch();
 
     const [text, setText] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         getUsers(dispatch);
@@ -51,7 +56,14 @@ const Comment = ({ movies }) => {
                                 <span>{timestampParser(comment.timestamp)}</span>
                             </div>
                         </div>
-                        <p>{comment.text}</p>
+                        <div className="comment-text">
+                            <p>{comment.text}</p>
+                            <div className="comment-text-icon">
+                                <EditIcon className="icon" onClick={() => setIsOpen(true)} />
+                                <DeleteIcon className="icon" />
+                            </div>
+                        </div>
+                        { isOpen && <CommentEdit comment={comment} setIsOpen={setIsOpen} /> }
                     </div>
                 </div>
             )) }
@@ -71,6 +83,7 @@ const Comment = ({ movies }) => {
                         value="To Send" 
                         className="submit"
                     />
+                    <SendIcon className="comment-icon" />
                 </form>
             ) }
         </div>
