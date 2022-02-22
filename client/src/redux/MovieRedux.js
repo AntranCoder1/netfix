@@ -72,6 +72,34 @@ const movieSlice = createSlice({
             state.isFetching = false;
             state.error = true;
         },
+
+        // UPDATE COMMENT
+        editCommentStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        editCommentSuccess: (state, action) => {
+            state.isFetching = false;
+            state.movies.map((movies) => {
+                return {
+                    ...movies,
+                    comments: movies.comments.map((comment) => {
+                        if (comment._id === action.payload.commentId) {
+                            return {
+                                ...comment,
+                                text: action.payload.text,
+                            };
+                        } else {
+                            return comment;
+                        }
+                    }),
+                };
+            })
+        },
+        editCommentFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
+        }
     }
 });
 
@@ -88,6 +116,9 @@ export const {
     addCommentStart,
     addCommentSuccess,
     addCommentFailure,
+    editCommentStart,
+    editCommentSuccess,
+    editCommentFailure,
 } = movieSlice.actions;
 
 export default movieSlice.reducer;
