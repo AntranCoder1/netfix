@@ -57,7 +57,21 @@ const movieSlice = createSlice({
         disLikeMovieFailure: (state) => {
             state.isFetching = false;
             state.error = true;
-        }
+        },
+
+        // COMMENT
+        addCommentStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        addCommentSuccess: (state, action) => {
+            state.isFetching = false;
+            state.movies.comments.push(action.payload);
+        },
+        addCommentFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
+        },
     }
 });
 
@@ -71,6 +85,9 @@ export const {
     disLikeMovieStart,
     disLikeMovieSuccess,
     disLikeMovieFailure,
+    addCommentStart,
+    addCommentSuccess,
+    addCommentFailure,
 } = movieSlice.actions;
 
 export default movieSlice.reducer;

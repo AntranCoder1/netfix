@@ -8,6 +8,9 @@ import {
     disLikeMovieStart,
     disLikeMovieSuccess,
     disLikeMovieFailure,
+    addCommentStart,
+    addCommentSuccess,
+    addCommentFailure,
 } from './MovieRedux'; 
 import axios from 'axios';
 
@@ -54,5 +57,21 @@ export const disLikeMovie = async (dispatch, userId, movieId) => {
         dispatch(disLikeMovieSuccess(movieId, userId));
     } catch (error) {
         dispatch(disLikeMovieFailure());
+    }
+};
+
+export const comment = async (dispatch, movieId, commenterId, commenterUsername, text) => {
+    dispatch(addCommentStart());
+    try {
+        await axios.patch("/movies/comment/" + movieId, { 
+            commenterId: commenterId, 
+            commenterUsername: commenterUsername, text: text }, {
+                headers: {
+                    token: "Bearer " + TOKEN
+                }
+            });
+            dispatch(addCommentSuccess(movieId));
+    } catch (error) {
+        dispatch(addCommentFailure());
     }
 };

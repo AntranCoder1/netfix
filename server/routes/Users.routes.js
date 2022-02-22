@@ -29,4 +29,9 @@ router.get("/", verify, userControllers.getUser);
 // @access private
 router.get("/stats", userControllers.statsUser);
 
+// @routes api/users/
+// @desc get all users
+// @access private
+router.get("/all", userControllers.getAllUser);
+
 module.exports = router;
