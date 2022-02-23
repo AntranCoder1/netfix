@@ -25,30 +25,31 @@
         }
 
         .right-part {
+
             .comment-header {
-                margin-bottom: 15px;
+                display: flex;
+                align-items: center;
 
-                .comment-user {
-                    display: flex;
-                    align-items: center;
+                h3 {
+                    text-transform: capitalize;
+                }
 
-                    h3 {
-                        text-transform: capitalize;
-                    }
-
-                    span {
-                        margin-left: 800px;
-                    }
+                span {
+                    position: absolute;
+                    right: 190px;
                 }
             }
 
             .comment-text {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
+                margin-top: 10px;
 
                 .comment-text-icon {
                     cursor: pointer;
+                    position: absolute;
+                    right: 180px;
+                    margin-top: 10px;
 
                     .icon {
                         border-radius: 50%;
@@ -62,6 +63,46 @@
                 }
             }
         }
+
+        // .right-part {
+        //     .comment-header {
+        //         margin-bottom: 15px;
+
+        //         .comment-user {
+        //             display: flex;
+        //             align-items: center;
+
+        //             h3 {
+        //                 text-transform: capitalize;
+        //                 margin-right: -119px;
+        //             }
+
+        //             span {
+        //                 margin-left: 800px;
+        //             }
+        //         }
+        //     }
+
+        //     .comment-text {
+        //         display: flex;
+        //         align-items: center;
+        //         justify-content: space-between;
+
+        //         .comment-text-icon {
+        //             cursor: pointer;
+
+        //             .icon {
+        //                 border-radius: 50%;
+        //                 border: 1px solid #fdeeee;
+        //                 margin-right: 10px;
+        //                 padding: 3px;
+        //                 font-size: 17px;
+        //                 color: #fdeeee;
+        //                 background: #223127;
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     .comment-form {
