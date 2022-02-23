@@ -59,23 +59,27 @@ const Comment = ({ movies }) => {
                     </div>
                     <div className="right-part">
                         <div className="comment-header">
-                            <div className="comment-user">
-                                <h3>{comment.commenterUsername}</h3>
-                                <span>{timestampParser(comment.timestamp)}</span>
-                            </div>
+                            <h3>{comment.commenterUsername}</h3>
+                            <span>{timestampParser(comment.timestamp)}</span>
                         </div>
                         <div className="comment-text">
                             <p>{comment.text}</p>
                             <div className="comment-text-icon">
-                                <EditIcon className="icon" onClick={() => setIsOpen(!isOpen)} />
-                                <DeleteIcon className="icon" onClick={() => {
-                                    if (window.confirm("Do you want to delete this comment ?")) {
-                                        handleDelete();
-                                    }
-                                }} />
+                                { comment.commenterId === user._id && (
+                                    <>
+                                        <EditIcon className="icon" onClick={() => setIsOpen(!isOpen)} />
+                                        <DeleteIcon className="icon" onClick={() => {
+                                            if (window.confirm("Do you want to delete this comment ?")) {
+                                                handleDelete();
+                                            }
+                                        }} />
+                                    </>
+                                ) }
                             </div>
                         </div>
-                        { isOpen && <CommentEdit comment={comment} setIsOpen={setIsOpen} movies={movies} /> }
+                        { comment.commenterId === user._id && isOpen && (
+                            <CommentEdit comment={comment} setIsOpen={setIsOpen} movies={movies} /> 
+                        ) }
                     </div>
                 </div>
             )) }
