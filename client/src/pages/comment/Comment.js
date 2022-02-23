@@ -3,7 +3,7 @@ import './Comment.scss';
 import { timestampParser, isEmpty } from '../../Utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUsers } from '../../redux/ApiUsersCall';
-import { comment, getMovie } from '../../redux/ApiMovieCall';
+import { comment, getMovie, deleteComment } from '../../redux/ApiMovieCall';
 import SendIcon from '@material-ui/icons/Send';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -30,6 +30,14 @@ const Comment = ({ movies }) => {
                 .then(() => getMovie(dispatch))
                 .then(() => setText(''));
         }
+    }
+
+    const commentId = movies.comments.map((comment) => {
+        return comment._id
+    })
+
+    const handleDelete = () => {
+        deleteComment(dispatch, movies._id, commentId.join());
     }
 
     return (
@@ -59,8 +67,12 @@ const Comment = ({ movies }) => {
                         <div className="comment-text">
                             <p>{comment.text}</p>
                             <div className="comment-text-icon">
-                                <EditIcon className="icon" onClick={() => setIsOpen(true)} />
-                                <DeleteIcon className="icon" />
+                                <EditIcon className="icon" onClick={() => setIsOpen(!isOpen)} />
+                                <DeleteIcon className="icon" onClick={() => {
+                                    if (window.confirm("Do you want to delete this comment ?")) {
+                                        handleDelete();
+                                    }
+                                }} />
                             </div>
                         </div>
                         { isOpen && <CommentEdit comment={comment} setIsOpen={setIsOpen} movies={movies} /> }
@@ -72,7 +84,7 @@ const Comment = ({ movies }) => {
                     <input 
                         type="text"
                         name="text"
-                        placeholder="Leave a comment"
+                        placeholder="Leave a comment..."
                         className="comment-text"
                         onChange={(e) => setText(e.target.value)}
                         value={text}

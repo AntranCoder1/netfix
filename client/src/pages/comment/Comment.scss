@@ -70,9 +70,10 @@
         align-items: center;
 
         .comment-text {
-            padding: 20px 890px 20px 10px;
             border-radius: 5px;
             outline: none;
+            width: 100%;
+            padding: 20px;
         }
 
         .submit {
