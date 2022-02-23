@@ -14,6 +14,9 @@ import {
     editCommentStart,
     editCommentSuccess,
     editCommentFailure,
+    deleteCommentStart,
+    deleteCommentSuccess,
+    deleteCommentFailure,
 } from './MovieRedux'; 
 import axios from 'axios';
 
@@ -93,5 +96,19 @@ export const editComment = async (dispatch, movieId, commentId, text) => {
         dispatch(editCommentSuccess(movieId, commentId, text));
     } catch (error) {
         dispatch(editCommentFailure());
+    }
+};
+
+export const deleteComment = async (dispatch, movieId, commentId) => {
+    dispatch(deleteCommentStart());
+    try {
+        await axios.patch("/movies/deleteComment/" + movieId, { commentId: commentId }, {
+            headers: {
+                token: "Bearer " + TOKEN
+            }
+        });
+        dispatch(deleteCommentSuccess(movieId, commentId));
+    } catch (error) {
+        dispatch(deleteCommentFailure());
     }
 };
