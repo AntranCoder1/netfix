@@ -23,6 +23,10 @@ const allUserSlice = createSlice({
     }
 });
 
-export const { getAllUserStart, getAllUserSuccess, getAllUserFailure } = allUserSlice.actions;
+export const { 
+    getAllUserStart, 
+    getAllUserSuccess, 
+    getAllUserFailure,
+} = allUserSlice.actions;
 
 export default allUserSlice.reducer;

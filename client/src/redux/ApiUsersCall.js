@@ -1,4 +1,8 @@
-import { getAllUserStart, getAllUserSuccess, getAllUserFailure } from './AllUserRedux'; 
+import { 
+    getAllUserStart, 
+    getAllUserSuccess, 
+    getAllUserFailure,
+} from './AllUserRedux'; 
 import axios from 'axios';
 
 const admin = JSON.parse(localStorage.getItem("persist:root"))?.user;
