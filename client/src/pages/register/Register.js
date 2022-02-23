@@ -9,24 +9,24 @@ const Register = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
     const histoty = useHistory();
 
     const emailRef = useRef();
-    const usernameRef = useRef();
-    const passwordRef = useRef(); 
+    const passwordRef = useRef();
+    const nameRef = useRef();
 
     const handleStart = () => {
         setEmail(emailRef.current.value)
     }
 
-    const handleClick = async (e) => {
+    const handleFinish = async (e) => {
         e.preventDefault();
         setPassword(passwordRef.current.value);
-        setUsername(usernameRef.current.value);
+        setName(nameRef.current.value);
         try {
-            await axios.post("/auth/register", { email, username, password })
-            histoty.push("/login");
+            await axios.post("/auth/register", { email, name, password }); 
+            histoty.push("/login")
         } catch (error) {
             console.log(error);
         }
@@ -55,17 +55,22 @@ const Register = () => {
                     </p>
                     { !email ? (
                         <div className="input">
-                            <input type="email" placeholder="Email address" ref={emailRef} />
-                            <button className="registerButton" onClick={handleStart}>
+                            <input type="email" placeholder="email address" ref={emailRef} />
+                            <button 
+                                className="registerButton"
+                                onClick={handleStart}
+                            >
                                 Get Started
-                                <img src="/images/icons/chevron-right.png" alt='Get Started' />
                             </button>
                         </div>
                     ) : (
                         <form className="input">
-                            <input type="displayName" placeholder="Username" ref={usernameRef} />
+                            <input type="text" placeholder="Username" ref={nameRef} />
                             <input type="password" placeholder="Password" ref={passwordRef} />
-                            <button className="registerButton" onClick={handleClick}>
+                            <button 
+                                className="registerButton"
+                                onClick={handleFinish}
+                            >
                                 Start
                             </button>
                         </form>
@@ -155,3 +160,4 @@ const Register = () => {
 }
 
 export default Register
+
