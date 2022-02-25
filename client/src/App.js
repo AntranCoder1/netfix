@@ -5,6 +5,7 @@ import Watch from './pages/watch/Watch';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import Profile from './pages/profile/Profile';
+import MovieCart from './pages/movieCart/MovieCart';
 import { BrowserRouter as Router,
   Switch,
   Route,
@@ -61,6 +62,9 @@ function App() {
               <Route path='/profile'>
                 <Profile user={userGoogle} />
               </Route>
+              <Route path='/movieCart'>
+                <MovieCart />
+              </Route>
             </>
           ) : (
             <>
@@ -75,6 +79,9 @@ function App() {
               </Route>
               <Route path='/profile'>
                 <Profile user={user} />
+              </Route>
+              <Route path='/movieCart'>
+                <MovieCart />
               </Route>
             </>
           )

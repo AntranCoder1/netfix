@@ -11,6 +11,7 @@ const NavBar = (props) => {
     const [seatchItem, setSearchItem] = useState("");
     const user = useSelector(state => state.user.currentUser);
     const dispatch = useDispatch(); 
+    const history = useHistory();
 
     const checkUserGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.name;
     const checkImageGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.picture;
@@ -23,10 +24,12 @@ const NavBar = (props) => {
 
     const handleLogout = () => {
         dispatch(logout())
+        history.push("/register")
     }
 
     const handleClick = () => {
         localStorage.removeItem("userGoogle");
+        history.push("/register")
     }
 
     const handleChange = e => {
@@ -127,12 +130,16 @@ const NavBar = (props) => {
                         <ArrowDropDown className="icon" />
                         { user ? (
                             <div className="options">
-                                <span>Settings</span>
+                                <Link to="/movieCart">
+                                    <span>Settings</span>
+                                </Link>
                                 <span onClick={handleLogout}>Logout</span>
                             </div>
                         ) : (
                             <div className="options">
-                                <span>Settings</span>
+                                <Link to="/movieCart">
+                                    <span>Settings</span>
+                                </Link>
                                 <span onClick={handleClick}>Logout Google</span>
                             </div>
                         ) }
