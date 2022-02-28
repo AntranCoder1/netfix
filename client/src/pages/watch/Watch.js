@@ -14,6 +14,7 @@ import Modal from '../../components/modal/Modal';
 import ShareModal from '../../components/shareModal/ShareModal';
 import { likeMovie, disLikeMovie, getMovie } from '../../redux/ApiMovieCall';
 import Comment from '../comment/Comment';
+import { isEmpty } from '../../Utils';
 
 const Watch = () => {
 
@@ -35,6 +36,7 @@ const Watch = () => {
     );
 
     const [isLiked, setIsLiked] = useState(false);
+    const [trend, setTrend] = useState("");
 
     const admin = JSON.parse(localStorage.getItem("persist:root"))?.user;
     const currentUser = admin && JSON.parse(admin).currentUser;
@@ -79,6 +81,22 @@ const Watch = () => {
         else setIsLiked(false);
     }, [userId, movies.likers, isLiked]);
 
+    useEffect(() => {
+        if (movies.likers.length >= 2) {
+            setTrend("#1 TRÊN TAB THỊNH HÀNH");
+        } else {
+            if (movies.likers.length === 1 ) {
+                setTrend("TRÊN TAB THỊNH HÀNH");
+            } else {
+                if (movies.likers.length === 0) {
+                    setTrend("");
+                } else {
+                    setTrend("");
+                }
+            }
+        }
+    }, []);
+
     const handleClick = (direction) => {
 
         setIsMoved(true);
@@ -104,7 +122,15 @@ const Watch = () => {
                     <video className="video" autoPlay progress controls src={movies.video} />
                 </div>
                 <div className="watch-title">
-                    <h1 className="title">{movies.title}</h1>
+                    <div className="watch-trend">
+                        <span className="trend">{trend}</span>
+                        {/* { movies.likers.length >= 2 ? (
+                            <span className="trend">#1 TRÊN TAB THỊNH HÀNH</span>
+                        ) : (
+                            <span className="trend"></span>
+                        ) } */}
+                        <h1 className="title">{movies.title}</h1>
+                    </div>
                     <div className="feel">
                         { userId && isLiked === false && (
                             <div className="feel-like" onClick={handleLike}>
