@@ -79,6 +79,10 @@
 
                 &:hover {
                     background: #606060;
+
+                    .right-icon {
+                        display: block;
+                    }
                 }
 
                 .right-title {
@@ -94,9 +98,9 @@
                 }
 
                 .right-icon {
-                    // margin-left: 200px;
                     position: absolute;
                     right: 99px;
+                    display: none;
                 }
             }
 

@@ -1,0 +1,15 @@
+.scroll-to-top-icon {
+    height: 40px;
+    width: 40px;
+    border: 1px solid #fff;
+    cursor: pointer;
+    position: fixed;
+    bottom: 85px;
+    right: 150px;
+    background: #fff;
+
+    .icon {
+        margin: 7px;
+        color: #000;
+    }
+}

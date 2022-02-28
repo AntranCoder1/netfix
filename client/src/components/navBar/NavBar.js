@@ -63,8 +63,15 @@ const NavBar = (props) => {
                     <Link to="/movies">
                         <span>Movies</span>
                     </Link>
-                    <span>New and Popular</span>
-                    <span>My List</span>
+                    <Link to="/newVideo">
+                        <span>New Movies</span>
+                    </Link>
+                    <Link to="/movieCart">
+                        <span>Liked Video</span>
+                    </Link>
+                    <Link to="/trending">
+                        <span>Trending</span>
+                    </Link>
                 </div>
                 <div className="right">
                     { user ? (
@@ -89,12 +96,10 @@ const NavBar = (props) => {
                             </div>
                             <span>{user.name}</span>
                             <Notifications className="icon" />
-                            <Link to={`/profile/${user._id}`}>
-                                <img  
-                                    src={user.picture || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
-                                    alt="netfix-user"
-                                />
-                            </Link>
+                            <img  
+                                src={user.picture || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
+                                alt="netfix-user"
+                            />
                         </>
                     ) : (
                         <>
@@ -118,26 +123,24 @@ const NavBar = (props) => {
                             </div>
                             <span>{checkUserGoogle}</span>
                             <Notifications className="icon" />
-                            <Link to={`/profile/${checkIdGoogle}`}>
-                                <img  
-                                    src={checkImageGoogle || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
-                                    alt="netfix-user"
-                                />
-                            </Link>
+                            <img  
+                                src={checkImageGoogle || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
+                                alt="netfix-user"
+                            />
                         </>    
                     ) }
                     <div className="profile">
                         <ArrowDropDown className="icon" />
                         { user ? (
                             <div className="options">
-                                <Link to="/movieCart">
+                                <Link to={`/profile/${user._id}`}>
                                     <span>Settings</span>
                                 </Link>
                                 <span onClick={handleLogout}>Logout</span>
                             </div>
                         ) : (
                             <div className="options">
-                                <Link to="/movieCart">
+                                <Link to={`/profile/${user._id}`}>
                                     <span>Settings</span>
                                 </Link>
                                 <span onClick={handleClick}>Logout Google</span>

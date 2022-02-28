@@ -6,6 +6,8 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import Profile from './pages/profile/Profile';
 import MovieCart from './pages/movieCart/MovieCart';
+import NewVideo from './pages/newVideo/NewVideo';
+import Trending from './pages/trending/Trending';
 import { BrowserRouter as Router,
   Switch,
   Route,
@@ -65,6 +67,12 @@ function App() {
               <Route path='/movieCart'>
                 <MovieCart />
               </Route>
+              <Route path='/newVideo'>
+                <NewVideo />
+              </Route>
+              <Route path='/trending'>
+                <Trending />
+              </Route>
             </>
           ) : (
             <>
@@ -82,6 +90,12 @@ function App() {
               </Route>
               <Route path='/movieCart'>
                 <MovieCart />
+              </Route>
+              <Route path='/newVideo'>
+                <NewVideo />
+              </Route>
+              <Route path='/trending'>
+                <Trending />
               </Route>
             </>
           )

@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MovieCart.scss';
 import NavBar from '../../components/navBar/NavBar';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const MovieCart = () => {
 
@@ -19,7 +19,7 @@ const MovieCart = () => {
     const filtered = check.filter(function(el) {
         return el !== undefined
     });
-    
+
     return (
         <div className="movie-cart">
             <NavBar />
@@ -44,15 +44,20 @@ const MovieCart = () => {
                     { filtered.map((movie) => (
                         <div className="right-right">
                             <div className="right-content">
-                                <span style={{ fontSize: "20px" }}>0</span>
-                                <div className="right-title">
-                                    <img src={movie.img} alt="" />
-                                    <div className="right-genre">
-                                        <p style={{ fontWeight: "500" }}>{movie.title}</p>
-                                        <p style={{ fontSize: "15px", color: "#ccc", marginTop: "20px" }}>{movie.genre}</p>
-                                    </div>
-                                </div>
-                                <MoreVertIcon className="right-icon" />
+                                {/* <span style={{ fontSize: "20px" }}>0</span> */}
+                                <Link to={`/watch/${movie._id}`}>
+                                    <>
+                                        <div className="right-title">
+                                            <img src={movie.img} alt="" />
+                                            <div className="right-genre">
+                                                <p style={{ fontWeight: "500" }}>{movie.title}</p>
+                                                <p style={{ fontSize: "15px", color: "#ccc", marginTop: "20px" }}>
+                                                    {movie.genre}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </>
+                                </Link>
                             </div>
                             <div className="right-bottom"></div>
                         </div>

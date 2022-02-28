@@ -1,3 +1,5 @@
+import react, { useState, useEffect } from 'react';
+
 export const dateParser = (num) => {
     let options = {
         hour: "2-digit",
@@ -18,10 +20,10 @@ export const dateParser = (num) => {
 
 export const timestampParser = (num) => {
     let options = {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        weekday: "long",
+        // hour: "2-digit",
+        // minute: "2-digit",
+        // second: "2-digit",
+        // weekday: "long",
         year: "numeric",
         month: "short",
         day: "numeric",
