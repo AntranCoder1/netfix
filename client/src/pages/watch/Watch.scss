@@ -24,10 +24,21 @@
             align-items: center;
             margin-bottom: 40px;
 
-            .title {
-                width: 790px;
+            .watch-trend {
+                display: flex;
+                flex-direction: column;
+
+                .trend {
+                    font-size: 13px;
+                    margin-bottom: 5px;
+                    color: red;
+                }
+
+                .title {
+                    width: 790px;
+                }
             }
-            
+
             .feel {
                 display: flex;
                 position: absolute;
