@@ -11,6 +11,7 @@ import Trending from './pages/trending/Trending';
 import WatchG from './pages/watch/WatchG';
 import TrendingG from './pages/trending/TrendingG';
 import NewVideoG from './pages/newVideo/NewVideoG';
+import MovieCartG from './pages/movieCart/MovieCartG';
 import { BrowserRouter as Router,
   Switch,
   Route,
@@ -67,7 +68,7 @@ function App() {
                 <Profile user={userGoogle} />
               </Route>
               <Route path='/movieCart'>
-                <MovieCart />
+                <MovieCartG />
               </Route>
               <Route path='/newVideo'>
                 <NewVideoG />
