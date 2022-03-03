@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Home.scss';
 import NavBar from '../../components/navBar/NavBar';
+import NavbarG from '../../components/navBar/NavbarG';
 import Featured from '../../components/featured/Featured';
 import List from '../../components/list/List';
 import MovieItem from '../../components/MovieItem/MovieItem';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const Home = ({ type }) => {
 
@@ -13,6 +15,7 @@ const Home = ({ type }) => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
+    const user = useSelector(state => state.user.currentUser);
 
     useEffect(() => {
         const getRandomList = async () => {
@@ -47,7 +50,11 @@ const Home = ({ type }) => {
 
     return (
         <div className="home">
-            <NavBar search={search} />
+            { user ? (
+                <NavBar search={search} />
+            ) : (
+                <NavbarG search={search} />
+            ) }
             { movies.length === 0 ? (
                 <>
                     <Featured type={type} setGenre={setGenre} />

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import "./Watch.scss";
+import './Watch.scss';
 import { useLocation, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import NavBar from '../../components/navBar/NavBar';
+import NavbarG from '../../components/navBar/NavbarG';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ShareIcon from '@material-ui/icons/Share';
@@ -12,11 +12,10 @@ import axios from 'axios';
 import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from '@material-ui/icons'
 import Modal from '../../components/modal/Modal';
 import ShareModal from '../../components/shareModal/ShareModal';
-import { likeMovie, disLikeMovie, getMovie } from '../../redux/ApiMovieCall';
-import Comment from '../comment/Comment';
+import { getMovie, likeMovie, disLikeMovie } from '../../redux/ApiMovieGCall'; 
 import { isEmpty } from '../../Utils';
 
-const Watch = () => {
+const WatchG = () => {
 
     const location = useLocation();
     const movieId = location.pathname.split("/")[2];
@@ -27,6 +26,9 @@ const Watch = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isModal, setIsModal] = useState(false);
 
+    const [isLiked, setIsLiked] = useState(false);
+    const [trend, setTrend] = useState("");
+
     const dispatch = useDispatch();
 
     const movieReco = useRef();
@@ -35,17 +37,10 @@ const Watch = () => {
         state.movie.movies.find((item) => item._id === movieId)    
     );
 
-    const [isLiked, setIsLiked] = useState(false);
-    const [trend, setTrend] = useState("");
+    const TOKEN = JSON.parse(localStorage.getItem("userGoogle"))?.token;
+    const userId = JSON.parse(localStorage.getItem("userGoogle"))?.user;
 
-    const admin = JSON.parse(localStorage.getItem("persist:root"))?.user;
-    const currentUser = admin && JSON.parse(admin).currentUser;
-    const TOKEN = currentUser?.token;
-
-    const admin1 = JSON.parse(localStorage.getItem("persist:root"))?.user;
-    const currentUser1 = admin1 && JSON.parse(admin).currentUser;
-    const userId = currentUser1?._id;
-
+    
     useEffect(() => {
         const getMovie = async () => {
             try {
@@ -61,11 +56,11 @@ const Watch = () => {
         }
         getMovie();
     }, []);
-
+    
     useEffect(() => {
         getMovie(dispatch);
     });
-    
+
     const handleLike = () => {
         likeMovie(dispatch, userId, movieId);
         setIsLiked(true);
@@ -96,7 +91,7 @@ const Watch = () => {
             }
         }
     }, []);
-
+    
     const handleClick = (direction) => {
 
         setIsMoved(true);
@@ -116,7 +111,7 @@ const Watch = () => {
 
     return (
         <div className="watch">
-            <NavBar />
+            <NavbarG />
             <div className="watch-content">
                 <div className="watch-video">
                     <video className="video" autoPlay progress controls src={movies.video} />
@@ -196,7 +191,6 @@ const Watch = () => {
                         )) }
                     </div>
                 </div>
-                <Comment movies={movies} />
                 <div className="footer">
                     <div className="footer-title">Question? Contact us.</div>
                     <p className="footer-break"></p>
@@ -235,4 +229,4 @@ const Watch = () => {
     )
 }
 
-export default Watch
+export default WatchG
