@@ -14,6 +14,7 @@ import Modal from '../../components/modal/Modal';
 import ShareModal from '../../components/shareModal/ShareModal';
 import { getMovie, likeMovie, disLikeMovie } from '../../redux/ApiMovieGCall'; 
 import { isEmpty } from '../../Utils';
+import CommentG from '../../pages/comment/CommentG';
 
 const WatchG = () => {
 
@@ -191,6 +192,7 @@ const WatchG = () => {
                         )) }
                     </div>
                 </div>
+                <CommentG movies={movies} />
                 <div className="footer">
                     <div className="footer-title">Question? Contact us.</div>
                     <p className="footer-break"></p>

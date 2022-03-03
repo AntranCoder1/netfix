@@ -3,15 +3,16 @@ import './Comment.scss';
 import { timestampParser, isEmpty } from '../../Utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUsers } from '../../redux/ApiUsersCall';
-import { comment, getMovie, deleteComment } from '../../redux/ApiMovieCall';
+import { getMovie, comment, deleteComment } from '../../redux/ApiMovieGCall';
 import SendIcon from '@material-ui/icons/Send';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import CommentEdit from '../commentEdit/CommentEdit';
 
-const Comment = ({ movies }) => {
-    
-    const user = useSelector(state => state.user.currentUser);
+const CommentG = ({ movies }) => {
+
+    const user = JSON.parse(localStorage.getItem("userGoogle"))?.user;
+    const userImg = JSON.parse(localStorage.getItem("userGoogle"))?.picture;
+    const userName = JSON.parse(localStorage.getItem("userGoogle"))?.name;
     const users = useSelector(state => state.users.users);
     const dispatch = useDispatch();
 
@@ -26,14 +27,14 @@ const Comment = ({ movies }) => {
         e.preventDefault();
 
         if (text) {
-            comment(dispatch, movies._id, user._id, user.name, text)
+            comment(dispatch, movies._id, user, userName, text)
                 .then(() => getMovie(dispatch))
                 .then(() => setText(''));
         }
     }
 
     const commentMovie = movies.comments.filter((comment) => {
-        if (comment.commenterId === user._id) {
+        if (comment.commenterId === user) {
             return comment
         }
     })
@@ -55,7 +56,7 @@ const Comment = ({ movies }) => {
                     <div className="left-part">
                         <img 
                             src={!isEmpty(users[0]) && users.map((user) => {
-                                if (user._id === comment.commenterId) return user.picture;
+                                if (user._id === comment.commenterId) return user.picture || userImg;
                                 else return null;
                             }).join("")}
                             alt="user-pic"     
@@ -69,9 +70,9 @@ const Comment = ({ movies }) => {
                         <div className="comment-text">
                             <p>{comment.text}</p>
                             <div className="comment-text-icon">
-                                { comment.commenterId === user._id && (
+                                { comment.commenterId === user && (
                                     <>
-                                        <EditIcon className="icon" onClick={() => setIsOpen(!isOpen)} />
+                                        {/* <EditIcon className="icon" onClick={() => setIsOpen(!isOpen)} /> */}
                                         <DeleteIcon className="icon" onClick={() => {
                                             if (window.confirm("Do you want to delete this comment ?")) {
                                                 handleDelete();
@@ -82,12 +83,12 @@ const Comment = ({ movies }) => {
                             </div>
                         </div>
                         { comment.commenterId === user._id && isOpen && (
-                            <CommentEdit comment={comment} setIsOpen={setIsOpen} movies={movies} /> 
+                            {/* <CommentEdit comment={comment} setIsOpen={setIsOpen} movies={movies} />  */}
                         ) }
                     </div>
                 </div>
             )) }
-            { user._id && (
+            { user && (
                 <form className="comment-form" onSubmit={handleSubmit}>
                     <input 
                         type="text"
@@ -110,4 +111,4 @@ const Comment = ({ movies }) => {
     )
 }
 
-export default Comment
+export default CommentG

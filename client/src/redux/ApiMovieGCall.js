@@ -63,3 +63,50 @@ export const disLikeMovie = async (dispatch, userId, movieId) => {
         dispatch(disLikeMovieFailure());
     }
 };
+
+export const comment = async (dispatch, movieId, commenterId, commenterUsername, text) => {
+    dispatch(addCommentStart());
+    try {
+        await axios.patch("/movies/comment/" + movieId, { 
+            commenterId: commenterId, 
+            commenterUsername: commenterUsername, text: text }, {
+                headers: {
+                    token: "Bearer " + TOKEN
+                }
+            });
+            dispatch(addCommentSuccess(movieId));
+    } catch (error) {
+        dispatch(addCommentFailure());
+    }
+};
+
+export const editComment = async (dispatch, movieId, commentId, text) => {
+    dispatch(editCommentStart());
+    try {
+        await axios.patch("/movies/updateComment/" + movieId, { 
+            commentId: commentId,
+            text: text
+        }, {
+            headers: {
+                token: "Bearer " + TOKEN
+            }
+        });
+        dispatch(editCommentSuccess(movieId, commentId, text));
+    } catch (error) {
+        dispatch(editCommentFailure());
+    }
+};
+
+export const deleteComment = async (dispatch, movieId, commentId) => {
+    dispatch(deleteCommentStart());
+    try {
+        await axios.patch("/movies/deleteComment/" + movieId, { commentId: commentId }, {
+            headers: {
+                token: "Bearer " + TOKEN
+            }
+        });
+        dispatch(deleteCommentSuccess(movieId, commentId));
+    } catch (error) {
+        dispatch(deleteCommentFailure());
+    }
+};
