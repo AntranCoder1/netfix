@@ -8,6 +8,7 @@ import Profile from './pages/profile/Profile';
 import MovieCart from './pages/movieCart/MovieCart';
 import NewVideo from './pages/newVideo/NewVideo';
 import Trending from './pages/trending/Trending';
+import WatchG from './pages/watch/WatchG';
 import { BrowserRouter as Router,
   Switch,
   Route,
@@ -36,7 +37,6 @@ function App() {
   }
   const userGoogle = localStorage.getItem("userGoogle");
   
-  
   return (
     <Router>
       <Switch>
@@ -59,7 +59,7 @@ function App() {
                 <Home type='series' />
               </Route>
               <Route path='/watch'>
-                <Watch />
+                <WatchG />
               </Route>
               <Route path='/profile'>
                 <Profile user={userGoogle} />

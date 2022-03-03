@@ -32,11 +32,16 @@ const Comment = ({ movies }) => {
         }
     }
 
-    const commentId = movies.comments.map((comment) => {
-        return comment._id
+    const commentMovie = movies.comments.filter((comment) => {
+        if (comment.commenterId === user._id) {
+            return comment
+        }
     })
 
+    const commentId = commentMovie.map((comment) => comment._id);
+
     const handleDelete = () => {
+
         deleteComment(dispatch, movies._id, commentId.join());
     }
 

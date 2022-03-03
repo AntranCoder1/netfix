@@ -2,26 +2,22 @@ import React, { useState } from 'react';
 import './NavBar.scss';
 import { ArrowDropDown, Notifications } from "@material-ui/icons";
 import { Link, useHistory } from 'react-router-dom';
-import { logout } from '../../redux/User.redux';
-import { useDispatch, useSelector } from 'react-redux';
 
-const NavBar = (props) => {
+const NavbarG = (props) => {
 
     const [isScrolled, setIsScrolled] = useState(false);
     const [seatchItem, setSearchItem] = useState("");
-    const user = useSelector(state => state.user.currentUser);
-    const dispatch = useDispatch(); 
+
     const history = useHistory();
+
+    const checkUserGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.name;
+    const checkImageGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.picture;
+    const checkIdGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.user;
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true );
         return () => (window.onscroll = null);
     };
-
-    const handleLogout = () => {
-        dispatch(logout())
-        history.push("/register")
-    }
 
     const handleClick = () => {
         localStorage.removeItem("userGoogle");
@@ -40,8 +36,6 @@ const NavBar = (props) => {
         e.preventDefault();
         props.search(seatchItem);
     }
-
-    console.log(seatchItem)
 
     return (
         <div className={ isScrolled ? "navBar scrolled" : "navBar"}>
@@ -88,19 +82,19 @@ const NavBar = (props) => {
                             />
                         </form>
                     </div>
-                    <span>{user.name}</span>
+                    <span>{checkUserGoogle}</span>
                     <Notifications className="icon" />
                     <img  
-                        src={user.picture || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
+                        src={checkImageGoogle || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
                         alt="netfix-user"
                     />
                     <div className="profile">
                         <ArrowDropDown className="icon" />
                         <div className="options">
-                            <Link to={`/profile/${user._id}`}>
+                            <Link to={`/profile/${checkIdGoogle}`}>
                                 <span>Settings</span>
                             </Link>
-                            <span onClick={handleLogout}>Logout</span>
+                            <span onClick={handleClick}>Logout Google</span>
                         </div>
                     </div>
                 </div>
@@ -109,4 +103,4 @@ const NavBar = (props) => {
     )
 }
 
-export default NavBar
+export default NavbarG
