@@ -7,6 +7,7 @@ import { getMovie, comment, deleteComment } from '../../redux/ApiMovieGCall';
 import SendIcon from '@material-ui/icons/Send';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CommentEditG from '../commentEdit/CommentEditG';
 
 const CommentG = ({ movies }) => {
 
@@ -72,7 +73,7 @@ const CommentG = ({ movies }) => {
                             <div className="comment-text-icon">
                                 { comment.commenterId === user && (
                                     <>
-                                        {/* <EditIcon className="icon" onClick={() => setIsOpen(!isOpen)} /> */}
+                                        <EditIcon className="icon" onClick={() => setIsOpen(!isOpen)} />
                                         <DeleteIcon className="icon" onClick={() => {
                                             if (window.confirm("Do you want to delete this comment ?")) {
                                                 handleDelete();
@@ -82,8 +83,8 @@ const CommentG = ({ movies }) => {
                                 ) }
                             </div>
                         </div>
-                        { comment.commenterId === user._id && isOpen && (
-                            {/* <CommentEdit comment={comment} setIsOpen={setIsOpen} movies={movies} />  */}
+                        { comment.commenterId === user && isOpen && (
+                            <CommentEditG comment={comment} setIsOpen={setIsOpen} movies={movies} /> 
                         ) }
                     </div>
                 </div>
