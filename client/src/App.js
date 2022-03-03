@@ -10,6 +10,7 @@ import NewVideo from './pages/newVideo/NewVideo';
 import Trending from './pages/trending/Trending';
 import WatchG from './pages/watch/WatchG';
 import TrendingG from './pages/trending/TrendingG';
+import NewVideoG from './pages/newVideo/NewVideoG';
 import { BrowserRouter as Router,
   Switch,
   Route,
@@ -69,7 +70,7 @@ function App() {
                 <MovieCart />
               </Route>
               <Route path='/newVideo'>
-                <NewVideo />
+                <NewVideoG />
               </Route>
               <Route path='/trending'>
                 <TrendingG />
