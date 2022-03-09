@@ -5,6 +5,7 @@ export const Container = styled.div`
 
     border-bottom: 8px solid #222; 
     background-color: black;
+    width: 100vw;
 `;
 
 export const Item = styled.div`

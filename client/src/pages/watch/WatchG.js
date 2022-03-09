@@ -78,10 +78,10 @@ const WatchG = () => {
     }, [userId, movies.likers, isLiked]);
 
     useEffect(() => {
-        if (movies.likers.length >= 2) {
+        if (movies.likers.length > 2) {
             setTrend("#1 TRÊN TAB THỊNH HÀNH");
         } else {
-            if (movies.likers.length === 1 ) {
+            if (movies.likers.length <= 2 ) {
                 setTrend("TRÊN TAB THỊNH HÀNH");
             } else {
                 if (movies.likers.length === 0) {
@@ -175,7 +175,7 @@ const WatchG = () => {
                                 className="sliderArrow left"
                                 onClick={() => handleClick("left")}
                                 style={{ display: !isMoved && "none" }}
-                            />
+                            />  
                             <ArrowForwardIosOutlined
                                 className="sliderArrow right"
                                 onClick={() => handleClick("right")}

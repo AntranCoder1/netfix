@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './NavBar.scss';
-import { ArrowDropDown, Notifications } from "@material-ui/icons";
+import { ArrowDropDown, Notifications, Menu, Facebook } from "@material-ui/icons";
 import { Link, useHistory } from 'react-router-dom';
 import { logout } from '../../redux/User.redux';
 import { useDispatch, useSelector } from 'react-redux';
 
 const NavBar = (props) => {
 
+    const [showMediaIcons, setShowMediaIcons] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [seatchItem, setSearchItem] = useState("");
     const user = useSelector(state => state.user.currentUser);
@@ -41,9 +42,81 @@ const NavBar = (props) => {
         props.search(seatchItem);
     }
 
-    console.log(seatchItem)
+    return (  
+        // <nav>
+        //     <div className="nav-center">
+        //         <div className="nav-header">
+        //             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png" alt="logo" />
+        //             <Menu className="nav-toggle" onClick={() => setShowMediaIcons(!showMediaIcons)} />
+        //         </div>
+        //         <ul className={ showMediaIcons ? " links-mobie" : "links" }>
+        //             <li>
+        //                 <Link to="/">Homepage</Link>
+        //             </li>
+        //             <li>
+        //                 <Link to="/series">Series</Link>
+        //             </li>
+        //             <li>
+        //                 <Link to="/movies">Movies</Link>
+        //             </li>
+        //             <li>
+        //                 <Link to="/newVideo">New Movies</Link>
+        //             </li>
+        //             <li>
+        //                 <Link to="/movieCart">Liked Video</Link>
+        //             </li>
+        //             <li>
+        //                 <Link to="/trending">Trending</Link>
+        //             </li>
+        //         </ul>
 
-    return (
+        //         <ul className="social-icons">
+        //             <li>
+        //                 <div id="wrap">
+        //                     <form action="" autocomplete="on">
+        //                         <input 
+        //                             id="search"
+        //                             name="search"
+        //                             type="text"
+        //                             placeholder="Search..."
+        //                             value={seatchItem}
+        //                             onChange={handleChange}
+        //                         />
+        //                         <input 
+        //                             id="search_submit" 
+        //                             value="Rechercher" 
+        //                             type="submit"
+        //                             onClick={callSearchFunction}
+        //                         />
+        //                     </form>
+        //                 </div>
+        //             </li>
+        //             <li>
+        //                 <p>{user.name}</p>
+        //             </li>
+        //             <li>
+        //                 <Notifications className="icon" />
+        //             </li>
+        //             <li>
+        //                 <img  
+        //                     src={user.picture || "httpsi.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
+        //                     alt="netfix-user"
+        //                 />
+        //             </li>
+        //             <li>
+        //                 <div className="profile">
+        //                     <ArrowDropDown className="icon" />
+        //                     <div className="options">
+        //                         <Link to={`/profile/${user._id}`}>
+        //                             <span>Settings</span>
+        //                         </Link>
+        //                         <span onClick={handleLogout}>Logout</span>
+        //                     </div>
+        //                 </div>
+        //             </li>
+        //         </ul>
+        //     </div>
+        // </nav>
         <div className={ isScrolled ? "navBar scrolled" : "navBar"}>
             <div className="container">
                 <div className="left">
