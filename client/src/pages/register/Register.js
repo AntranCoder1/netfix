@@ -125,7 +125,7 @@ const Register = () => {
                 <div className="footer-title">Question? Contact us.</div>
                 <p className="footer-break"></p>
                 <div className="footer-row">
-                <div className="footer-column">
+                    <div className="footer-column">
                         <a href="https://help.netflix.com/vi/node/412" className="footer-link">FAQ</a>
                         <a href="https://ir.netflix.net/ir-overview/profile/default.aspx" className="footer-link">Investor Relations</a>
                         <a href="https://help.netflix.com/legal/privacy" className="footer-link">Privacy</a>

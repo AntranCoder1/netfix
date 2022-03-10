@@ -64,13 +64,12 @@
                 padding: 10px 20px;
                 border: none;
                 border-radius: 5px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
                 font-size: 18px;
                 font-weight: 500;
                 margin-right: 10px;
                 cursor: pointer;
+                display: flex;
+                align-items: center;
 
                 &.play {
                     background-color: white;
@@ -80,8 +79,7 @@
                 &.more {
                     background-color: gray;
                     color: white;
-                    position: absolute;
-                    right: 19rem;
+                    margin-right: 302px;
                 }
 
                 span {
@@ -90,4 +88,8 @@
             }
         }
     }
+}
+
+@media screen and (min-width: 992px) {
+    
 }

@@ -6,8 +6,6 @@ import { useSelector } from 'react-redux';
 const Profile = ({ user }) => {
 
     const users = useSelector(state => state.user.currentUser);
-    const checkUserGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.name;
-    const checkImageGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.picture;
 
     return (
         <div className="profile">
@@ -20,27 +18,29 @@ const Profile = ({ user }) => {
                     />
                 </div>
             </div>
-            { users ? (
-                <Link to="/">
+            { users && (
+                <>
                     <div className="container">
-                        <img 
-                            src={user.picture || "https://i.pinimg.com/564x/1f/0d/78/1f0d78de9cf2a1358d2bece601a2a40f.jpg"} 
-                            alt="user-img"
-                        />
-                        <p>{user.name}</p>
+                        <h1>Who's watching?</h1>
+                        <div className="container-user">
+                            <Link to="/">
+                                <div className="user">
+                                    <img 
+                                        src={user.picture || "https://i.pinimg.com/564x/1f/0d/78/1f0d78de9cf2a1358d2bece601a2a40f.jpg"} 
+                                        alt="user-img"
+                                    />
+                                    <p>{user.name}</p>
+                                </div>
+                            </Link>
+                            <Link to="/edit-profile">
+                                <div className="edit-user">
+                                    <p className="edit-user-btn">manage profiles</p>
+                                </div>
+                            </Link>
+                        </div>
                     </div>
-                </Link>
-            ) : (
-                <Link to="/">
-                    <div className="container">
-                        <img 
-                            src={checkImageGoogle || "https://i.pinimg.com/564x/1f/0d/78/1f0d78de9cf2a1358d2bece601a2a40f.jpg"} 
-                            alt="user-img"
-                        />
-                        <p>{checkUserGoogle}</p>
-                    </div>
-                </Link>
-            ) }
+                </>      
+            )}
         </div>
     );
 };

@@ -12,6 +12,7 @@ import WatchG from './pages/watch/WatchG';
 import TrendingG from './pages/trending/TrendingG';
 import NewVideoG from './pages/newVideo/NewVideoG';
 import MovieCartG from './pages/movieCart/MovieCartG';
+import EditProfile from './pages/EditProfile/EditProfile';
 import { BrowserRouter as Router,
   Switch,
   Route,
@@ -99,6 +100,9 @@ function App() {
               </Route>
               <Route path='/trending'>
                 <Trending />
+              </Route>
+              <Route path="/edit-profile">
+                <EditProfile user={user} />
               </Route>
             </>
           )
