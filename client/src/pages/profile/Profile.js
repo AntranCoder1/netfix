@@ -32,9 +32,11 @@ const Profile = ({ user }) => {
                                     <p>{user.name}</p>
                                 </div>
                             </Link>
-                            <div className="edit-user">
-                                <p className="edit-user-btn">manage profiles</p>
-                            </div>
+                            <Link to="/edit-profile">
+                                <div className="edit-user">
+                                    <p className="edit-user-btn">manage profiles</p>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                 </>      

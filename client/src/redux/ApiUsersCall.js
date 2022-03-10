@@ -2,6 +2,9 @@ import {
     getAllUserStart, 
     getAllUserSuccess, 
     getAllUserFailure,
+    updateUserStart,
+    updateUserSuccess,
+    updateUserFailure
 } from './AllUserRedux'; 
 import axios from 'axios';
 
@@ -20,5 +23,19 @@ export const getUsers = async (dispatch) => {
         dispatch(getAllUserSuccess(res.data));
     } catch (error) {
         dispatch(getAllUserFailure());
+    }
+};
+
+export const updateUsers = async (dispatch, id, user) => {
+    dispatch(updateUserStart());
+    try {
+        const res = await axios.put("/users/" + id, user,  {
+            headers: {
+                token: "Bearer " + TOKEN
+            }
+        })
+        dispatch(updateUserSuccess(id, res.data))
+    } catch (error) {
+        dispatch(updateUserFailure());
     }
 };
