@@ -6,8 +6,7 @@ import { getUsers } from '../../redux/ApiUsersCall';
 import axios from 'axios';
 
 const Profile = ({ user }) => {
-
-    // const users = useSelector(state => state.user.currentUser);
+    
     const [users, setUsers] = useState([]);
     const dispatch = useDispatch();
 
