@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Profile.scss';
 import { Link } from 'react-router-dom'; 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUsers } from '../../redux/ApiUsersCall';
+import axios from 'axios';
 
 const Profile = ({ user }) => {
 
-    const users = useSelector(state => state.user.currentUser);
+    // const users = useSelector(state => state.user.currentUser);
+    const [users, setUsers] = useState([]);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const getCurrentUser = async () => {
+            try {
+                const res = await axios.get("/users/find/" + user._id);
+                setUsers(res.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getCurrentUser();
+    }, [])
+
+    console.log(users);
 
     return (
         <div className="profile">
@@ -26,10 +44,10 @@ const Profile = ({ user }) => {
                             <Link to="/">
                                 <div className="user">
                                     <img 
-                                        src={user.picture || "https://i.pinimg.com/564x/1f/0d/78/1f0d78de9cf2a1358d2bece601a2a40f.jpg"} 
+                                        src={users.picture || "https://i.pinimg.com/564x/1f/0d/78/1f0d78de9cf2a1358d2bece601a2a40f.jpg"} 
                                         alt="user-img"
                                     />
-                                    <p>{user.name}</p>
+                                    <p>{users.name}</p>
                                 </div>
                             </Link>
                             <Link to="/edit-profile">

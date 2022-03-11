@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './MovieCart.scss';
 import NavBar from '../../components/navBar/NavBar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const MovieCart = () => {
 
     const user = useSelector(state => state.user.currentUser);
     const movies = useSelector(state => state.movie.movies);
+    const [users, setUsers] = useState([]);
 
     const check = movies.map((movie) => {
         if (movie.likers.includes(user._id)) {
@@ -19,6 +21,18 @@ const MovieCart = () => {
     const filtered = check.filter(function(el) {
         return el !== undefined
     });
+
+    useEffect(() => {
+        const getCurrentUser = async () => {
+            try {
+                const res = await axios.get("/users/find/" + user._id);
+                setUsers(res.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getCurrentUser();
+    }, []);
 
     return (
         <div className="movie-cart">
@@ -36,8 +50,8 @@ const MovieCart = () => {
                     </div>
                     <div className="left-bottom"></div>
                     <div className="left-user">
-                        <img src={user.picture} alt="" />
-                        <p className="left-user-name">{user.name}</p>
+                        <img src={users.picture} alt="" />
+                        <p className="left-user-name">{users.name}</p>
                     </div>
                 </div>
                 <div className="right">
