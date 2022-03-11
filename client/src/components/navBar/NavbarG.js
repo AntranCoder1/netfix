@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './NavBar.scss';
 import { ArrowDropDown, Notifications } from "@material-ui/icons";
 import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 const NavbarG = (props) => {
 
@@ -13,6 +14,8 @@ const NavbarG = (props) => {
     const checkUserGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.name;
     const checkImageGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.picture;
     const checkIdGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.user;
+
+    const [user, setUser] = useState([]);
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true );
@@ -36,6 +39,18 @@ const NavbarG = (props) => {
         e.preventDefault();
         props.search(seatchItem);
     }
+
+    useEffect(() => {
+        const getCurrentUser = async () => {
+            try {
+                const res = await axios.get("/users/find/" + checkIdGoogle)
+                setUser(res.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getCurrentUser();
+    }, []);
 
     return (
         <div className={ isScrolled ? "navBar scrolled" : "navBar"}>
@@ -82,10 +97,10 @@ const NavbarG = (props) => {
                             />
                         </form>
                     </div>
-                    <span>{checkUserGoogle}</span>
+                    <span>{ user.name || checkUserGoogle}</span>
                     <Notifications className="icon" />
                     <img  
-                        src={checkImageGoogle || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
+                        src={ user.picture || checkImageGoogle || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
                         alt="netfix-user"
                     />
                     <div className="profile">
