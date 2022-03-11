@@ -1,18 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './EditProfile.scss';
 import { Link, useHistory } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import { useSelector, useDispatch } from 'react-redux';
 import storage from '../../firebase';
-import { updateUsers } from '../../redux/ApiUsersCall';
+import { updateUsers, getUsers } from '../../redux/ApiUsersCall';
+import axios from 'axios';
 
-const EditProfile = ({ user }) => {
+const EditProfile = () => {
 
     const [users, setUsers] = useState(null);
     const [picture, setPicture] = useState(null);
     const [uploaded, setUploaded] = useState(0);
     const dispatch = useDispatch();
     const history = useHistory();
+
+    // // const user = useSelector(state => state.user.currentUser);
+    const currentUser = useSelector(state => state.user.currentUser);
+    // const user = useSelector(state => 
+    //     state.user.users.find((item) => item._id === currentUser._id)
+    // );
+
+    // useEffect(() => {
+    //     getUsers(dispatch);
+    // }, [dispatch])
+
+    // console.log(user)
+
+    const [user, setUser] = useState([]);
+
+    useEffect(() => {
+        const getCurrentUser = async () => {
+            try {
+                const res = await axios.get("/users/find/" + currentUser._id);
+                setUser(res.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getCurrentUser();
+    }, [])
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -39,8 +66,6 @@ const EditProfile = ({ user }) => {
             })
         })
     }
-
-    console.log(upload);
 
     const handleUpload = () => {
         upload([

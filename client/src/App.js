@@ -102,7 +102,7 @@ function App() {
                 <Trending />
               </Route>
               <Route path="/edit-profile">
-                <EditProfile user={user} />
+                <EditProfile />
               </Route>
             </>
           )
