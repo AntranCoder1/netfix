@@ -4,6 +4,8 @@ import { login } from '../../redux/ApiCall';
 import { useSelector, useDispatch } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 import { useHistory, Link } from 'react-router-dom';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 const Login = ({ responseSuccessGoogle }) => {
 
@@ -12,6 +14,7 @@ const Login = ({ responseSuccessGoogle }) => {
     const dispatch= useDispatch();
     const history = useHistory();
     const [error, setError] = useState("");
+    const [passwordShown, setPasswordShown] = useState(false);
 
     const isInvalid = password === '' || email === '';
 
@@ -29,6 +32,10 @@ const Login = ({ responseSuccessGoogle }) => {
 
     const responseErrorGoogle = (response) => {
         console.log("Google login Failure", response);
+    }
+
+    const togglePasswordVisiblity = () => {
+        setPasswordShown(passwordShown ? false : true);
     }
 
     return (
@@ -53,10 +60,15 @@ const Login = ({ responseSuccessGoogle }) => {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <input 
-                        type="password"
+                        type={passwordShown ? "text" : "password"}
                         placeholder="Password"
                         onChange={(e) => setPassword(e.target.value)}
+                       
                     />
+                    { passwordShown 
+                        ? <VisibilityIcon className="icon" onClick={togglePasswordVisiblity} /> 
+                        : <VisibilityOffIcon className="icon" onClick={togglePasswordVisiblity} />
+                    }
                     <button className="btnSubmit" disabled={isInvalid} type="submit" data-testid="sign-in">
                         Sign In
                     </button>
