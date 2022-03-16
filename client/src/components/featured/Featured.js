@@ -24,7 +24,6 @@ const Featured = ({ type, setGenre }) => {
         getRandomContent();
     }, [type]);
 
-
     return (
         <div className="featured">
             {

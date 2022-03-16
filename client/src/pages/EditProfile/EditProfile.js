@@ -14,6 +14,9 @@ const EditProfile = () => {
     const [uploaded, setUploaded] = useState(0);
     const dispatch = useDispatch();
     const history = useHistory();
+    const [uploadIcon, setUploadIcon] = useState(false);
+
+    const isValid = uploadIcon;
 
     // // const user = useSelector(state => state.user.currentUser);
     const currentUser = useSelector(state => state.user.currentUser);
@@ -71,12 +74,17 @@ const EditProfile = () => {
         upload([
             { file: picture, label: 'picture' },
         ])
+        setUploadIcon(true);
     };
 
     const handleUpdate = () => {
         updateUsers(dispatch, user._id, users);
         history.push("/profile")
     }
+
+    useEffect(() => {
+        document.title = "Netflix - Manager profile"
+    }, []);
 
     return (
         <div className="edit-profile">
@@ -138,7 +146,10 @@ const EditProfile = () => {
                     <button 
                         className="btnSubmit"
                         onClick={handleUpload}
-                    >UPDATE</button>
+                        disabled={isValid}
+                    >
+                        { uploadIcon ? <i className="fa fa-refresh fa-spin"></i> : "UPDATE" }
+                    </button>
                 ) }
             </div>
         </div>

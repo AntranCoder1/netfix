@@ -19,6 +19,9 @@ const EditProfileG = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [users, setUsers] = useState([]);
+    const [uploadIcon, setUploadIcon] = useState(false);
+
+    const isValid = uploadIcon;
 
     useEffect(() => {
         const getCurrentUser = async () => {
@@ -63,12 +66,17 @@ const EditProfileG = () => {
         upload([
             { file: picture, label: 'picture' },
         ])
+        setUploadIcon(true);
     };
 
     const handleUpdate = () => {
         updateUsers(dispatch, checkUserIdGoogle, user);
         history.push("/profile")
     }
+
+    useEffect(() => {
+        document.title = "Netflix - Manager profile"
+    }, []);
 
     return (
         <div className="edit-profile">
@@ -130,7 +138,9 @@ const EditProfileG = () => {
                     <button 
                         className="btnSubmit"
                         onClick={handleUpload}
-                    >UPDATE</button>
+                    >
+                        { uploadIcon ? <i className="fa fa-refresh fa-spin"></i> : "UPDATE" }
+                    </button>
                 ) }
             </div>
         </div>

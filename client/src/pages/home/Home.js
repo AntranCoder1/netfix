@@ -18,6 +18,10 @@ const Home = ({ type }) => {
     const user = useSelector(state => state.user.currentUser);
 
     useEffect(() => {
+        document.title = "Netflix Việt Nam - Xem chương trình truyền hình trực tuyến, Xem phim trực tuyến"
+    }, []);
+
+    useEffect(() => {
         const getRandomList = async () => {
             try {
                 const res = await axios.get(
@@ -47,10 +51,6 @@ const Home = ({ type }) => {
             console.log(error);
         }
     };
-
-    // useEffect(() => {
-    //     document.title = searchValue
-    // }, []);
 
     return (
         <div className="home">

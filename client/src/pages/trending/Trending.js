@@ -26,6 +26,10 @@ const Trending = () => {
         }
     }, []);
 
+    useEffect(() => {
+        document.title = 'Netflix - Trending'
+    }, []);
+
     return (
         <div className="trending">
             <NavBar />

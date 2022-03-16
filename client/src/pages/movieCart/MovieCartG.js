@@ -37,6 +37,10 @@ const MovieCartG = () => {
         getCurrentUser();
     }, []);
 
+    useEffect(() => {
+        document.title = 'Netflix - liked video'
+    }, []);
+
     return (
         <div className="movie-cart">
             <NavbarG />
