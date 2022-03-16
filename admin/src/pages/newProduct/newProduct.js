@@ -4,6 +4,7 @@ import storage from '../../firebase';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { addMovie } from '../../redux/ApiCall';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const NewProduct = () => {
 
@@ -14,9 +15,12 @@ const NewProduct = () => {
     const [trailer, setTrailer] = useState(null);
     const [video, setVideo] = useState(null);
     const [uploaded, setUploaded] = useState(0);
+    const [uploadIcon, setUploadIcon] = useState(false);
 
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const isInvalid = uploadIcon;
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -52,6 +56,7 @@ const NewProduct = () => {
             { file: trailer, label: 'trailer' },
             { file: video, label: 'video' }
         ])
+        setUploadIcon(true);
     };
 
     const handleSubmmit = (e) => {
@@ -179,8 +184,9 @@ const NewProduct = () => {
                     <button 
                         className="addProductButton"
                         onClick={handleUpload}
-                    >
-                        Upload
+                        disabled={isInvalid}
+                    > 
+                        { uploadIcon ? <i className="fa fa-refresh fa-spin"></i> : "Upload" }
                     </button>
                 ) }
             </form>

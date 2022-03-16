@@ -10,6 +10,10 @@ const Profile = ({ user }) => {
     const [users, setUsers] = useState([]);
     const dispatch = useDispatch();
 
+    const admin = JSON.parse(localStorage.getItem("persist:root"))?.user;
+    const currentUser = admin && JSON.parse(admin).currentUser;
+    const TOKEN = currentUser?.token;
+
     useEffect(() => {
         const getCurrentUser = async () => {
             try {

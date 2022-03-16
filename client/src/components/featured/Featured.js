@@ -24,7 +24,6 @@ const Featured = ({ type, setGenre }) => {
         getRandomContent();
     }, [type]);
 
-    console.log(content.video);
 
     return (
         <div className="featured">
@@ -52,6 +51,7 @@ const Featured = ({ type, setGenre }) => {
                             <option value="Drama">Drama</option>
                             <option value="Documentary">Documentary</option>
                             <option value="Action">Action</option>
+                            <option value="Detective">Detective</option>
                         </select>
                     </div>
                 )
