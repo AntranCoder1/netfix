@@ -26,17 +26,21 @@ const Profile = ({ user }) => {
         getCurrentUser();
     }, [])
 
-    console.log(users);
+    useEffect(() => {
+        document.title = "Netflix - Profile"
+    }, []);
 
     return (
         <div className="profile">
             <div className="top">
                 <div className="wrapper">
-                    <img 
-                        className="logo"
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
-                        alt="logo"
-                    />
+                    <Link to="/">
+                        <img 
+                            className="logo"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
+                            alt="logo"
+                        />
+                    </Link>
                 </div>
             </div>
             { users && (

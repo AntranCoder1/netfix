@@ -95,6 +95,10 @@
             &:hover {
                 background: #e50914;
             }
+
+            &:disabled {
+                cursor: not-allowed;
+            }
         }
     }
 }

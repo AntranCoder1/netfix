@@ -29,6 +29,10 @@ const NewVideo = () => {
         getMovie();
     }, []);
 
+    useEffect(() => {
+        document.title = 'Netflix - New video'
+    }, []);
+
     return (
         <div className="new-video">
             <NavBar />
