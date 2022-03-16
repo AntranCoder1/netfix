@@ -114,6 +114,10 @@ const Watch = () => {
         }
     };
 
+    useEffect(() => {
+        document.title = movies.title
+    }, []);
+
     return (
         <div className="watch">
             <NavBar />

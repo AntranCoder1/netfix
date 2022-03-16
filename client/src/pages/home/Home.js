@@ -48,6 +48,10 @@ const Home = ({ type }) => {
         }
     };
 
+    // useEffect(() => {
+    //     document.title = searchValue
+    // }, []);
+
     return (
         <div className="home">
             { user ? (

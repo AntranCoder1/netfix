@@ -104,11 +104,15 @@ const ProductEdit = () => {
                         <input 
                             type="text" 
                             placeholder={movies.trailer}
+                            name="trailer"
+                            onChange={handleChange}
                         />
                         <label>Video</label>
                         <input 
                             type="text" 
+                            name="video"
                             placeholder={movies.video}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className="productEditFormRight">

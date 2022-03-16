@@ -41,3 +41,7 @@
     cursor: pointer;
     align-self: center;
 }
+
+.addProductButton:disabled {
+    cursor: not-allowed;
+}

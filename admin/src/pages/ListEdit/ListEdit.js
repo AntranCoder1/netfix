@@ -13,6 +13,9 @@ const ListEdit = () => {
     const list = useSelector(state => 
         state.list.lists.find((item) => item._id === listId)  
     );
+
+    const movies = useSelector(state => state.movie.movies);
+
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -26,6 +29,12 @@ const ListEdit = () => {
         updatedList(listId, lists, dispatch);
         history.push("/lists");
     };
+
+    const movieList = movies.filter((item) => {
+        if (item.genre === list.genre) {
+            return item.title;
+        }
+    })
 
     return (
         <div className="product">
@@ -82,6 +91,20 @@ const ListEdit = () => {
                         />
                     </div>
                     <div className="productFormRight">
+                        <div className="editProductItem">
+                            <label>Content</label>
+                            <select
+                                multiple
+                                name="content"
+                                style={{ height: "180px", width: "173%", marginTop: "10px" }}
+                            >
+                                { movieList.map((item) => (
+                                    <option key={item._id} value={item._id}>
+                                        { item.title }
+                                    </option>
+                                )) }
+                            </select>
+                        </div>
                         <button 
                             className="productButton"
                             onClick={handleSubmit}
