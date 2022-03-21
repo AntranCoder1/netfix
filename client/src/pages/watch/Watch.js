@@ -129,6 +129,7 @@ const Watch = () => {
                     <div className="watch-trend">
                         <span className="trend">{trend}</span>
                         <h1 className="title">{movies.title}</h1>
+                        <span className="view">{movies.view.length} lượt xem</span>
                     </div>
                     <div className="feel">
                         { userId && isLiked === false && (

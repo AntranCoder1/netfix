@@ -8,11 +8,14 @@ import {
 } from "@material-ui/icons";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const ListItem = ({ index, list }) => {
 
     const [isHovered, setIsHovered] = useState(false);
     const [movie, setMovie] = useState({});
+
+    const currentUser = useSelector(state => state.user.currentUser)
 
     useEffect(() => {
         const getMovie = async () => {
@@ -30,10 +33,22 @@ const ListItem = ({ index, list }) => {
         getMovie();
     }, [movie]);
 
+    const addView = async () => {
+        try {
+            await axios.patch(`/movies/view/${movie._id}`, { id: currentUser._id }, {
+                headers: {
+                    token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxY2E5MjI1NjcwNjI5M2YzODNkOTJhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MDc2MTM3MywiZXhwIjoxODk5OTYxMzczfQ.K6PUlRVEpHvOiJEOQWB6t8s3Q1fvLoEvZHdiLGt-0Zk"
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     // { pathname: "/watch", movie: movie }
 
     return (
-        <Link to={`/watch/${movie._id}`}>
+        <Link to={`/watch/${movie._id}`} onClick={addView}>
             <div 
                 className="listItem"
                 style={{ left: isHovered && index * 255 - 50  + index * 2.5 }}
