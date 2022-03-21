@@ -154,3 +154,7 @@
     font-weight: 600;
     margin-top: 6em;
 }
+
+.userUpdateButton:disabled {
+    cursor: not-allowed;
+}

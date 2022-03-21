@@ -78,6 +78,8 @@ const EditProfileG = () => {
         document.title = "Netflix - Manager profile"
     }, []);
 
+    console.log(users.picture)
+
     return (
         <div className="edit-profile">
             <div className="top">
@@ -138,6 +140,7 @@ const EditProfileG = () => {
                     <button 
                         className="btnSubmit"
                         onClick={handleUpload}
+                        disabled={isValid}
                     >
                         { uploadIcon ? <i className="fa fa-refresh fa-spin"></i> : "UPDATE" }
                     </button>

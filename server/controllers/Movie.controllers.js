@@ -258,3 +258,15 @@ module.exports.deleteComment = async (req, res) => {
         res.status(500).json("Internal server error");
     }
 };
+
+module.exports.addView = async (req, res) => {
+    try {
+        const movie = await Movie.findById(req.params.id);
+
+        await movie.updateOne({ $push: { view: req.body.id } });
+        res.status(200).json({ success: true, message: "view" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json("Internal server error");
+    }
+};

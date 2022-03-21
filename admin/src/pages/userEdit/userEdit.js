@@ -22,6 +22,9 @@ const UserEdit = () => {
     const history = useHistory();
     const location = useLocation();
     const [uploaded, setUploaded] = useState(0);
+    const [uploadIcon, setUploadIcon] = useState(false);
+
+    const isValid = uploadIcon;
 
     const userId = location.pathname.split('/')[2];
 
@@ -61,7 +64,8 @@ const UserEdit = () => {
         e.preventDefault();
         upload([
             { file: picture, label: 'picture' },
-        ])
+        ]);
+        setUploadIcon(true);
     };
 
     const handleUpdated = () => {
@@ -176,8 +180,9 @@ const UserEdit = () => {
                                 <button 
                                     className="userUpdateButton" 
                                     onClick={handleUpload}
+                                    disabled={isValid}
                                 >
-                                    Upload
+                                    { uploadIcon ? <i className="fa fa-refresh fa-spin"></i> : "Upload" }
                                 </button>
                             ) }
                         </div>

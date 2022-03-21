@@ -49,6 +49,10 @@ const MovieSchema = new mongoose.Schema(
             ],
             required: true,
         },
+        view: {
+            type: [String],
+            required: true,
+        },
         isSeries: {
             type: Boolean,
             default: false,

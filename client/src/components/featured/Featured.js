@@ -3,10 +3,13 @@ import './Featured.scss';
 import { PlayArrow, InfoOutlined } from '@material-ui/icons';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+// import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from 'react-loading-skeleton';
 
 const Featured = ({ type, setGenre }) => {
 
     const [content, setContent] = useState({});
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const getRandomContent = async () => {
@@ -17,6 +20,7 @@ const Featured = ({ type, setGenre }) => {
                     }
                 })
                 setContent(res.data[0]);
+                setLoading(true);
             } catch (error) {
                 console.log(error);
             }
@@ -55,18 +59,33 @@ const Featured = ({ type, setGenre }) => {
                     </div>
                 )
             }
-            <img
-                src={content.img}
-                alt=""
-            />
+            { loading ? (
+                <img src={content.img} alt="" />
+            ) : (
+                <Skeleton />
+            ) }
             <div className="info">
-                <img
-                    src={content.imgTitle}
-                    alt=""
-                />
-                <span className="desc">
-                    {content.desc}
-                </span>
+                { loading ? (
+                    <img
+                        src={content.imgTitle}
+                        alt=""
+                    />
+                ) : (
+                    <img
+                        src={content.imgTitle}
+                        alt=""
+                        className="skeleton-title"
+                    />
+                ) }
+                { loading ? (
+                    <span className="desc">
+                        {content.desc}
+                    </span>
+                ) : (
+                    <span className="desc skeleton">
+                        {content.desc}
+                    </span>
+                )}
                 <div className="buttons">
                     <button className="play">
                         <Link to={`/watch/${content._id}`} style={{ display: 'flex', alignItems: 'center' }}>
