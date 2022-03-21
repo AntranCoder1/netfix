@@ -68,4 +68,9 @@ router.patch("/updateComment/:id", verify, movieControllers.updateComment);
 // @access private
 router.patch("/deleteComment/:id", verify, movieControllers.deleteComment);
 
+// @routes api/movies/view/:id
+// @desc view movies
+// @access private
+router.patch("/view/:id", verify, movieControllers.addView);
+
 module.exports = router;

@@ -13,7 +13,7 @@ const Home = ({ type }) => {
     const [lists, setLists] = useState([]);
     const [genre, setGenre] = useState(null);
     const [movies, setMovies] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
     const user = useSelector(state => state.user.currentUser);
 
@@ -38,6 +38,8 @@ const Home = ({ type }) => {
         };
         getRandomList();
     }, [type, genre]);
+
+
 
     const search = async (searchValue) => {
         try {
