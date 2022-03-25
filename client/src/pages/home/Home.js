@@ -39,8 +39,6 @@ const Home = ({ type }) => {
         getRandomList();
     }, [type, genre]);
 
-
-
     const search = async (searchValue) => {
         try {
             const res = await axios.get(`/movies/search?value=${searchValue}`, {

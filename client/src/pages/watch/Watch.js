@@ -8,6 +8,7 @@ import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ShareIcon from '@material-ui/icons/Share';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import ChatIcon from '@material-ui/icons/Chat';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import axios from 'axios';
 import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from '@material-ui/icons'
 import Modal from '../../components/modal/Modal';
@@ -15,6 +16,7 @@ import ShareModal from '../../components/shareModal/ShareModal';
 import { likeMovie, disLikeMovie, getMovie } from '../../redux/ApiMovieCall';
 import Comment from '../comment/Comment';
 import { isEmpty } from '../../Utils';
+import { format } from 'timeago.js';
 
 const Watch = () => {
 
@@ -26,6 +28,7 @@ const Watch = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [isModal, setIsModal] = useState(false);
+    const User = useSelector(state => state.user.currentUser);
 
     const dispatch = useDispatch();
 
@@ -81,21 +84,17 @@ const Watch = () => {
         else setIsLiked(false);
     }, [userId, movies.likers, isLiked]);
 
-    useEffect(() => {
-        if (movies.likers.length >= 2) {
-            setTrend("#1 TRÊN TAB THỊNH HÀNH");
-        } else {
-            if (movies.likers.length === 1 ) {
-                setTrend("TRÊN TAB THỊNH HÀNH");
-            } else {
-                if (movies.likers.length === 0) {
-                    setTrend("");
-                } else {
-                    setTrend("");
+    const handleView = async (id) => {
+        try {
+            await axios.patch(`/movies/view/${id}`, { id: User._id }, {
+                headers: {
+                    token: "Bearer " + TOKEN
                 }
-            }
+            })
+        } catch (error) {
+            console.log(error);
         }
-    }, []);
+    };
 
     const handleClick = (direction) => {
 
@@ -127,9 +126,12 @@ const Watch = () => {
                 </div>
                 <div className="watch-title">
                     <div className="watch-trend">
-                        <span className="trend">{trend}</span>
                         <h1 className="title">{movies.title}</h1>
-                        <span className="view">{movies.view.length} lượt xem</span>
+                        <div className="view">
+                            <span className="number">{movies.view.length} lượt xem</span>
+                            <FiberManualRecordIcon className="view-icon" />
+                            <span className="date">{format(movies.createdAt)}</span>
+                        </div>
                     </div>
                     <div className="feel">
                         { userId && isLiked === false && (
@@ -193,7 +195,7 @@ const Watch = () => {
                     </div>
                     <div className="watch-recommend" style={{ display: 'flex' }} ref={movieReco}>
                         { movieList.map((item) => (
-                            <Link to={`/watch/${item._id}`}>
+                            <Link to={`/watch/${item._id}`} onClick={() => handleView(item._id)}>
                                 <div class="zoomin content">
                                     <img src={item.img} title={item.title} />
                                 </div>

@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './Featured.scss';
-import { PlayArrow, InfoOutlined } from '@material-ui/icons';
+import { PlayArrow, InfoOutlined, ContactlessRounded } from '@material-ui/icons';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 // import Skeleton from '@material-ui/lab/Skeleton';
 import Skeleton from 'react-loading-skeleton';
+import { useSelector } from 'react-redux';
 
 const Featured = ({ type, setGenre }) => {
 
     const [content, setContent] = useState({});
     const [loading, setLoading] = useState(false);
+    const currentUser = useSelector(state => state.user.currentUser);
 
     useEffect(() => {
         const getRandomContent = async () => {
@@ -27,6 +29,18 @@ const Featured = ({ type, setGenre }) => {
         };
         getRandomContent();
     }, [type]);
+
+    const handleView = async () => {
+        try {
+            await axios.patch(`/movies/view/${content._id}`, { id: currentUser._id }, {
+                headers: {
+                    token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxY2E5MjI1NjcwNjI5M2YzODNkOTJhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MDc2MTM3MywiZXhwIjoxODk5OTYxMzczfQ.K6PUlRVEpHvOiJEOQWB6t8s3Q1fvLoEvZHdiLGt-0Zk"
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <div className="featured">
@@ -88,14 +102,23 @@ const Featured = ({ type, setGenre }) => {
                 )}
                 <div className="buttons">
                     <button className="play">
-                        <Link to={`/watch/${content._id}`} style={{ display: 'flex', alignItems: 'center' }}>
+                        <Link 
+                            to={`/watch/${content._id}`} 
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            onClick={handleView}
+                        >
                             <PlayArrow />
                             <span>Play</span>
                         </Link>
                     </button>
                     <button className="more">
-                        <InfoOutlined />
-                        <span>Info</span>
+                        <Link 
+                            to={`/info/${content._id}`} 
+                            style={{ display: 'flex', alignItems: 'center' }}
+                        >
+                            <InfoOutlined />
+                            <span>Info</span>
+                        </Link>
                     </button>
                 </div>
             </div>
