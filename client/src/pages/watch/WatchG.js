@@ -15,6 +15,8 @@ import ShareModal from '../../components/shareModal/ShareModal';
 import { getMovie, likeMovie, disLikeMovie } from '../../redux/ApiMovieGCall'; 
 import { isEmpty } from '../../Utils';
 import CommentG from '../../pages/comment/CommentG';
+import { format } from 'timeago.js';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 const WatchG = () => {
 
@@ -77,21 +79,17 @@ const WatchG = () => {
         else setIsLiked(false);
     }, [userId, movies.likers, isLiked]);
 
-    useEffect(() => {
-        if (movies.likers.length > 2) {
-            setTrend("#1 TRÊN TAB THỊNH HÀNH");
-        } else {
-            if (movies.likers.length <= 2 ) {
-                setTrend("TRÊN TAB THỊNH HÀNH");
-            } else {
-                if (movies.likers.length === 0) {
-                    setTrend("");
-                } else {
-                    setTrend("");
+    const handleView = async (id) => {
+        try {
+            await axios.patch(`/movies/view/${id}`, { id: userId }, {
+                headers: {
+                    token: "Bearer " + TOKEN
                 }
-            }
+            })
+        } catch (error) {
+            console.log(error);
         }
-    }, []);
+    };
     
     const handleClick = (direction) => {
 
@@ -119,8 +117,12 @@ const WatchG = () => {
                 </div>
                 <div className="watch-title">
                     <div className="watch-trend">
-                        <span className="trend">{trend}</span>
                         <h1 className="title">{movies.title}</h1>
+                        <div className="view">
+                            <span className="number">{movies.view.length} lượt xem</span>
+                            <FiberManualRecordIcon className="view-icon" />
+                            <span className="date">{format(movies.createdAt)}</span>
+                        </div>
                     </div>
                     <div className="feel">
                         { userId && isLiked === false && (
@@ -184,7 +186,7 @@ const WatchG = () => {
                     </div>
                     <div className="watch-recommend" style={{ display: 'flex' }} ref={movieReco}>
                         { movieList.map((item) => (
-                            <Link to={`/watch/${item._id}`}>
+                            <Link to={`/watch/${item._id}`} onClick={handleView}>
                                 <div class="zoomin content">
                                     <img src={item.img} title={item.title} />
                                 </div>

@@ -1,12 +1,15 @@
 import React, { useRef, useState } from 'react';
 import ListItem from '../listItem/ListItem';
+import ListItemG from '../listItem/ListItemG';
 import './List.scss';
 import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from '@material-ui/icons'
+import { useSelector } from 'react-redux';
 
 const List = ({ list }) => {
 
     const [isMoved, setIsMoved] = useState(false);
     const [slideNumber, setSlideNumber] = useState(0);
+    const user = useSelector(state => state.user.currentUser);
 
     const listRef = useRef();
 
@@ -34,11 +37,19 @@ const List = ({ list }) => {
                     onClick={() => handleClick("left")}
                     style={{ display: !isMoved && "none" }}
                 />
-                <div className="container" ref={listRef}>
-                    { list.content.map((item, i) => (
-                        <ListItem index={i} list={item} />
-                    )) }
-                </div>
+                { user ? (
+                    <div className="container" ref={listRef}>
+                        { list.content.map((item, i) => (
+                            <ListItem index={i} list={item} />
+                        )) }
+                    </div>
+                ) : (
+                    <div className="container" ref={listRef}>
+                        { list.content.map((item, i) => (
+                            <ListItemG index={i} list={item} />
+                        )) }
+                    </div>
+                ) }
                 <ArrowForwardIosOutlined
                     className="sliderArrow right"
                     onClick={() => handleClick("right")}

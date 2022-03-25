@@ -51,6 +51,13 @@
                     font-size: 18px;
                     position: relative;
                     bottom: -12px;
+                    display: flex;
+                    align-items: center;
+
+                    .view-icon {
+                        font-size: 10px;
+                        margin: 0 5px;
+                    }
                 }
             }
 

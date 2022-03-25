@@ -29,7 +29,6 @@ const MovieItem = ({ movie, index }) => {
                                     src={movie.trailer} 
                                     autoPlay={true} 
                                     loop 
-                                    autoPlay 
                                     progress 
                                     controls    
                                 />

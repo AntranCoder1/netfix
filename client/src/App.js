@@ -15,6 +15,7 @@ import MovieCartG from './pages/movieCart/MovieCartG';
 import EditProfile from './pages/EditProfile/EditProfile';
 import ProfileG from './pages/profile/ProfileG';
 import EditProfileG from './pages/EditProfile/EditProfileG';
+import Info from './pages/infoMovie/Info';
 import { BrowserRouter as Router,
   Switch,
   Route,
@@ -108,6 +109,9 @@ function App() {
               </Route>
               <Route path="/edit-profile">
                 <EditProfile />
+              </Route>
+              <Route path="/info">
+                <Info />
               </Route>
             </>
           )

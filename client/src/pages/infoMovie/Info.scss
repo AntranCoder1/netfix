@@ -1,0 +1,174 @@
+.movie-card {
+    height: 350vh;
+    background-color: #000;
+
+    .img-gradient {
+        position:relative;
+    
+        .img-fluid {
+            width: 100%;
+        }
+    }
+    
+    .img-gradient::after {
+        content: '';
+        position: absolute;
+        left: 0; 
+        top: 0;
+        width: 100%; 
+        height: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 1));
+    }
+
+    .movie-container {
+        display: flex;
+        flex-direction: column;
+
+        .container {
+            position: absolute;
+            top: 240px;
+            left: 180px;
+            right: 180px;
+            color: #fff;
+            display: flex;
+            align-items: flex-start;
+    
+            .img-container {
+                width: 500px;
+                height: 300px;
+                border-radius: 10px;
+            }
+    
+            .container-center {
+                display: flex;
+                flex-direction: column;
+                margin-left: 100px;
+    
+                h2 {
+                    font-size: 45px;
+                    margin-bottom: 20px;
+                }
+    
+                .container-center-genre {
+                    display: flex;
+                    align-items: center;
+    
+                    .icon {
+                        margin-right: 5px;
+                        color: #FFB400;
+                    }
+                }
+    
+                .movie-card-btn {
+                    margin-top: 20px;
+                    margin-bottom: 18px;
+    
+                    button {
+                        padding: 15px;
+                        font-size: 18px;
+                        margin-right: 15px;
+                        border-radius: 7px;
+                        cursor: pointer;
+                        border: none;
+                        color: #fff;
+                    }
+                }
+    
+                .container-center-year {
+                    font-size: 22px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .movie-desc {
+            position: absolute;
+            top: 750px;
+            color: #BEB7A4;
+            margin-left: 400px;
+            margin-right: 400px;
+            line-height: 1.5;
+            font-size: 20px;
+
+            .movie-desc-line {
+                border-bottom: 1px solid #403F4C;
+                margin-top: 55px;
+                margin-bottom: 55px;
+            }
+
+            .movie-desc-video {
+                position: relative;
+                margin-top: 20px;
+                margin-bottom: 90px;
+                overflow:hidden;
+                border: none;
+                border-radius: 15px;
+                -webkit-box-shadow: 1px 2px 11px 6px rgba(190,183,164,0.15); 
+                box-shadow: 1px 2px 11px 6px rgba(190,183,164,0.15);
+
+                .video {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .movie-desc-title {
+                text-align: center;
+                font-size: 30px;
+                text-transform: uppercase;
+                color: #f1b722;
+            }
+        }
+
+        .movie-desc-recom {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            position: absolute;
+            top: 119rem;
+            margin-left: 260px;
+            cursor: pointer;
+
+            .movie-desc-recom-card {
+                width: 350px;
+                margin-right: 35px;
+                margin-bottom: 40px;
+
+                .img {
+                    width: 350px;
+                    height: 200px;
+                    border-radius: 10px;
+                    margin-bottom: 10px;
+                }
+
+                .img:hover {
+                    opacity: .5;
+                }
+
+                h4 {
+                    color: #fff;
+                    font-size: 25px;
+                }
+
+                h4:hover {
+                    text-decoration: underline;
+                }
+                
+                .movie-desc-recom-card-tag {
+                    display: flex;
+                    align-items: flex-end;
+
+                    .icon {
+                        color: #FFB400;
+                        margin-top: 10px;
+                    }
+
+                    p {
+                        color: #fff;
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
