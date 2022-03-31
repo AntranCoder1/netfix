@@ -19,11 +19,25 @@ const Info = () => {
     const currentUser = admin && JSON.parse(admin).currentUser;
     const TOKEN = currentUser?.token;
 
+    const user = useSelector(state => state.user.currentUser);
+
     const movieCheck = movies.filter((movie) => {
         if (movie._id === movieId) {
             return movie;
         }
     })
+
+    const handleView = async (id) => {
+        try {
+            await axios.patch(`/movies/view/${id}`, { id: user._id }, {
+                headers: {
+                    token: "Bearer " + TOKEN
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
         const getMovie = async () => {
@@ -64,7 +78,7 @@ const Info = () => {
                                 </div>
                                 <div className="movie-card-btn">
                                     <button style={{ backgroundColor: '#3898ec' }}>Trailer</button>
-                                    <Link to={`/watch/${movie._id}`}>
+                                    <Link to={`/watch/${movie._id}`} onClick={() => handleView(movie._id)}>
                                         <button style={{ backgroundColor: '#e46466' }}>Watching movies</button>
                                     </Link>
                                 </div>
@@ -89,10 +103,10 @@ const Info = () => {
                         <div className="movie-desc-recom">
                             { newMovie.map((movie) => (
                                 <div className="movie-desc-recom-card">
-                                    <Link to={`/watch/${movie._id}`}>
+                                    <Link to={`/watch/${movie._id}`} onClick={() => handleView(movie._id)}>
                                         <img src={movie.imgSm} alt="" className="img" />
                                     </Link>
-                                    <Link to={`/watch/${movie._id}`}>
+                                    <Link to={`/watch/${movie._id}`} onClick={() => handleView(movie._id)}>
                                         <h4>{movie.title}</h4>
                                     </Link>
                                     <div className="movie-desc-recom-card-tag">
