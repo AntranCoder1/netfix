@@ -14,6 +14,7 @@ const NavbarG = (props) => {
     const checkUserGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.name;
     const checkImageGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.picture;
     const checkIdGoogle = JSON.parse(localStorage.getItem("userGoogle"))?.user;
+    const TOKEN = JSON.parse(localStorage.getItem("userGoogle"))?.token;
 
     const [user, setUser] = useState([]);
 
@@ -38,6 +39,18 @@ const NavbarG = (props) => {
     const callSearchFunction = (e) => {
         e.preventDefault();
         props.search(seatchItem);
+    }
+
+    const handleView = async (id) => {
+        try {
+            await axios.patch(`/movies/view/${id}`, { id: checkIdGoogle }, {
+                headers: {
+                    token: "Bearer " + TOKEN
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {

@@ -30,7 +30,10 @@ const List = ({ list }) => {
 
     return (
         <div className="list">
-            <span className="listTitle">{list.title}</span>
+            <div className="title">
+                <div className="border"></div>
+                <span className="listTitle">{list.title}</span>
+            </div>
             <div className="wrapper">
                 <ArrowBackIosOutlined
                     className="sliderArrow left"
