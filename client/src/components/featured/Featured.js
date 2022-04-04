@@ -3,8 +3,6 @@ import './Featured.scss';
 import { PlayArrow, InfoOutlined, ContactlessRounded } from '@material-ui/icons';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-// import Skeleton from '@material-ui/lab/Skeleton';
-import Skeleton from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
 
 const Featured = ({ type, setGenre }) => {
@@ -73,11 +71,7 @@ const Featured = ({ type, setGenre }) => {
                     </div>
                 )
             }
-            { loading ? (
-                <img src={content.img} alt="" />
-            ) : (
-                <Skeleton />
-            ) }
+            <img src={content.img} alt="" />
             <div className="info">
                 { loading ? (
                     <img

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Info.scss';
 import Navbar from '../../components/navBar/NavBar';
 import { useLocation, Link } from 'react-router-dom';
@@ -7,6 +7,7 @@ import LoyaltyOutlinedIcon from '@material-ui/icons/LoyaltyOutlined';
 import ScheduleOutlinedIcon from '@material-ui/icons/ScheduleOutlined';
 import { timestampParser } from '../../Utils';
 import axios from 'axios';
+import SkeletonInfo from '../../components/skeleton/SkeletonInfo';
 
 const InfoG = () => {
 
@@ -14,6 +15,7 @@ const InfoG = () => {
     const movieId = location.pathname.split('/')[2];
     const movies = useSelector(state => state.movie.movies);
     const [newMovie, setNewMovie] = useState([]);
+    const [loading, setLoading] = useState(false);
     
     const TOKEN = JSON.parse(localStorage.getItem("userGoogle"))?.token;
     const userId = JSON.parse(localStorage.getItem("userGoogle"))?.user;
@@ -35,6 +37,29 @@ const InfoG = () => {
             console.log(error);
         }
     }
+
+    useEffect(() => {
+        setLoading(true);
+        const timer = setTimeout(() => {
+            const getMovie = async () => {
+                const res = await axios.get("/movies", {
+                    headers: {
+                        token: "Bearer " + TOKEN
+                    }
+                })
+                setNewMovie(res.data.sort((m1, m2) => {
+                    return new Date(m2.createdAt) - new Date(m1.createdAt);
+                }).slice(0, 6));
+            };
+            getMovie();
+            setLoading(false);
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
+        document.title = movieCheck.map((movie) => movie.title)
+    }, []);
 
     return (
         <>
@@ -79,22 +104,25 @@ const InfoG = () => {
                             </div>
                             <p className="movie-desc-title">maybe you want to see</p>
                         </div>
-                        <div className="movie-desc-recom">
-                            { newMovie.map((movie) => (
-                                <div className="movie-desc-recom-card">
-                                    <Link to={`/watch/${movie._id}`} onClick={() => getView(movie._id)}>
-                                        <img src={movie.imgSm} alt="" className="img" />
-                                    </Link>
-                                    <Link to={`/watch/${movie._id}`} onClick={() => getView(movie._id)}>
-                                        <h4>{movie.title}</h4>
-                                    </Link>
-                                    <div className="movie-desc-recom-card-tag">
-                                        <LoyaltyOutlinedIcon className="icon" />
-                                        <p>{movie.genre}</p>
+                        { loading && <SkeletonInfo /> }
+                        { !loading && 
+                            <div className="movie-desc-recom">
+                                { newMovie.map((movie) => (
+                                    <div className="movie-desc-recom-card">
+                                        <Link to={`/watch/${movie._id}`} onClick={() => getView(movie._id)}>
+                                            <img src={movie.imgSm} alt="" className="img" />
+                                        </Link>
+                                        <Link to={`/watch/${movie._id}`} onClick={() => getView(movie._id)}>
+                                            <h4>{movie.title}</h4>
+                                        </Link>
+                                        <div className="movie-desc-recom-card-tag">
+                                            <LoyaltyOutlinedIcon className="icon" />
+                                            <p>{movie.genre}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            )) }
-                        </div>
+                                )) }
+                            </div>
+                        }
                     </div>
                 </div>
             )) }

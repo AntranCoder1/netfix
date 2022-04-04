@@ -95,7 +95,7 @@ const WatchG = () => {
 
         setIsMoved(true);
 
-        const distance = movieReco.current.getBoundingClientRect().x - 50;
+        const distance = movieReco.current.getBoundingClientRect().x - 180;
 
         if (direction === "left" && slideNumber > 0) {
             setSlideNumber(slideNumber - 1);
