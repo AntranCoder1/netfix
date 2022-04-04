@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './Info.scss';
 import Navbar from '../../components/navBar/NavBar';
 import { useLocation, Link } from 'react-router-dom';
@@ -8,18 +8,15 @@ import ScheduleOutlinedIcon from '@material-ui/icons/ScheduleOutlined';
 import { timestampParser } from '../../Utils';
 import axios from 'axios';
 
-const Info = () => {
+const InfoG = () => {
 
     const location = useLocation();
     const movieId = location.pathname.split('/')[2];
     const movies = useSelector(state => state.movie.movies);
     const [newMovie, setNewMovie] = useState([]);
-
-    const admin = JSON.parse(localStorage.getItem("persist:root"))?.user;
-    const currentUser = admin && JSON.parse(admin).currentUser;
-    const TOKEN = currentUser?.token;
-
-    const user = useSelector(state => state.user.currentUser);
+    
+    const TOKEN = JSON.parse(localStorage.getItem("userGoogle"))?.token;
+    const userId = JSON.parse(localStorage.getItem("userGoogle"))?.user;
 
     const movieCheck = movies.filter((movie) => {
         if (movie._id === movieId) {
@@ -27,9 +24,9 @@ const Info = () => {
         }
     })
 
-    const handleView = async (id) => {
+    const getView = async (id) => {
         try {
-            await axios.patch(`/movies/view/${id}`, { id: user._id }, {
+            await axios.patch(`/movies/view/${id}`, { id: userId }, {
                 headers: {
                     token: "Bearer " + TOKEN
                 }
@@ -37,25 +34,7 @@ const Info = () => {
         } catch (error) {
             console.log(error);
         }
-    };
-
-    useEffect(() => {
-        const getMovie = async () => {
-            const res = await axios.get("/movies", {
-                headers: {
-                    token: "Bearer " + TOKEN
-                }
-            })
-            setNewMovie(res.data.sort((m1, m2) => {
-                return new Date(m2.createdAt) - new Date(m1.createdAt);
-            }).slice(0, 6));
-        };
-        getMovie();
-    }, []);
-
-    useEffect(() => {
-        document.title = movieCheck.map((movie) => movie.title)
-    }, []);
+    }
 
     return (
         <>
@@ -78,7 +57,7 @@ const Info = () => {
                                 </div>
                                 <div className="movie-card-btn">
                                     <button style={{ backgroundColor: '#3898ec' }}>Trailer</button>
-                                    <Link to={`/watch/${movie._id}`} onClick={() => handleView(movie._id)}>
+                                    <Link to={`/watch/${movie._id}`} onClick={() => getView(movie._id)}>
                                         <button style={{ backgroundColor: '#e46466' }}>Watching movies</button>
                                     </Link>
                                 </div>
@@ -103,10 +82,10 @@ const Info = () => {
                         <div className="movie-desc-recom">
                             { newMovie.map((movie) => (
                                 <div className="movie-desc-recom-card">
-                                    <Link to={`/watch/${movie._id}`} onClick={() => handleView(movie._id)}>
+                                    <Link to={`/watch/${movie._id}`} onClick={() => getView(movie._id)}>
                                         <img src={movie.imgSm} alt="" className="img" />
                                     </Link>
-                                    <Link to={`/watch/${movie._id}`} onClick={() => handleView(movie._id)}>
+                                    <Link to={`/watch/${movie._id}`} onClick={() => getView(movie._id)}>
                                         <h4>{movie.title}</h4>
                                     </Link>
                                     <div className="movie-desc-recom-card-tag">
@@ -123,4 +102,4 @@ const Info = () => {
     )
 }
 
-export default Info
+export default InfoG

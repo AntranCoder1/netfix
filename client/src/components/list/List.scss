@@ -3,11 +3,25 @@
     margin-top: 30px;
     margin-bottom: 30px;
   
-    .listTitle {
-        color: white;
-        font-size: 20px;
-        font-weight: 500;
+    .title {
+        display: flex;
+        align-items: center;
         margin-left: 50px;
+
+        .border {
+            border: 3px solid red;
+            height: 20px;
+            margin-right: 5px;
+            border-radius: 10px;
+            background-color: red;
+        }
+
+        .listTitle {
+            color: white;
+            font-size: 20px;
+            font-weight: 500;
+            // margin-left: 50px;
+        }
     }
   
     .wrapper {

@@ -4,14 +4,29 @@ import ShareIcon from '@material-ui/icons/Share';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const MovieItem = ({ movie, index }) => {
 
     const [isHovered, setIsHovered] = useState(false);
+    const currentUser = useSelector(state => state.user.currentUser);
+
+    const handleView = async () => {
+        try {
+            await axios.patch(`/movies/view/${movie._id}`, { id: currentUser._id }, {
+                headers: {
+                    token: "Bearer " + currentUser.token
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div className="movie_card" id="bright">
-            <Link to={`/watch/${movie._id}`}>
+            <Link to={`/watch/${movie._id}`} onClick={handleView}>
                 <>
                     <div className="info_section">
                         <div 

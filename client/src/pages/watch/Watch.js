@@ -65,6 +65,12 @@ const Watch = () => {
         getMovie();
     }, []);
 
+    const filterDuplicateFilm = movieList.filter((movie) => {
+        if (movie._id !== movies._id) {
+            return movie;
+        }
+    })
+
     useEffect(() => {
         getMovie(dispatch);
     });
@@ -100,7 +106,7 @@ const Watch = () => {
 
         setIsMoved(true);
 
-        const distance = movieReco.current.getBoundingClientRect().x - 50;
+        const distance = movieReco.current.getBoundingClientRect().x - 180;
 
         if (direction === "left" && slideNumber > 0) {
             setSlideNumber(slideNumber - 1);
@@ -194,10 +200,10 @@ const Watch = () => {
                         </div>
                     </div>
                     <div className="watch-recommend" style={{ display: 'flex' }} ref={movieReco}>
-                        { movieList.map((item) => (
+                        { filterDuplicateFilm.map((item) => (
                             <Link to={`/watch/${item._id}`} onClick={() => handleView(item._id)}>
                                 <div class="zoomin content">
-                                    <img src={item.img} title={item.title} />
+                                    <img src={item.imgSm} title={item.title} />
                                 </div>
                             </Link>
                         )) }
