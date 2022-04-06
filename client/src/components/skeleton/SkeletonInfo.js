@@ -11,13 +11,16 @@ const SkeletonInfo = () => {
                     <div className="movie-desc-recom-card" key={index}>
                         <Skeleton height={`200px`} width={`350px`} />
                         <h4>
-                            <Skeleton height={36} width={`80%`} />
+                            <Skeleton count={2} width={`80%`} />
                         </h4>
+                        <Skeleton width={`60%`} />
                         <div className="movie-desc-recom-card-tag">
-                            <Skeleton circle={true} height={50} width={50} />
+                            {/* <Skeleton circle={true} height={50} width={50} />
+                            <Skeleton height={36} width={`80%`} />
                             <p>
                                 <Skeleton width={`60%`} />
-                            </p>
+                            </p> */}
+                            <Skeleton count={1} width={`80%`} />
                         </div>
                     </div>
                 )) }
