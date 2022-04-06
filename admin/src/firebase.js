@@ -1,15 +1,13 @@
 import firebase from 'firebase';
 
 const firebaseConfig = {
-    // apiKey: "AIzaSyBrLNoPxVZdjYiWurtiCSg36xtVbyRLwGs",
-    // authDomain: "movie-c66b5.firebaseapp.com",
-    // projectId: "movie-c66b5",
-    // storageBucket: "movie-c66b5.appspot.com",
-    // messagingSenderId: "135972572403",
-    // appId: "1:135972572403:web:96a2002d0cc2feb4477b86",
-    // measurementId: "G-S305QZD5LT"
-
-    // movie: 18.7GB
+    // apiKey: "AIzaSyC-CbqoF3PSPqMHsP8qDXSSy06Akn7ylGo",
+    // authDomain: "movie-28be6.firebaseapp.com",
+    // projectId: "movie-28be6",
+    // storageBucket: "movie-28be6.appspot.com",
+    // messagingSenderId: "1061833119696",
+    // appId: "1:1061833119696:web:5d5e4850cb967d87710bd5",
+    // measurementId: "G-DKHJT1V8GR"
 
     // apiKey: "AIzaSyBhVRsISue9A7eFRVTiROUbNUPyYl27Iow",
     // authDomain: "movie-1-e4bab.firebaseapp.com",

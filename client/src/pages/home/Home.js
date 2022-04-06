@@ -22,21 +22,26 @@ const Home = ({ type }) => {
     }, []);
 
     useEffect(() => {
-        const getRandomList = async () => {
-            try {
-                const res = await axios.get(
-                    `/lists${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""}`, {
-                        headers: {
-                            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxY2E5MjI1NjcwNjI5M2YzODNkOTJhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MDc2MTM3MywiZXhwIjoxODk5OTYxMzczfQ.K6PUlRVEpHvOiJEOQWB6t8s3Q1fvLoEvZHdiLGt-0Zk"
-                        },
-                    }
-                );
-                setLists(res.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getRandomList();
+        setLoading(true);
+        const timer = setTimeout(() => {
+            const getRandomList = async () => {
+                try {
+                    const res = await axios.get(
+                        `/lists${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""}`, {
+                            headers: {
+                                token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxY2E5MjI1NjcwNjI5M2YzODNkOTJhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MDc2MTM3MywiZXhwIjoxODk5OTYxMzczfQ.K6PUlRVEpHvOiJEOQWB6t8s3Q1fvLoEvZHdiLGt-0Zk"
+                            },
+                        }
+                    );
+                    setLists(res.data);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            getRandomList();
+            setLoading(false);
+        }, 5000)
+        return () => clearTimeout(timer);
     }, [type, genre]);
 
     const search = async (searchValue) => {
