@@ -68,7 +68,7 @@ const Watch = () => {
             }
             getMovie();
             setLoading(false);
-        }, 1000);
+        }, 5000);
         return () => clearTimeout(timer);
     }, []);
 
@@ -187,38 +187,40 @@ const Watch = () => {
                         <span>Time: {movies.limit} minute</span>
                     </div>
                 </div>
-                <div className="watch-img">
-                    <img src={movies.imgTitle} alt="" />
-                    <img src={movies.imgSm} alt="" />
-                </div>
-                <div className="watch-reco">
-                    <div className="slider">
-                        <h1>Recommend for you</h1>
-                        <div className="arrow">
-                            <ArrowBackIosOutlined
-                                className="sliderArrow left"
-                                onClick={() => handleClick("left")}
-                                style={{ display: !isMoved && "none" }}
-                            />
-                            <ArrowForwardIosOutlined
-                                className="sliderArrow right"
-                                onClick={() => handleClick("right")}
-                            />
+                { loading && <SkeletonWatch /> }
+                { !loading && 
+                    <>
+                        <div className="watch-img">
+                            <img src={movies.imgTitle} alt="" />
+                            <img src={movies.imgSm} alt="" />
                         </div>
-                    </div>
-                    { loading && <SkeletonWatch /> }
-                    { !loading && 
-                        <div className="watch-recommend" style={{ display: 'flex' }} ref={movieReco}>
-                            { filterDuplicateFilm.map((item) => (
-                                <Link to={`/watch/${item._id}`} onClick={() => handleView(item._id)}>
-                                    <div class="zoomin content">
-                                        <img src={item.imgSm} title={item.title} />
-                                    </div>
-                                </Link>
-                            )) }
+                        <div className="watch-reco">
+                            <div className="slider">
+                                <h1>Recommend for you</h1>
+                                <div className="arrow">
+                                    <ArrowBackIosOutlined
+                                        className="sliderArrow left"
+                                        onClick={() => handleClick("left")}
+                                        style={{ display: !isMoved && "none" }}
+                                    />
+                                    <ArrowForwardIosOutlined
+                                        className="sliderArrow right"
+                                        onClick={() => handleClick("right")}
+                                    />
+                                </div>
+                            </div>
+                            <div className="watch-recommend" style={{ display: 'flex' }} ref={movieReco}>
+                                { filterDuplicateFilm.map((item) => (
+                                    <Link to={`/watch/${item._id}`} onClick={() => handleView(item._id)}>
+                                        <div class="zoomin content">
+                                            <img src={item.imgSm} title={item.title} />
+                                        </div>
+                                    </Link>
+                                )) }
+                            </div>
                         </div>
-                    }
-                </div>
+                    </>
+                }
                 <Comment movies={movies} />
                 <div className="footer">
                     <div className="footer-title">Question? Contact us.</div>

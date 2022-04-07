@@ -73,4 +73,9 @@ router.patch("/deleteComment/:id", verify, movieControllers.deleteComment);
 // @access private
 router.patch("/view/:id", verify, movieControllers.addView);
 
+// @routes api/movies/getLikeMovie/:id
+// @desc get like movie
+// @access private
+router.get("/getLikeMovie/:id", verify, movieControllers.getLikeVideo);
+
 module.exports = router;

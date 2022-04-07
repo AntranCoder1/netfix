@@ -42,7 +42,7 @@ const Trending = () => {
             <NavBar />
             <div className="trending-container">
                 { loading && <SkeletonTrending /> }
-                { !loading &&  
+                { !loading && 
                     <div className="trending-container-loading">
                         { trend.map((movie) => (
                             <Link to={`/watch/${movie._id}`}>
