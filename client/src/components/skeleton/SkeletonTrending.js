@@ -7,25 +7,18 @@ const SkeletonTrending = () => {
         <div className="trending-container-loading">
             { Array(10)
                 .fill()
-                .map((item, index) => (
-                    <div className="content" key={index}>
-                        <Skeleton height={`150px`} width={`300px`} />
+                .map((movie) => (
+                    <div className="content" style={{ display: 'flex' }}>
+                        <Skeleton height={150} width={300} />
                         <div className="content-title">
                             <h3>
-                                <Skeleton  />
+                                <Skeleton height={`60px`} width={`60%`} />
                             </h3>
-                            {/* <div className="content-title-genre">
-                                <p className="genre">{movie.genre}</p>
-                                <CheckCircleIcon className="icon" style={{ marginRight: "5px" }} />
-                                <span className="like" style={{ marginRight: "5px" }}>{movie.likers.length} lượt thích</span>
-                                <UpdateIcon className="icon" />
-                                <p className="update">
-                                    Đã được cập nhập -
-                                    <span className="time-update"> {timestampParser(movie.createdAt)}</span>
-                                </p>
-                            </div> */}
+                            <div className="content-title-genre">
+                                <Skeleton height={`40px`} width={`80%`} />
+                            </div>
                             <p className="desc">
-                                <Skeleton count={3} />
+                                <Skeleton count={3} height={`40px`} width={`120%`} />
                             </p>
                         </div>
                     </div>

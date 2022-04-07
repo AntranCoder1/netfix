@@ -270,3 +270,18 @@ module.exports.addView = async (req, res) => {
         res.status(500).json("Internal server error");
     }
 };
+
+module.exports.getLikeVideo = async (req, res) => {
+    try {
+        const movie = await Movie.find();
+        const users = await User.findById(req.params.id);
+        const findLikeMovie = movie.map((movie) => {
+            if (users.likes.includes(movie._id)) {
+                return movie;
+            }
+        })
+        res.status(200).json(findLikeMovie)
+    } catch (error) {
+        console.log(error);
+    }
+};
