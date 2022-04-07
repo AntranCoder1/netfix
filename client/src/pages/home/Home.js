@@ -7,6 +7,7 @@ import List from '../../components/list/List';
 import MovieItem from '../../components/MovieItem/MovieItem';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import SkeletonListItem from '../../components/skeleton/SkeletonListItem';
 
 const Home = ({ type }) => {
 
@@ -40,7 +41,7 @@ const Home = ({ type }) => {
             };
             getRandomList();
             setLoading(false);
-        }, 5000)
+        }, 2000)
         return () => clearTimeout(timer);
     }, [type, genre]);
 
@@ -67,9 +68,14 @@ const Home = ({ type }) => {
             { movies.length === 0 ? (
                 <>
                     <Featured type={type} setGenre={setGenre} />
-                    { lists.map((item) => (
-                        <List key={item._id} list={item} />
-                    )) }
+                    { loading && <SkeletonListItem /> }
+                    { !loading &&
+                        <>
+                            { lists.map((item) => (
+                                <List key={item._id} list={item} />
+                            )) }
+                        </>
+                    }
                 </>
             ) : (
                 <div className="movieSearch">

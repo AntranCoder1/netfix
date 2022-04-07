@@ -29,7 +29,7 @@ const Featured = ({ type, setGenre }) => {
             };
             getRandomContent();
             setLoading(false);
-        }, 5000);
+        }, 1500);
         return () => clearTimeout(timer)
     }, [type]);
 

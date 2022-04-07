@@ -17,6 +17,7 @@ import { likeMovie, disLikeMovie, getMovie } from '../../redux/ApiMovieCall';
 import Comment from '../comment/Comment';
 import { isEmpty } from '../../Utils';
 import { format } from 'timeago.js';
+import SkeletonWatch from '../../components/skeleton/SkeletonWatch';
 
 const Watch = () => {
 
@@ -29,6 +30,7 @@ const Watch = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isModal, setIsModal] = useState(false);
     const User = useSelector(state => state.user.currentUser);
+    const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -50,19 +52,24 @@ const Watch = () => {
     const userId = currentUser1?._id;
 
     useEffect(() => {
-        const getMovie = async () => {
-            try {
-                const res = await axios.get(`/movies/randomMovie?genre=${movies.genre}`, {
-                    headers: {
-                        token: "Bearer " + TOKEN
-                    }
-                })
-                setMovieList(res.data)
-            } catch (error) {
-                console.log(error);
+        setLoading(true);
+        const timer = setTimeout(() => {
+            const getMovie = async () => {
+                try {
+                    const res = await axios.get(`/movies/randomMovie?genre=${movies.genre}`, {
+                        headers: {
+                            token: "Bearer " + TOKEN
+                        }
+                    })
+                    setMovieList(res.data)
+                } catch (error) {
+                    console.log(error);
+                }
             }
-        }
-        getMovie();
+            getMovie();
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
     }, []);
 
     const filterDuplicateFilm = movieList.filter((movie) => {
@@ -199,15 +206,18 @@ const Watch = () => {
                             />
                         </div>
                     </div>
-                    <div className="watch-recommend" style={{ display: 'flex' }} ref={movieReco}>
-                        { filterDuplicateFilm.map((item) => (
-                            <Link to={`/watch/${item._id}`} onClick={() => handleView(item._id)}>
-                                <div class="zoomin content">
-                                    <img src={item.imgSm} title={item.title} />
-                                </div>
-                            </Link>
-                        )) }
-                    </div>
+                    { loading && <SkeletonWatch /> }
+                    { !loading && 
+                        <div className="watch-recommend" style={{ display: 'flex' }} ref={movieReco}>
+                            { filterDuplicateFilm.map((item) => (
+                                <Link to={`/watch/${item._id}`} onClick={() => handleView(item._id)}>
+                                    <div class="zoomin content">
+                                        <img src={item.imgSm} title={item.title} />
+                                    </div>
+                                </Link>
+                            )) }
+                        </div>
+                    }
                 </div>
                 <Comment movies={movies} />
                 <div className="footer">
