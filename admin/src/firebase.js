@@ -35,13 +35,13 @@ const firebaseConfig = {
     // appId: "1:728130310676:web:9b86667fcb44953cfa8d01",
     // measurementId: "G-4834RJWD3Q"
 
-    apiKey: "AIzaSyCLfA0jtWNDvvP3GMt1SFu3UVSj0KFCfCc",
-    authDomain: "movie-4-6e69b.firebaseapp.com",
-    projectId: "movie-4-6e69b",
-    storageBucket: "movie-4-6e69b.appspot.com",
-    messagingSenderId: "970680082024",
-    appId: "1:970680082024:web:78cc02ea66836e0c77e5dd",
-    measurementId: "G-R443QWLZN0"
+    apiKey: "AIzaSyB_9IfpvsNpyUCicjExVzfz0mOJpyUJdzo",
+    authDomain: "movie-4-2bd2e.firebaseapp.com",
+    projectId: "movie-4-2bd2e",
+    storageBucket: "movie-4-2bd2e.appspot.com",
+    messagingSenderId: "314055103216",
+    appId: "1:314055103216:web:52514d78e5fa7ac8996835",
+    measurementId: "G-XYPNZGMDY4"
 };
 
 firebase.initializeApp(firebaseConfig);
