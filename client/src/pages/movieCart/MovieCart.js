@@ -15,16 +15,6 @@ const MovieCart = () => {
     const [filtered, setFiltered] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // const check = movies.map((movie) => {
-    //     if (movie.likers.includes(user._id)) {
-    //         return movie;
-    //     }
-    // })
-
-    // const filtered = check.filter(function(el) {
-    //     return el !== undefined
-    // });
-
     useEffect(() => {
         setLoading(true);
         const timer = setTimeout(() => {
@@ -42,7 +32,7 @@ const MovieCart = () => {
             };
             getMovieLike();
             setLoading(false);
-        }, 1000);
+        }, 2000);
         return () => clearTimeout(timer);
     }, []);
 

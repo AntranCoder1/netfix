@@ -78,6 +78,11 @@ const ListItem = ({ index, list }) => {
                 ) }
             </div>
         </Link>
+        // <div className="container">
+        //     <a href="#" className="item">
+        //         <img src={movie?.imgSm} alt="Animals" />
+        //     </a>
+        // </div>
     )
 }
 
