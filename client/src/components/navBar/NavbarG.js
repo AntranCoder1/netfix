@@ -3,6 +3,7 @@ import './NavBar.scss';
 import { ArrowDropDown, Notifications } from "@material-ui/icons";
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import SkeletonNavbar from '../skeleton/SkeletonNavbar';
 
 const NavbarG = (props) => {
 
@@ -17,6 +18,7 @@ const NavbarG = (props) => {
     const TOKEN = JSON.parse(localStorage.getItem("userGoogle"))?.token;
 
     const [user, setUser] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true );
@@ -54,15 +56,20 @@ const NavbarG = (props) => {
     }
 
     useEffect(() => {
-        const getCurrentUser = async () => {
-            try {
-                const res = await axios.get("/users/find/" + checkIdGoogle)
-                setUser(res.data);
-            } catch (error) {
-                console.log(error);
+        setLoading(true);
+        const timer = setTimeout(() => {
+            const getCurrentUser = async () => {
+                try {
+                    const res = await axios.get("/users/find/" + checkIdGoogle)
+                    setUser(res.data);
+                } catch (error) {
+                    console.log(error);
+                }
             }
-        }
-        getCurrentUser();
+            getCurrentUser();
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
     }, []);
 
     return (
@@ -110,12 +117,17 @@ const NavbarG = (props) => {
                             />
                         </form>
                     </div>
-                    <span>{ user.name || checkUserGoogle}</span>
-                    <Notifications className="icon" />
-                    <img  
-                        src={ user.picture || checkImageGoogle || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
-                        alt="netfix-user"
-                    />
+                    { loading && <SkeletonNavbar /> }
+                    { !loading && 
+                        <>
+                            <span>{ user.name || checkUserGoogle}</span>
+                            <Notifications className="icon" />
+                            <img  
+                                src={ user.picture || checkImageGoogle || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
+                                alt="netfix-user"
+                            />
+                        </>
+                    }
                     <div className="profile">
                         <ArrowDropDown className="icon" />
                         <div className="options">
