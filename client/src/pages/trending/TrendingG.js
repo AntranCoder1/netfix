@@ -7,23 +7,30 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isEmpty, timestampParser } from '../../Utils';
 import Scroll from '../../components/scroll/Scroll';
+import SkeletonTrending from '../../components/skeleton/SkeletonTrending';
 
 const TrendingG = () => {
 
     const movies = useSelector(state => state.movie.movies);
     const users = useSelector(state => state.users.users);
     const [trend, setTrend] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (!isEmpty(users[0])) {
-            const movieArr = Object.keys(movies).map((i) => movies[i]);
-            let sortedArr = movieArr.sort((a, b) => {
-                return b.likers.length - a.likers.length;
-            });
-
-            let sort = sortedArr.filter((i) => i.likers.length !== 0)
-            setTrend(sort)
-        }
+        setLoading(true);
+        const timer = setTimeout(() => {
+            if (!isEmpty(users[0])) {
+                const movieArr = Object.keys(movies).map((i) => movies[i]);
+                let sortedArr = movieArr.sort((a, b) => {
+                    return b.likers.length - a.likers.length;
+                });
+    
+                let sort = sortedArr.filter((i) => i.likers.length !== 0)
+                setTrend(sort)
+            }
+            setLoading(false);
+        }, 5000);
+        return () => clearTimeout(timer);
     }, []);
 
     useEffect(() => {
@@ -34,29 +41,34 @@ const TrendingG = () => {
         <div className="trending">
             <NavbarG />
             <div className="trending-container">
-                { trend.map((movie) => (
-                    <Link to={`/watch/${movie._id}`}>
-                        <div className="content">
-                            <img src={movie.img} alt="" />
-                            <div className="content-title">
-                                <h3>{movie.title}</h3>
-                                <div className="content-title-genre">
-                                    <p className="genre">{movie.genre}</p>
-                                    <CheckCircleIcon className="icon" style={{ marginRight: "5px" }} />
-                                    <span className="like" style={{ marginRight: "5px" }}>{movie.likers.length} lượt thích</span>
-                                    <UpdateIcon className="icon" />
-                                    <p className="update">
-                                        Đã được cập nhập -
-                                        <span className="time-update"> {timestampParser(movie.createdAt)}</span>
-                                    </p>
+                { loading && <SkeletonTrending /> }
+                { !loading && 
+                    <div className="trending-container-loading">
+                        { trend.map((movie) => (
+                            <Link to={`/watch/${movie._id}`}>
+                                <div className="content">
+                                    <img src={movie.img} alt="" />
+                                    <div className="content-title">
+                                        <h3>{movie.title}</h3>
+                                        <div className="content-title-genre">
+                                            <p className="genre">{movie.genre}</p>
+                                            <CheckCircleIcon className="icon" style={{ marginRight: "5px" }} />
+                                            <span className="like" style={{ marginRight: "5px" }}>{movie.view.length} lượt xem</span>
+                                            <UpdateIcon className="icon" />
+                                            <p className="update">
+                                                Đã được cập nhập -
+                                                <span className="time-update"> {timestampParser(movie.createdAt)}</span>
+                                            </p>
+                                        </div>
+                                        <p className="desc">
+                                            {movie.desc}
+                                        </p>
+                                    </div>
                                 </div>
-                                <p className="desc">
-                                    {movie.desc}
-                                </p>
-                            </div>
-                        </div>
-                    </Link>
-                )) }
+                            </Link>
+                        )) }
+                    </div>
+                }
                 <Scroll />
                 <div className="footer">
                     <div className="footer-title">Question? Contact us.</div>

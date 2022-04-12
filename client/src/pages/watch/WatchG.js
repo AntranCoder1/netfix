@@ -17,6 +17,7 @@ import { isEmpty } from '../../Utils';
 import CommentG from '../../pages/comment/CommentG';
 import { format } from 'timeago.js';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import SkeletonWatch from '../../components/skeleton/SkeletonWatch';
 
 const WatchG = () => {
 
@@ -31,6 +32,7 @@ const WatchG = () => {
 
     const [isLiked, setIsLiked] = useState(false);
     const [trend, setTrend] = useState("");
+    const [loading, setLoading] = useState(false); 
 
     const dispatch = useDispatch();
 
@@ -45,20 +47,31 @@ const WatchG = () => {
 
     
     useEffect(() => {
-        const getMovie = async () => {
-            try {
-                const res = await axios.get(`/movies/randomMovie?genre=${movies.genre}`, {
-                    headers: {
-                        token: "Bearer " + TOKEN
-                    }
-                })
-                setMovieList(res.data)
-            } catch (error) {
-                console.log(error);
+        setLoading(true);
+        const timer = setTimeout(() => {
+            const getMovie = async () => {
+                try {
+                    const res = await axios.get(`/movies/randomMovie?genre=${movies.genre}`, {
+                        headers: {
+                            token: "Bearer " + TOKEN
+                        }
+                    })
+                    setMovieList(res.data)
+                } catch (error) {
+                    console.log(error);
+                }
             }
-        }
-        getMovie();
+            getMovie();
+            setLoading(false);
+        }, 5000);
+        return () => clearTimeout(timer);
     }, []);
+
+    const filterDuplicateFilm = movieList.filter((movie) => {
+        if (movie._id !== movies._id) {
+            return movie;
+        }
+    })
     
     useEffect(() => {
         getMovie(dispatch);
@@ -165,35 +178,40 @@ const WatchG = () => {
                         <span>Time: {movies.limit} minute</span>
                     </div>
                 </div>
-                <div className="watch-img">
-                    <img src={movies.imgTitle} alt="" />
-                    <img src={movies.imgSm} alt="" />
-                </div>
-                <div className="watch-reco">
-                    <div className="slider">
-                        <h1>Recommend for you</h1>
-                        <div className="arrow">
-                            <ArrowBackIosOutlined
-                                className="sliderArrow left"
-                                onClick={() => handleClick("left")}
-                                style={{ display: !isMoved && "none" }}
-                            />  
-                            <ArrowForwardIosOutlined
-                                className="sliderArrow right"
-                                onClick={() => handleClick("right")}
-                            />
+                { loading && <SkeletonWatch /> }
+                { !loading && 
+                    <>
+                        <div className="watch-img">
+                            <img src={movies.imgTitle} alt="" />
+                            <img src={movies.imgSm} alt="" />
                         </div>
-                    </div>
-                    <div className="watch-recommend" style={{ display: 'flex' }} ref={movieReco}>
-                        { movieList.map((item) => (
-                            <Link to={`/watch/${item._id}`} onClick={handleView}>
-                                <div class="zoomin content">
-                                    <img src={item.img} title={item.title} />
+                        <div className="watch-reco">
+                            <div className="slider">
+                                <h1>Recommend for you</h1>
+                                <div className="arrow">
+                                    <ArrowBackIosOutlined
+                                        className="sliderArrow left"
+                                        onClick={() => handleClick("left")}
+                                        style={{ display: !isMoved && "none" }}
+                                    />  
+                                    <ArrowForwardIosOutlined
+                                        className="sliderArrow right"
+                                        onClick={() => handleClick("right")}
+                                    />
                                 </div>
-                            </Link>
-                        )) }
-                    </div>
-                </div>
+                            </div>
+                            <div className="watch-recommend" style={{ display: 'flex' }} ref={movieReco}>
+                                { filterDuplicateFilm.map((item) => (
+                                    <Link to={`/watch/${item._id}`} onClick={handleView}>
+                                        <div class="zoomin content">
+                                            <img src={item.img} title={item.title} />
+                                        </div>
+                                    </Link>
+                                )) }
+                            </div>
+                        </div>
+                    </>
+                }
                 <CommentG movies={movies} />
                 <div className="footer">
                     <div className="footer-title">Question? Contact us.</div>
