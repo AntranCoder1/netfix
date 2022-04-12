@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { logout } from '../../redux/User.redux';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import SkeletonNavbar from '../skeleton/SkeletonNavbar';
 
 const NavBar = (props) => {
 
@@ -15,6 +16,7 @@ const NavBar = (props) => {
     const [users, setUsers] = useState([]);
     const dispatch = useDispatch(); 
     const history = useHistory();
+    const [loading, setLoading] = useState(false);
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true );
@@ -45,15 +47,20 @@ const NavBar = (props) => {
     }
 
     useEffect(() => {
-        const getCurrentUser = async () => {
-            try {
-                const res = await axios.get("/users/find/" + user._id);
-                setUsers(res.data);
-            } catch (error) {
-                console.log(error);
+        setLoading(true);
+        const timer = setTimeout(() => {
+            const getCurrentUser = async () => {
+                try {
+                    const res = await axios.get("/users/find/" + user._id);
+                    setUsers(res.data);
+                } catch (error) {
+                    console.log(error);
+                }
             }
-        }
-        getCurrentUser();
+            getCurrentUser();
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
     }, []);
 
     return (  
@@ -101,12 +108,17 @@ const NavBar = (props) => {
                             />
                         </form>
                     </div>
-                    <span>{users.name}</span>
-                    <Notifications className="icon" />
-                    <img  
-                        src={users.picture || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
-                        alt="netfix-user"
-                    />
+                    { loading && <SkeletonNavbar /> }
+                    { !loading &&
+                        <>
+                            <span>{users.name}</span>
+                            <Notifications className="icon" />
+                            <img  
+                                src={users.picture || "https://i.pinimg.com/564x/4e/d4/ae/4ed4ae0981739ad8527eddddebbd428f.jpg"}
+                                alt="netfix-user"
+                            />
+                        </>
+                    }
                     <div className="profile">
                         <ArrowDropDown className="icon" />
                         <div className="options">
