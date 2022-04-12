@@ -1,13 +1,6 @@
 import firebase from 'firebase';
 
 const firebaseConfig = {
-    // apiKey: "AIzaSyC-CbqoF3PSPqMHsP8qDXSSy06Akn7ylGo",
-    // authDomain: "movie-28be6.firebaseapp.com",
-    // projectId: "movie-28be6",
-    // storageBucket: "movie-28be6.appspot.com",
-    // messagingSenderId: "1061833119696",
-    // appId: "1:1061833119696:web:5d5e4850cb967d87710bd5",
-    // measurementId: "G-DKHJT1V8GR"
 
     // apiKey: "AIzaSyBhVRsISue9A7eFRVTiROUbNUPyYl27Iow",
     // authDomain: "movie-1-e4bab.firebaseapp.com",
@@ -35,13 +28,29 @@ const firebaseConfig = {
     // appId: "1:728130310676:web:9b86667fcb44953cfa8d01",
     // measurementId: "G-4834RJWD3Q"
 
-    apiKey: "AIzaSyB_9IfpvsNpyUCicjExVzfz0mOJpyUJdzo",
-    authDomain: "movie-4-2bd2e.firebaseapp.com",
-    projectId: "movie-4-2bd2e",
-    storageBucket: "movie-4-2bd2e.appspot.com",
-    messagingSenderId: "314055103216",
-    appId: "1:314055103216:web:52514d78e5fa7ac8996835",
-    measurementId: "G-XYPNZGMDY4"
+    // apiKey: "AIzaSyB_9IfpvsNpyUCicjExVzfz0mOJpyUJdzo",
+    // authDomain: "movie-4-2bd2e.firebaseapp.com",
+    // projectId: "movie-4-2bd2e",
+    // storageBucket: "movie-4-2bd2e.appspot.com",
+    // messagingSenderId: "314055103216",
+    // appId: "1:314055103216:web:52514d78e5fa7ac8996835",
+    // measurementId: "G-XYPNZGMDY4"
+
+    // apiKey: "AIzaSyAgHqV0CFWOMRPWGKsr9xyxi2INX-ldhFQ",
+    // authDomain: "movie-5-e7c95.firebaseapp.com",
+    // projectId: "movie-5-e7c95",
+    // storageBucket: "movie-5-e7c95.appspot.com",
+    // messagingSenderId: "17799525260",
+    // appId: "1:17799525260:web:c76c28e23b02b2654e1ca9",
+    // measurementId: "G-2CHF3V1EXF"
+
+    apiKey: "AIzaSyAeUIDVZyeaOmECLJj49WQUPVKMjBTblr8",
+    authDomain: "movie-6-efbb4.firebaseapp.com",
+    projectId: "movie-6-efbb4",
+    storageBucket: "movie-6-efbb4.appspot.com",
+    messagingSenderId: "780008322135",
+    appId: "1:780008322135:web:6bb18e2687d6273f025f12",
+    measurementId: "G-Z15KP6JH05"
 };
 
 firebase.initializeApp(firebaseConfig);
