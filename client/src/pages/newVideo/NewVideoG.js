@@ -6,24 +6,31 @@ import axios from 'axios';
 import { timestampParser } from '../../Utils';
 import { Link } from 'react-router-dom'; 
 import Scroll from '../../components/scroll/Scroll';
+import SkeletonNewMovie from '../../components/skeleton/SkeletonNewMovie';
 
 const NewVideoG = () => {
 
     const [movie, setMovie] = useState([]);
     const TOKEN = JSON.parse(localStorage.getItem("userGoogle"))?.token;
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const getMovie = async () => {
-            const res = await axios.get("/movies", {
-                headers: {
-                    token: "Bearer " + TOKEN
-                }
-            })
-            setMovie(res.data.sort((m1, m2) => {
-                return new Date(m2.createdAt) - new Date(m1.createdAt);
-            }).slice(0, 10));
-        };
-        getMovie();
+        setLoading(true);
+        const timer = setTimeout(() => {
+            const getMovie = async () => {
+                const res = await axios.get("/movies", {
+                    headers: {
+                        token: "Bearer " + TOKEN
+                    }
+                })
+                setMovie(res.data.sort((m1, m2) => {
+                    return new Date(m2.createdAt) - new Date(m1.createdAt);
+                }).slice(0, 10));
+            };
+            getMovie();
+            setLoading(false);
+        }, 5000);
+        return () => clearTimeout(timer);
     }, []);
 
     useEffect(() => {
@@ -34,24 +41,31 @@ const NewVideoG = () => {
         <div className="new-video">
             <NavbarG />
             <div className="new-video-container">
-                { movie.map((movie) => (
-                    <Link to={`/watch/${movie._id}`}>
-                        <div className="content">
-                            <img src={movie.img} alt="" />
-                            <div className="content-title">
-                                <h3>{movie.title}</h3>
-                                <div className="content-title-genre">
-                                    <p className="genre">{movie.genre}</p>
-                                    <UpdateIcon className="icon" />
-                                    <p className="update">Đã được cập nhập <span className="time-update">{timestampParser(movie.createdAt)}</span></p>
-                                </div>
-                                <p className="desc">
-                                    {movie.desc}
-                                </p>
-                            </div>
-                        </div>
-                    </Link>
-                )) }
+            <div className="container">
+                    { loading && <SkeletonNewMovie /> }
+                    { !loading &&
+                        <>
+                            { movie.map((movie) => (
+                                <Link to={`/watch/${movie._id}`}>
+                                    <div className="content">
+                                        <img src={movie.img} alt="" />
+                                        <div className="content-title">
+                                            <h3>{movie.title}</h3>
+                                            <div className="content-title-genre">
+                                                <p className="genre">{movie.genre}</p>
+                                                <UpdateIcon className="icon" />
+                                                <p className="update">Đã được cập nhập <span className="time-update">{timestampParser(movie.createdAt)}</span></p>
+                                            </div>
+                                            <p className="desc">
+                                                {movie.desc}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            )) }
+                        </>
+                    }
+                </div>
                 <Scroll />
                 <div className="footer">
                     <div className="footer-title">Question? Contact us.</div>
