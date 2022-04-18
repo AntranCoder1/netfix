@@ -8,6 +8,7 @@ import MovieItem from '../../components/MovieItem/MovieItem';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import SkeletonListItem from '../../components/skeleton/SkeletonListItem';
+import SkeletonSearch from '../../components/skeleton/SkeletonSearch';
 
 const Home = ({ type }) => {
 
