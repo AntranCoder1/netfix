@@ -38,7 +38,7 @@ const MovieCart = () => {
 
     const check = filtered.filter((el) => {
         return el !== null;
-    })
+    });
 
     useEffect(() => {
         const getCurrentUser = async () => {
@@ -65,7 +65,7 @@ const MovieCart = () => {
                     <div className="left">
                         <p className="left-title">Video đã thích</p>
                         <p style={{ fontSize: "15px", color: "#ccc" }}>
-                            <span>{filtered.length} </span> 
+                            <span>{check.length} </span> 
                             Video
                         </p>
                         <div className="left-security">
@@ -82,7 +82,9 @@ const MovieCart = () => {
                         { check.map((movie) => (
                             <div className="right-right">
                                 <div className="right-content">
-                                    {/* <span style={{ fontSize: "20px" }}>0</span> */}
+                                    <span style={{ fontSize: "20px" }}>
+                                        { check.indexOf(movie) + 1 }
+                                    </span>
                                     <Link to={`/watch/${movie._id}`}>
                                         <>
                                             <div className="right-title">

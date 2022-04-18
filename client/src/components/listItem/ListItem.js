@@ -83,6 +83,141 @@ const ListItem = ({ index, list }) => {
         //         <img src={movie?.imgSm} alt="Animals" />
         //     </a>
         // </div>
+        // <ul className="items">
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>Orange is the new black</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+            
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>Ugly Betty</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+            
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>Big</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+            
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>The Apprentice</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+            
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>Veep</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>Orange is the new black</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+            
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>Ugly Betty</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+            
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>Big</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+            
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>The Apprentice</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+            
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>Veep</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>Orange is the new black</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+            
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>Ugly Betty</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+            
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>Big</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+            
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>The Apprentice</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+            
+        //     <li>
+        //         <img classNam="bg-img" src="https://loremflickr.com/320/240" />
+        //         <a href="#">
+        //             <div class="content">
+        //                 <h2>Veep</h2>
+        //             </div>
+        //         </a>
+        //     </li>
+        // </ul>
+
     )
 }
 
