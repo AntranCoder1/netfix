@@ -81,7 +81,9 @@ const Featured = ({ type, setGenre }) => {
                     }
                     { content.map((content) => (
                         <>
-                            <img src={content.img} alt="" />
+                            <div className="img-gradient">
+                                <img src={content.img} alt="" className="img-fluid" />
+                            </div>
                             <div className="info">
                                 <img
                                     src={content.imgTitle}

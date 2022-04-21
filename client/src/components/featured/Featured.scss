@@ -26,11 +26,34 @@
         }
     }
 
-    img {
+    .img-gradient {
+        position:relative;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+
+        .img-fluid {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
+
+    .img-gradient::after {
+        content: '';
+        position: absolute;
+        left: 0; 
+        top: 0;
+        width: 100%; 
+        height: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.7));
+    }
+
+    // img {
+    //     width: 100%;
+    //     height: 100%;
+    //     object-fit: cover;
+    //     position: relative;
+    // }
 
     .info {
         width: 35%;
