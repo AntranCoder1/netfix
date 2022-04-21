@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MovieItem.scss';
 import ShareIcon from '@material-ui/icons/Share';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -26,7 +26,7 @@ const MovieItem = ({ movie, index }) => {
 
     return (
         <div className="movie_card" id="bright">
-            <Link to={`/watch/${movie._id}`} onClick={handleView}>
+            <Link to={`/info/${movie._id}`} onClick={handleView}>
                 <>
                     <div className="info_section">
                         <div 

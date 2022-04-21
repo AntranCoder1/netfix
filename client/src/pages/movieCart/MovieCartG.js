@@ -36,7 +36,7 @@ const MovieCartG = () => {
             }
             getMovieLike();
             setLoading(false);
-        }, 5000);
+        }, 3000);
         return () => clearTimeout(timer);
     }, []);
 
@@ -88,7 +88,9 @@ const MovieCartG = () => {
                         { check.map((movie) => (
                             <div className="right-right">
                                 <div className="right-content">
-                                    {/* <span style={{ fontSize: "20px" }}>0</span> */}
+                                    <span style={{ fontSize: "20px" }}>
+                                        { check.indexOf(movie) + 1 }
+                                    </span>
                                     <Link to={`/watch/${movie._id}`}>
                                         <>
                                             <div className="right-title">

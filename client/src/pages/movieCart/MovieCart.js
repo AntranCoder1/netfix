@@ -32,7 +32,7 @@ const MovieCart = () => {
             };
             getMovieLike();
             setLoading(false);
-        }, 2000);
+        }, 3000);
         return () => clearTimeout(timer);
     }, []);
 
