@@ -11,10 +11,11 @@ import MovieItem from '../../components/MovieItem/MovieItem';
 const MovieCart = () => {
 
     const user = useSelector(state => state.user.currentUser);
-    const movies = useSelector(state => state.movie.movies);
     const [users, setUsers] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [movieSearch, setMovieSearch] = useState([]);
+
     const [movieSearch, setMovieSearch] = useState([]);
 
     useEffect(() => {
@@ -60,7 +61,6 @@ const MovieCart = () => {
                 headers: {
                     token: "Bearer " + user.token
                 }
-            })
             setMovieSearch(res.data);
         } catch (error) {
             console.log(error);
