@@ -9,6 +9,7 @@ import { isEmpty, timestampParser } from '../../Utils';
 import Scroll from '../../components/scroll/Scroll';
 import SkeletonTrending from '../../components/skeleton/SkeletonTrending';
 import axios from 'axios';
+import MovieItem from '../../components/MovieItem/MovieItem';
 
 const TrendingG = () => {
 
