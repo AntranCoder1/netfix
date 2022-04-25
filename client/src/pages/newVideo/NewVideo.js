@@ -7,11 +7,13 @@ import { timestampParser } from '../../Utils';
 import { Link } from 'react-router-dom'; 
 import Scroll from '../../components/scroll/Scroll';
 import SkeletonNewMovie from '../../components/skeleton/SkeletonNewMovie';
+import MovieItem from '../../components/MovieItem/MovieItem';
 
 const NewVideo = () => {
 
     const [movie, setMovie] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [movieSearch, setMovieSearch] = useState([]);
 
     const admin = JSON.parse(localStorage.getItem("persist:root"))?.user;
     const currentUser = admin && JSON.parse(admin).currentUser;
@@ -32,9 +34,22 @@ const NewVideo = () => {
             };
             getMovie();
             setLoading(false);
-        }, 5000);
+        }, 2000);
         return () => clearTimeout(timer);
     }, []);
+
+    const search = async (searchValue) => {
+        try {
+            const res = await axios.get(`/movies/search?value=${searchValue}`, {
+                headers: {
+                    token: "Bearer " + TOKEN
+                }
+            })
+            setMovieSearch(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     useEffect(() => {
         document.title = 'Netflix - New video'
@@ -42,32 +57,42 @@ const NewVideo = () => {
 
     return (
         <div className="new-video">
-            <NavBar />
+            <NavBar search={search} />
             <div className="new-video-container">
                 <div className="container">
-                    { loading && <SkeletonNewMovie /> }
-                    { !loading &&
+                    { movieSearch.length === 0 ? (
                         <>
-                            { movie.map((movie) => (
-                                <Link to={`/watch/${movie._id}`}>
-                                    <div className="content">
-                                        <img src={movie.img} alt="" />
-                                        <div className="content-title">
-                                            <h3>{movie.title}</h3>
-                                            <div className="content-title-genre">
-                                                <p className="genre">{movie.genre}</p>
-                                                <UpdateIcon className="icon" />
-                                                <p className="update">Đã được cập nhập <span className="time-update">{timestampParser(movie.createdAt)}</span></p>
+                            { loading && <SkeletonNewMovie /> }
+                            { !loading &&
+                                <>
+                                    { movie.map((movie) => (
+                                        <Link to={`/watch/${movie._id}`}>
+                                            <div className="content">
+                                                <img src={movie.img} alt="" />
+                                                <div className="content-title">
+                                                    <h3>{movie.title}</h3>
+                                                    <div className="content-title-genre">
+                                                        <p className="genre">{movie.genre}</p>
+                                                        <UpdateIcon className="icon" />
+                                                        <p className="update">Đã được cập nhập <span className="time-update">{timestampParser(movie.createdAt)}</span></p>
+                                                    </div>
+                                                    <p className="desc">
+                                                        {movie.desc}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <p className="desc">
-                                                {movie.desc}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </Link>
-                            )) }
+                                        </Link>
+                                    )) }
+                                </>
+                            }
                         </>
-                    }
+                    ) : (
+                        <div className="movie-search">
+                            { movieSearch.map((item, i) => (
+                                <MovieItem key={item._id} index={i} movie={item} />
+                            )) }
+                        </div>
+                    ) }
                 </div>
                 <Scroll />
                 <div className="footer">
