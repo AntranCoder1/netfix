@@ -64,9 +64,9 @@ const MovieCartG = () => {
         try {
             const res = await axios.get(`/movies/search?value=${searchValue}`, {
                 headers: {
-                    token: "Bearer " + user.token
+                    token: "Bearer " + TOKEN
                 }
-            });
+            })
             setMovieSearch(res.data);
         } catch (error) {
             console.log(error);
@@ -130,7 +130,7 @@ const MovieCartG = () => {
                     }
                 </>
             ) : (
-                <div className="movieSearch movie-card">
+                <div className="movie-search">
                     { movieSearch.map((item, i) => (
                         <MovieItem key={item._id} index={i} movie={item} />
                     )) }

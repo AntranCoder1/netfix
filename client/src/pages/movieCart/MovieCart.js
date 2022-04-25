@@ -14,6 +14,7 @@ const MovieCart = () => {
     const [users, setUsers] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [movieSearch, setMovieSearch] = useState([]);
 
     const [movieSearch, setMovieSearch] = useState([]);
 
@@ -60,7 +61,6 @@ const MovieCart = () => {
                 headers: {
                     token: "Bearer " + user.token
                 }
-            });
             setMovieSearch(res.data);
         } catch (error) {
             console.log(error);
@@ -124,7 +124,7 @@ const MovieCart = () => {
                     }
                 </>
             ) : (
-                <div className="movieSearch movie-card">
+                <div className="movie-search">
                     { movieSearch.map((item, i) => (
                         <MovieItem key={item._id} index={i} movie={item} />
                     )) }
