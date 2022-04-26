@@ -17,6 +17,7 @@ import ProfileG from './pages/profile/ProfileG';
 import EditProfileG from './pages/EditProfile/EditProfileG';
 import Info from './pages/infoMovie/Info';
 import InfoG from './pages/infoMovie/InfoG';
+import MovieItem from './components/MovieItem/MovieItem';
 import { BrowserRouter as Router,
   Switch,
   Route,
@@ -116,6 +117,9 @@ function App() {
               </Route>
               <Route path="/info">
                 <Info />
+              </Route>
+              <Route path="/movies/search?value">
+                <MovieItem />
               </Route>
             </>
           )

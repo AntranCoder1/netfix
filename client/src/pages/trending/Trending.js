@@ -10,6 +10,7 @@ import Scroll from '../../components/scroll/Scroll';
 import SkeletonTrending from '../../components/skeleton/SkeletonTrending';
 import MovieItem from '../../components/MovieItem/MovieItem';
 import axios from 'axios';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 const Trending = () => {
 
@@ -20,6 +21,7 @@ const Trending = () => {
 
     const currentUser = useSelector(state => state.user.currentUser);
     const [movieSearch, setMovieSearch] = useState([]);
+    const [value, setValue] = useState("");
 
     const TOKEN = currentUser.token;
 
@@ -36,7 +38,7 @@ const Trending = () => {
                 setTrend(sort)
             }
             setLoading(false);
-        }, 5000);
+        }, 1000);
         return () => clearTimeout(timer);
     }, []);
 
@@ -48,24 +50,32 @@ const Trending = () => {
                 }
             });
             setMovieSearch(res.data);
+            setValue(searchValue);
         } catch (error) {
             console.log(error);
         }
     };
 
-    useEffect(() => {
-        document.title = 'Netflix - Trending'
-    }, []);
+    if (movieSearch.length === 0) {
+        document.title = "Netflix - Profile"
+    } else {
+        document.title = `(${movieSearch.length}) ${value} - Netflix`;
+        window.history.pushState('', '', `/movies/search?value=${value}`);
+    }
+
+    const newURL = `http://localhost:3000/movies/search?value=${value}`;
+
+    // window.history.pushState('', '', `/movies/search?value=${value}`);
 
     return (
         <div className="trending">
             <NavBar search={search} />
             <div className="trending-container">
-                { movieSearch.length === 0 ? (
-                    <>
-                        { loading && <SkeletonTrending /> }
-                        { !loading && 
-                            <div className="trending-container-loading">
+                { loading && <SkeletonTrending /> }
+                { !loading && 
+                    <div className="trending-container-loading">
+                        { movieSearch.length === 0 ? (
+                            <>
                                 { trend.map((movie) => (
                                     <Link to={`/watch/${movie._id}`}>
                                         <div className="content">
@@ -89,17 +99,18 @@ const Trending = () => {
                                         </div>
                                     </Link>
                                 )) }
+                            </>
+                        ) : (
+                            
+                            <div className="movie-search">
+                                { movieSearch.map((item, i) => (
+                                    <MovieItem key={item._id} index={i} movie={item} />
+                                )) }
                             </div>
-                        }
-                        <Scroll />
-                    </>
-                ) : (
-                    <div className="movieSearch movie-card">
-                        { movieSearch.map((item, i) => (
-                            <MovieItem key={item._id} index={i} movie={item} />
-                        )) }
+                        ) }
                     </div>
-                ) }
+                }
+                <Scroll />
                 <div className="footer">
                     <div className="footer-title">Question? Contact us.</div>
                     <p className="footer-break"></p>
