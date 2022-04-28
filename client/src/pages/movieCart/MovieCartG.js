@@ -20,6 +20,7 @@ const MovieCartG = () => {
 
     const [users, setUsers] = useState([]);
     const [movieSearch, setMovieSearch] = useState([]);
+    const [value, setValue] = useState("");
 
     useEffect(() => {
         setLoading(true);
@@ -68,6 +69,7 @@ const MovieCartG = () => {
                 }
             })
             setMovieSearch(res.data);
+            setValue(searchValue);
         } catch (error) {
             console.log(error);
         }
