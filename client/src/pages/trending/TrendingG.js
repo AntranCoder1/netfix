@@ -18,10 +18,10 @@ const TrendingG = () => {
     const [trend, setTrend] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const currentUser = useSelector(state => state.user.currentUser);
-    const TOKEN = currentUser.token;
+    const TOKEN = JSON.parse(localStorage.getItem("userGoogle"))?.token;
 
     const [movieSearch, setMovieSearch] = useState([]);
+    const [value, setValue] = useState("");
 
     useEffect(() => {
         setLoading(true);
@@ -48,24 +48,28 @@ const TrendingG = () => {
                 }
             });
             setMovieSearch(res.data);
+            setValue(searchValue);
         } catch (error) {
             console.log(error);
         }
     };
 
-    useEffect(() => {
-        document.title = 'Netflix - Trending'
-    }, []);
+    if (movieSearch.length === 0) {
+        document.title = 'Netflix - Trending';
+    } else {
+        document.title = `(${movieSearch.length}) ${value} - Netflix`;
+        window.history.replaceState('', '', `/movies/search?value=${value}`);
+    }
 
     return (
         <div className="trending">
             <NavbarG search={search} />
             <div className="trending-container">
-                { movieSearch.length === 0 ? (
-                    <>
-                        { loading && <SkeletonTrending /> }
-                        { !loading && 
-                            <div className="trending-container-loading">
+                { loading && <SkeletonTrending /> }
+                { !loading && 
+                    <div className="trending-container-loading">
+                        { movieSearch.length === 0 ? (
+                            <>
                                 { trend.map((movie) => (
                                     <Link to={`/watch/${movie._id}`}>
                                         <div className="content">
@@ -89,17 +93,18 @@ const TrendingG = () => {
                                         </div>
                                     </Link>
                                 )) }
+                            </>
+                        ) : (
+                            
+                            <div className="movie-search">
+                                { movieSearch.map((item, i) => (
+                                    <MovieItem key={item._id} index={i} movie={item} />
+                                )) }
                             </div>
-                        }
-                        <Scroll />
-                    </>
-                ) : (
-                    <div className="movieSearch movie-card">
-                        { movieSearch.map((item, i) => (
-                            <MovieItem key={item._id} index={i} movie={item} />
-                        )) }
+                        ) }
                     </div>
-                ) }
+                }
+                <Scroll />
                 <div className="footer">
                     <div className="footer-title">Question? Contact us.</div>
                     <p className="footer-break"></p>
