@@ -134,7 +134,7 @@ module.exports.likeMovie = async (req, res) => {
         await User.findByIdAndUpdate(
             req.body.id,
             {
-                $addToSet: { likes: req.params.id },
+                $addToSet: { likes: req.params.id }
             },
             { new: true },
             (err, docs) => {

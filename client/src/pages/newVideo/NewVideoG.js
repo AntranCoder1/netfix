@@ -15,6 +15,7 @@ const NewVideoG = () => {
     const TOKEN = JSON.parse(localStorage.getItem("userGoogle"))?.token;
     const [loading, setLoading] = useState(false);
     const [movieSearch, setMovieSearch] = useState([]);
+    const [value, setValue] = useState("");
 
     useEffect(() => {
         setLoading(true);
@@ -43,14 +44,18 @@ const NewVideoG = () => {
                 }
             })
             setMovieSearch(res.data);
+            setValue(searchValue);
         } catch (error) {
             console.log(error);
         }
     };
 
-    useEffect(() => {
-        document.title = 'Netflix - New video'
-    }, []);
+    if (movieSearch.length === 0) {
+        document.title = 'Netflix - New video';
+    } else {
+        document.title = `(${movieSearch.length}) ${value} - Netflix`;
+        window.history.replaceState('', '', `/movies/search?value=${value}`);
+    }
 
     return (
         <div className="new-video">

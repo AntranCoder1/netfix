@@ -118,9 +118,6 @@ function App() {
               <Route path="/info">
                 <Info />
               </Route>
-              <Route path="/movies/search?value">
-                <MovieItem />
-              </Route>
             </>
           )
         }

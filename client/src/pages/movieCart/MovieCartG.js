@@ -75,9 +75,12 @@ const MovieCartG = () => {
         }
     };
 
-    useEffect(() => {
-        document.title = 'Netflix - liked video'
-    }, []);
+    if (movieSearch.length === 0) {
+        document.title = 'Netflix - liked video';
+    } else {
+        document.title = `(${movieSearch.length} ${value} - Netflix)`;
+        window.history.replaceState('', '', `/movies/search?value=${value}`);
+    }
 
     return (
         <div className="movie-cart">
