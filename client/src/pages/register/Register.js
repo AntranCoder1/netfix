@@ -4,6 +4,7 @@ import faqsData from '../../fixtures/faqs.json';
 import Accodion from '../../components/accodion/Accodion';
 import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
+import LanguageIcon from '@material-ui/icons/Language';
 
 const Register = () => {
 
@@ -151,6 +152,13 @@ const Register = () => {
                         <a href="https://help.netflix.com/legal/termsofuse" className="footer-link">Terms of Use</a>
                         <a href="https://help.netflix.com/vi/contactus" className="footer-link">Contact Us</a>
                     </div>
+                </div>
+                <div className="trans">
+                    <LanguageIcon className="trans-icon" />
+                    <select>
+                        <option>English</option>
+                        <option>Tiếng Việt</option>
+                    </select>
                 </div>
                 <p className="footer-break"></p>
                 <p className="footer-text">Netflix Vietnam</p>

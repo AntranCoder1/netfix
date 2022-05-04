@@ -238,12 +238,13 @@ only screen and (min-width: 950px) and (max-width: 1449px), only screen and (min
     padding: 70px 45px;
     background: #000;
     width: 94.75vw;
+    
 
     .footer-title {
         color: #757575;
-        margin-left: 17rem;
+        margin-left: 22rem;
         margin-bottom: 40px;
-        font-size: 17px;
+        font-size: 1.2em;
     }
 
     .footer-break {
@@ -255,6 +256,7 @@ only screen and (min-width: 950px) and (max-width: 1449px), only screen and (min
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
         grid-gap: 15px;
+        margin-left: 5rem;
 
         @media (max-width: 1000px) {
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -271,7 +273,7 @@ only screen and (min-width: 950px) and (max-width: 1449px), only screen and (min
             .footer-link {
                 color: #757575;
                 margin-bottom: 20px;
-                font-size: 13px;
+                font-size: 1em;
                 text-decoration: none;
 
                 &:hover {
@@ -281,12 +283,43 @@ only screen and (min-width: 950px) and (max-width: 1449px), only screen and (min
         }
     }
 
+    .trans {
+        margin-left: 22rem;
+        margin-top: 3rem;
+        display: flex;
+        align-items: center;
+
+        .trans-icon {
+            color: #999;
+            position: absolute;
+            margin-left: 10px;
+        }
+    }
+
+    .trans > select {
+        background-color: #000;
+        background-image: none;
+        border: 1px solid #333;
+        color: #999;
+        font-size: 1.1rem;
+        padding: 15px 15px 15px 40px;
+        border-radius: 5px;
+    }
+
+    .trans > option {
+        font-weight: normal;
+        display: block;
+        white-space: nowrap;
+        min-height: 1.2em;
+        padding: 0px 2px 1px;
+    }
+
     .footer-text {
-        font-size: 13px;
+        font-size: 0.9em;
         color: #757575;
         margin-bottom: -2rem;
         margin-top: 40px;
-        margin-left: 17rem;
+        margin-left: 22rem;
     }
 }
 

@@ -57,15 +57,11 @@ const Trending = () => {
     };
 
     if (movieSearch.length === 0) {
-        document.title = "Netflix - Profile"
+        document.title = "Netflix - Trending"; 
     } else {
         document.title = `(${movieSearch.length}) ${value} - Netflix`;
-        window.history.pushState('', '', `/movies/search?value=${value}`);
+        window.history.replaceState('', '', `/movies/search?value=${value}`);   
     }
-
-    const newURL = `http://localhost:3000/movies/search?value=${value}`;
-
-    // window.history.pushState('', '', `/movies/search?value=${value}`);
 
     return (
         <div className="trending">
