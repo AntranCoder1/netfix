@@ -40,5 +40,21 @@
     "footer-column3-link-4": "Chỉ có trên Netflix",
     "footer-column4-link-1": "Trung tâm đa phương tiện",
     "footer-column4-link-2": "Điều khoản sử dụng",
-    "footer-column4-link-3": "Liên hệ với chúng tôi"
+    "footer-column4-link-3": "Liên hệ với chúng tôi",
+    "login-title": "Đăng nhập",
+    "login-email": "Email hoặc số điện thoại",
+    "login-password": "Mật khẩu",
+    "login-btn": "Đăng nhập",
+    "login-text": "Bạn mới tham gia Netflix?",
+    "login-text-login": "Đăng ký ngay",
+    "login-text-small": "Trang này được Google reCAPTCHA bảo vệ để đảm bảo bạn không phải là robot.",
+    "login-text-a": "Tìm hiểu thêm.",
+    "login-footer-title": "Bạn có câu hỏi? Liên hệ với chúng tôi",
+    "login-footer-column1-link-1": "Câu hỏi thưởng gặp",
+    "login-footer-column1-link-2": "Tùy chọn cookie",
+    "login-footer-column2-link-1": "Trung tâm trợ giúp",
+    "login-footer-column2-link-2": "Thông tin doanh nghiệp",
+    "login-footer-column3-link-1": "Điều khoản sử dụng",
+    "login-footer-column4-link-1": "Quyền riêng tư",
+    "login-btn-google": "Đăng nhập với tài khoản google"
 }
