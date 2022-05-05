@@ -40,5 +40,21 @@
     "footer-column3-link-4": "Only on Netflix",
     "footer-column4-link-1": "Media Center",
     "footer-column4-link-2": "Term of Use",
-    "footer-column4-link-3": "Contact Us"
+    "footer-column4-link-3": "Contact Us",
+    "login-title": "Sign In",
+    "login-email": "Email or phone number",
+    "login-password": "Password",
+    "login-btn": "Sign In",
+    "login-text": "New to Netflix?",
+    "login-text-login": "Sign up now",
+    "login-text-small": "This page is protected by Google reCAPTCHA to ensure you're not a bot.",
+    "login-text-a": "Learn more.",
+    "login-footer-title": "Question? Contact us.",
+    "login-footer-column1-link-1": "FAQ",
+    "login-footer-column1-link-2": "Cookie Preferences",
+    "login-footer-column2-link-1": "Help Center",
+    "login-footer-column2-link-2": "Corporate Information",
+    "login-footer-column3-link-1": "Terms of Use",
+    "login-footer-column4-link-1": "Privacy",
+    "login-btn-google": "Login with google"
 }

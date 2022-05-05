@@ -6,6 +6,8 @@ import GoogleLogin from 'react-google-login';
 import { useHistory, Link } from 'react-router-dom';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import { Trans, useTranslation } from 'react-i18next';
+import LanguageIcon from '@material-ui/icons/Language';
 
 const Login = ({ responseSuccessGoogle }) => {
 
@@ -38,30 +40,41 @@ const Login = ({ responseSuccessGoogle }) => {
         setPasswordShown(passwordShown ? false : true);
     }
 
+    const { t } = useTranslation();
+    const { i18n } = useTranslation();
+
+    const changeLanguage = (e) => {
+        i18n.changeLanguage(e.target.value);
+    }
+
     return (
         <div className="login">
             <div className="top">
                 <div className="wrapper">
-                    <img 
-                        className="logo"
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
-                        alt=""
-                    />
+                    <Link to="/register">
+                        <img 
+                            className="logo"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
+                            alt=""
+                        />
+                    </Link>
                 </div>
             </div>
 
             <div className="container">
-                <h1>Sign In</h1>
+                <h1>
+                    <Trans t={t}>login-title</Trans>
+                </h1>
                 { error && <div className="error">Email or password incorrect</div> }
                 <form className="baseForm" onSubmit={handleClick}>
                     <input 
                         type="email"
-                        placeholder="Email or phone number"
+                        placeholder={t("login-email")}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <input 
                         type={passwordShown ? "text" : "password"}
-                        placeholder="Password"
+                        placeholder={t("login-password")}
                         onChange={(e) => setPassword(e.target.value)}
                        
                     />
@@ -70,48 +83,74 @@ const Login = ({ responseSuccessGoogle }) => {
                         : <VisibilityOffIcon className="icon" onClick={togglePasswordVisiblity} />
                     }
                     <button className="btnSubmit" disabled={isInvalid} type="submit" data-testid="sign-in">
-                        Sign In
+                        <Trans t={t}>login-btn</Trans>
                     </button>
                 </form>
 
                 <br />
                 <GoogleLogin
                     clientId="718778022741-nqeapv7qq7no0vs77v5dv2s70jcbcdnf.apps.googleusercontent.com"
-                    buttonText="Login with google"
+                    buttonText={t("login-btn-google")}
                     onSuccess={responseSuccessGoogle}
                     onFailure={responseErrorGoogle}
                     cookiePolicy={'single_host_origin'}
                 />
 
                 <p className="text">
-                    New to Netflix? <Link to="/register">Sign up now</Link>.
+                    <Trans t={t}>login-text</Trans> 
+                    <Link to="/register">
+                        <Trans t={t}>login-text-login</Trans>
+                    </Link>.
                 </p>
                 <p className="textSmall">
-                    This page is protected by Google reCAPTCHA to ensure you're not a bot. 
-                    <a href="#" style={{color: "#0071eb", marginLeft: "4px"}}>Learn more.</a>
+                    <Trans t={t}>login-text-small</Trans>
+                    <a href="#" style={{color: "#0071eb", marginLeft: "4px"}}>
+                        <Trans t={t}>login-text-a</Trans>
+                    </a>
                 </p>
             </div>
             <div className="footer-login">
-                <div className="footer-login-title">Question? Contact us.</div>
+                <div className="footer-login-title">
+                    <Trans t={t}>login-footer-title</Trans>
+                </div>
                 <p className="footer-login-break"></p>
                 <div className="footer-login-row">
                     <div className="footer-login-column">
-                        <a href="#" className="footer-login-link">FAQ</a>
-                        <a href="#" className="footer-login-link">Cookie Preferences</a>
+                        <a href="#" className="footer-login-link">
+                            <Trans t={t}>login-footer-column1-link-1</Trans>
+                        </a>
+                        <a href="#" className="footer-login-link">
+                            <Trans t={t}>login-footer-column1-link-2</Trans>
+                        </a>
                     </div>
 
                     <div className="footer-login-column">
-                        <a href="#" className="footer-login-link">Help Center</a>
-                        <a href="#" className="footer-login-link">Corporate Information</a>
+                        <a href="#" className="footer-login-link">
+                            <Trans t={t}>login-footer-column2-link-1</Trans>
+                        </a>
+                        <a href="#" className="footer-login-link">
+                            <Trans t={t}>login-footer-column2-link-2</Trans>
+                        </a>
                     </div>
 
                     <div className="footer-login-column">
-                        <a href="#" className="footer-login-link">Terms of Use</a>
+                        <a href="#" className="footer-login-link">
+                            <Trans t={t}>login-footer-column3-link-1</Trans>
+                        </a>
                     </div>
 
                     <div className="footer-login-column">
-                        <a href="#" className="footer-login-link">Privacy</a>
+                        <a href="#" className="footer-login-link">
+                            <Trans t={t}>login-footer-column4-link-1</Trans>
+                        </a>
                     </div>
+                </div>
+                <div className="trans">
+                    <LanguageIcon className="trans-icon" />
+                    <select onClick={changeLanguage}>
+                        <option value="en">English</option>
+                        <option value="vn">Tiếng Việt</option>
+                    </select>
                 </div>
                 <p className="footer-login-break"></p>
             </div>
