@@ -26,6 +26,7 @@ import { BrowserRouter as Router,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import './i18n/config';
 
 function App() {
 

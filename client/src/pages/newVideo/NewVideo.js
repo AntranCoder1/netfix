@@ -101,37 +101,37 @@ const NewVideo = () => {
                 </div>
                 <Scroll />
                 <div className="footer">
-                    <div className="footertop">
-                        <h4>You have questions? Contact us.</h4>
+                    <div className="footer-title">Question? Contact us.</div>
+                    <p className="footer-break"></p>
+                    <div className="footer-row">
+                        <div className="footer-column">
+                            <a href="https://help.netflix.com/vi/node/412" className="footer-link">FAQ</a>
+                            <a href="https://ir.netflix.net/ir-overview/profile/default.aspx" className="footer-link">Investor Relations</a>
+                            <a href="https://help.netflix.com/legal/privacy" className="footer-link">Privacy</a>
+                            <a href="https://fast.com/" className="footer-link">Speed test</a>
+                        </div>
+
+                        <div className="footer-column">
+                            <a href="https://help.netflix.com/vi/" className="footer-link">Help Center</a>
+                            <a href="https://jobs.netflix.com/" className="footer-link">Jobs</a>
+                            <a href="#" className="footer-link">Cookie Preferences</a>
+                            <a href="https://help.netflix.com/legal/notices" className="footer-link">Legal Notices</a>
+                        </div>
+
+                        <div className="footer-column">
+                            <a href="/login" className="footer-link">Account</a>
+                            <a href="https://devices.netflix.com/fr/" className="footer-link">Ways to Watch</a>
+                            <a href="https://help.netflix.com/legal/corpinfo" className="footer-link">Corporate Information</a>
+                            <a href="https://www.netflix.com/vn-en/browse/genre/839338" className="footer-link">Only on Netflix</a>
+                        </div>
+
+                        <div className="footer-column">
+                            <a href="https://www.netflix.com/vn-en/browse/genre/839338" className="footer-link">Media Center</a>
+                            <a href="https://help.netflix.com/legal/termsofuse" className="footer-link">Terms of Use</a>
+                            <a href="https://help.netflix.com/vi/contactus" className="footer-link">Contact Us</a>
+                        </div>
                     </div>
-                    <div className="footer-links">
-                        <ul className="list-1">
-                            <li><a href="https://help.netflix.com/vi/node/412">Frequently asked questions</a></li>
-                            <li><a href="https://ir.netflix.net/ir-overview/profile/default.aspx">Investor Relation</a></li>
-                            <li><a href="https://help.netflix.com/legal/privacy">Privacy</a></li>
-                            <li><a href="https://fast.com/">Speed test</a></li>
-                        </ul>
-                        <ul className="list-1">
-                            <li><a href="https://help.netflix.com/vi/">Help Center</a></li>
-                            <li><a href="https://jobs.netflix.com/">Jobs</a></li>
-                            <li><a href="#">Cookie options</a></li>
-                            <li><a href="https://help.netflix.com/legal/notices">policy notification</a></li>
-                        </ul>
-                        <ul className="list-1">
-                            <li><a href="/login">Account</a></li>
-                            <li><a href="https://devices.netflix.com/fr/">Ways to Watch</a></li>
-                            <li><a href="https://help.netflix.com/legal/corpinfo">Business information</a></li>
-                            <li><a href="https://www.netflix.com/vn-en/browse/genre/839338">Only available on Netflix</a></li>
-                        </ul>
-                        <ul className="list-1">
-                            <li><a href="https://www.netflix.com/vn-en/browse/genre/839338">Multimedia Center</a></li>
-                            <li><a href="https://help.netflix.com/legal/termsofuse">Terms of Use</a></li>
-                            <li><a href="https://help.netflix.com/vi/contactus">Contact Us</a></li>
-                        </ul>
-                    </div>
-                    <div className="footer-bottom">
-                        <h4>Netflix Việt Nam</h4>
-                    </div>
+                    <p className="footer-break"></p>
                 </div>
             </div>
         </div>
