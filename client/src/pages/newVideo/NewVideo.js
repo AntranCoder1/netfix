@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import Scroll from '../../components/scroll/Scroll';
 import SkeletonNewMovie from '../../components/skeleton/SkeletonNewMovie';
 import MovieItem from '../../components/MovieItem/MovieItem';
+import LanguageIcon from '@material-ui/icons/Language';
+import { Trans ,useTranslation } from 'react-i18next';
 
 const NewVideo = () => {
 
@@ -19,6 +21,9 @@ const NewVideo = () => {
     const admin = JSON.parse(localStorage.getItem("persist:root"))?.user;
     const currentUser = admin && JSON.parse(admin).currentUser;
     const TOKEN = currentUser?.token;
+
+    const { t } = useTranslation();
+    const { i18n } = useTranslation();
 
     useEffect(() => {
         setLoading(true);
@@ -58,6 +63,10 @@ const NewVideo = () => {
     } else {
         document.title = `(${movieSearch.length}) ${value} - Netflix`;
         window.history.replaceState('', '', `/movies/search?value=${value}`);   
+    }
+
+    const changeLanguage = (e) => {
+        i18n.changeLanguage(e.target.value);
     }
 
     return (
@@ -101,37 +110,77 @@ const NewVideo = () => {
                 </div>
                 <Scroll />
                 <div className="footer">
-                    <div className="footer-title">Question? Contact us.</div>
+                    <div className="footer-title">
+                        <Trans t={t}>footer-title</Trans>
+                    </div>
                     <p className="footer-break"></p>
                     <div className="footer-row">
                         <div className="footer-column">
-                            <a href="https://help.netflix.com/vi/node/412" className="footer-link">FAQ</a>
-                            <a href="https://ir.netflix.net/ir-overview/profile/default.aspx" className="footer-link">Investor Relations</a>
-                            <a href="https://help.netflix.com/legal/privacy" className="footer-link">Privacy</a>
-                            <a href="https://fast.com/" className="footer-link">Speed test</a>
+                            <a href="https://help.netflix.com/vi/node/412" className="footer-link">
+                                <Trans t={t}>footer-column1-link-1</Trans>
+                            </a>
+                            <a href="https://ir.netflix.net/ir-overview/profile/default.aspx" className="footer-link">
+                                <Trans t={t}>footer-column1-link-2</Trans>
+                            </a>
+                            <a href="https://help.netflix.com/legal/privacy" className="footer-link">
+                                <Trans t={t}>footer-column1-link-3"</Trans>
+                            </a>
+                            <a href="https://fast.com/" className="footer-link">
+                                <Trans t={t}>footer-column1-link-4</Trans>
+                            </a>
                         </div>
 
                         <div className="footer-column">
-                            <a href="https://help.netflix.com/vi/" className="footer-link">Help Center</a>
-                            <a href="https://jobs.netflix.com/" className="footer-link">Jobs</a>
-                            <a href="#" className="footer-link">Cookie Preferences</a>
-                            <a href="https://help.netflix.com/legal/notices" className="footer-link">Legal Notices</a>
+                            <a href="https://help.netflix.com/vi/" className="footer-link">
+                                <Trans t={t}>footer-column2-link-1</Trans>
+                            </a>
+                            <a href="https://jobs.netflix.com/" className="footer-link">
+                                <Trans t={t}>footer-column2-link-2</Trans>
+                            </a>
+                            <a href="#" className="footer-link">
+                                <Trans t={t}>footer-column2-link-3</Trans>
+                            </a>
+                            <a href="https://help.netflix.com/legal/notices" className="footer-link">
+                                <Trans t={t}>footer-column2-link-4</Trans>
+                            </a>
                         </div>
 
                         <div className="footer-column">
-                            <a href="/login" className="footer-link">Account</a>
-                            <a href="https://devices.netflix.com/fr/" className="footer-link">Ways to Watch</a>
-                            <a href="https://help.netflix.com/legal/corpinfo" className="footer-link">Corporate Information</a>
-                            <a href="https://www.netflix.com/vn-en/browse/genre/839338" className="footer-link">Only on Netflix</a>
+                            <a href="/login" className="footer-link">
+                                <Trans t={t}>footer-column3-link-1</Trans>
+                            </a>
+                            <a href="https://devices.netflix.com/fr/" className="footer-link">
+                                <Trans t={t}>footer-column3-link-2</Trans>
+                            </a>
+                            <a href="https://help.netflix.com/legal/corpinfo" className="footer-link">
+                                <Trans t={t}>footer-column3-link-3</Trans>
+                            </a>
+                            <a href="https://www.netflix.com/vn-en/browse/genre/839338" className="footer-link">
+                                <Trans t={t}>footer-column3-link-4</Trans>
+                            </a>
                         </div>
 
                         <div className="footer-column">
-                            <a href="https://www.netflix.com/vn-en/browse/genre/839338" className="footer-link">Media Center</a>
-                            <a href="https://help.netflix.com/legal/termsofuse" className="footer-link">Terms of Use</a>
-                            <a href="https://help.netflix.com/vi/contactus" className="footer-link">Contact Us</a>
+                            <a href="https://www.netflix.com/vn-en/browse/genre/839338" className="footer-link">
+                                <Trans t={t}>footer-column4-link-1</Trans>
+                            </a>
+                            <a href="https://help.netflix.com/legal/termsofuse" className="footer-link">
+                                <Trans t={t}>footer-column4-link-2</Trans>
+                            </a>
+                            <a href="https://help.netflix.com/vi/contactus" className="footer-link">
+                                <Trans t={t}>footer-column4-link-3</Trans>
+                            </a>
                         </div>
                     </div>
-                    <p className="footer-break"></p>
+                    <div className="trans">
+                        <LanguageIcon className="trans-icon" />
+                        <select onClick={changeLanguage}>
+                            <option value="en">English</option>
+                            <option value="vn">Tiếng Việt</option>
+                        </select>
+                    </div>
+                    <p className="footer-break"></p>        
+                    <p className="footer-text">Netflix Vietnam</p>
                 </div>
             </div>
         </div>

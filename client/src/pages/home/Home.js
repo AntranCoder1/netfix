@@ -9,6 +9,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import SkeletonListItem from '../../components/skeleton/SkeletonListItem';
 import SkeletonSearch from '../../components/skeleton/SkeletonSearch';
+import LanguageIcon from '@material-ui/icons/Language';
+import { Trans, useTranslation } from 'react-i18next';
 
 const Home = ({ type }) => {
 
@@ -18,6 +20,9 @@ const Home = ({ type }) => {
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
     const user = useSelector(state => state.user.currentUser);
+
+    const { t } = useTranslation();
+    const { i18n } = useTranslation();
 
     useEffect(() => {
         document.title = "Netflix Việt Nam - Xem chương trình truyền hình trực tuyến, Xem phim trực tuyến"
@@ -59,6 +64,10 @@ const Home = ({ type }) => {
         }
     };
 
+    const changeLanguage = (e) => {
+        i18n.changeLanguage(e.target.value);
+    }
+
     return (
         <div className="home">
             { user ? (
@@ -85,7 +94,7 @@ const Home = ({ type }) => {
                     )) }
                 </div>
             ) }
-            <div className="footer">
+            {/* <div className="footer">
                 <div className="footertop">
                     <h4>You have questions? Contact us.</h4>
                 </div>
@@ -114,9 +123,89 @@ const Home = ({ type }) => {
                         <li><a href="https://help.netflix.com/vi/contactus">Contact Us</a></li>
                     </ul>
                 </div>
+                <div className="trans">
+                    <LanguageIcon className="trans-icon" />
+                    <select onClick={changeLanguage}>
+                        <option value="en">English</option>
+                        <option value="vn">Tiếng Việt</option>
+                    </select>
+                </div>
                 <div className="footer-bottom">
                     <h4>Netflix Việt Nam</h4>
                 </div>
+            </div> */}
+            <div className="footer">
+                <div className="footer-title">
+                    <Trans t={t}>footer-title</Trans>
+                </div>
+                <p className="footer-break"></p>
+                <div className="footer-row">
+                    <div className="footer-column">
+                        <a href="https://help.netflix.com/vi/node/412" className="footer-link">
+                            <Trans t={t}>footer-column1-link-1</Trans>
+                        </a>
+                        <a href="https://ir.netflix.net/ir-overview/profile/default.aspx" className="footer-link">
+                            <Trans t={t}>footer-column1-link-2</Trans>
+                        </a>
+                        <a href="https://help.netflix.com/legal/privacy" className="footer-link">
+                            <Trans t={t}>footer-column1-link-3</Trans>
+                        </a>
+                        <a href="https://fast.com/" className="footer-link">
+                            <Trans t={t}>footer-column1-link-4</Trans>
+                        </a>
+                    </div>
+
+                    <div className="footer-column">
+                        <a href="https://help.netflix.com/vi/" className="footer-link">
+                            <Trans t={t}>footer-column2-link-1</Trans>
+                        </a>
+                        <a href="https://jobs.netflix.com/" className="footer-link">
+                            <Trans t={t}>footer-column2-link-2</Trans>
+                        </a>
+                        <a href="#" className="footer-link">
+                            <Trans t={t}>footer-column2-link-3</Trans>
+                        </a>
+                        <a href="https://help.netflix.com/legal/notices" className="footer-link">
+                            <Trans t={t}>footer-column2-link-4</Trans>
+                        </a>
+                    </div>
+
+                    <div className="footer-column">
+                        <a href="/login" className="footer-link">
+                            <Trans t={t}>footer-column3-link-1</Trans>
+                        </a>
+                        <a href="https://devices.netflix.com/fr/" className="footer-link">
+                            <Trans t={t}>footer-column3-link-2</Trans>
+                        </a>
+                        <a href="https://help.netflix.com/legal/corpinfo" className="footer-link">
+                            <Trans t={t}>footer-column3-link-3</Trans>
+                        </a>
+                        <a href="https://www.netflix.com/vn-en/browse/genre/839338" className="footer-link">
+                            <Trans t={t}>footer-column3-link-4</Trans>
+                        </a>
+                    </div>
+
+                    <div className="footer-column">
+                        <a href="https://www.netflix.com/vn-en/browse/genre/839338" className="footer-link">
+                            <Trans t={t}>footer-column4-link-1</Trans>
+                        </a>
+                        <a href="https://help.netflix.com/legal/termsofuse" className="footer-link">
+                            <Trans t={t}>footer-column4-link-2</Trans>
+                        </a>
+                        <a href="https://help.netflix.com/vi/contactus" className="footer-link">
+                            <Trans t={t}>footer-column4-link-3</Trans>
+                        </a>
+                    </div>
+                </div>
+                <div className="trans">
+                    <LanguageIcon className="trans-icon" />
+                    <select onClick={changeLanguage}>
+                        <option value="en">English</option>
+                        <option value="vn">Tiếng Việt</option>
+                    </select>
+                </div>
+                <p className="footer-break"></p>        
+                <p className="footer-text">Netflix Vietnam</p>
             </div>
         </div>
     )

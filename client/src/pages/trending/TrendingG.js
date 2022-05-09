@@ -10,6 +10,8 @@ import Scroll from '../../components/scroll/Scroll';
 import SkeletonTrending from '../../components/skeleton/SkeletonTrending';
 import axios from 'axios';
 import MovieItem from '../../components/MovieItem/MovieItem';
+// import LanguageIcon from '@material-ui/icons/Language';
+// import { Trans, useTranslation } from 'react-i18next';
 
 const TrendingG = () => {
 
