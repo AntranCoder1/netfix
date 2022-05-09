@@ -64,5 +64,9 @@
     "Navbar-5": "Liked Video",
     "Navbar-6": "Trending",
     "Profile-setting": "Settings",
-    "Profile-logout": "Logout"
+    "Profile-logout": "Logout",
+    "Navbar-search": "Search...",
+    "likeVideo-title": "Liked video",
+    "likeVideo-private": "Private",
+    "likeVideo-quantity": "Video"
 }

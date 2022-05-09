@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import SkeletonLike from '../../components/skeleton/SkeletonLike';
 import MovieItem from '../../components/MovieItem/MovieItem';
+import { Trans, useTranslation } from 'react-i18next';
 
 const MovieCartG = () => {
 
@@ -21,6 +22,9 @@ const MovieCartG = () => {
     const [users, setUsers] = useState([]);
     const [movieSearch, setMovieSearch] = useState([]);
     const [value, setValue] = useState("");
+
+    const { t } = useTranslation();
+    const { i18n } = useTranslation();
 
     useEffect(() => {
         setLoading(true);
@@ -91,14 +95,18 @@ const MovieCartG = () => {
                     { !loading && 
                         <div className="movie-container">
                             <div className="left">
-                                <p className="left-title">Video đã thích</p>
+                                <p className="left-title">
+                                    <Trans t={t}>likeVideo-title</Trans>
+                                </p>
                                 <p style={{ fontSize: "15px", color: "#ccc" }}>
-                                    <span>{filtered.length} </span> 
-                                    Video
+                                    <span>{check.length} </span> 
+                                    <Trans t={t}>likeVideo-quantity</Trans>
                                 </p>
                                 <div className="left-security">
                                     <LockOutlinedIcon className="left-icon" />
-                                    <p style={{ fontSize: "13px", fontWeight: "bold", color: "#e0e0d1" }}>Riêng tư</p>
+                                    <p style={{ fontSize: "13px", fontWeight: "bold", color: "#e0e0d1" }}>
+                                        <Trans t={t}>likeVideo-private</Trans>
+                                    </p>
                                 </div>
                                 <div className="left-bottom"></div>
                                 <div className="left-user">
