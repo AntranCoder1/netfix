@@ -68,7 +68,38 @@
         }
 
         .footer {
-            margin-top: 20px;
+            margin-top: 6rem;
+
+            .trans {
+                margin-left: 22rem;
+                margin-top: 3rem;
+                display: flex;
+                align-items: center;
+        
+                .trans-icon {
+                    color: #999;
+                    position: absolute;
+                    margin-left: 10px;
+                }
+            }
+        
+            .trans > select {
+                background-color: #000;
+                background-image: none;
+                border: 1px solid #333;
+                color: #999;
+                font-size: 1.1rem;
+                padding: 15px 15px 15px 40px;
+                border-radius: 5px;
+            }
+        
+            .trans > option {
+                font-weight: normal;
+                display: block;
+                white-space: nowrap;
+                min-height: 1.2em;
+                padding: 0px 2px 1px;
+            }
         }
     }
 }

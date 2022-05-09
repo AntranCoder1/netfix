@@ -56,5 +56,13 @@
     "login-footer-column2-link-2": "Corporate Information",
     "login-footer-column3-link-1": "Terms of Use",
     "login-footer-column4-link-1": "Privacy",
-    "login-btn-google": "Login with google"
+    "login-btn-google": "Login with google",
+    "Navbar-1": "Homepage",
+    "Navbar-2": "Series",
+    "Navbar-3": "Movies",
+    "Navbar-4": "NewMovies",
+    "Navbar-5": "Liked Video",
+    "Navbar-6": "Trending",
+    "Profile-setting": "Settings",
+    "Profile-logout": "Logout"
 }
