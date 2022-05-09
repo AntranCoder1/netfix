@@ -139,7 +139,7 @@ const NavBar = (props) => {
                         <ArrowDropDown className="icon" />
                         <div className="options">
                             <Link to={`/profile/${users._id}`}>
-                                <span>
+                                <span style={{ display: 'flex', flexWrap: 'wrap', paddingRight: '2px' }}>
                                     <Trans t={t}>Profile-setting</Trans>
                                 </span>
                             </Link>

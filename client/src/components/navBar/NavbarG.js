@@ -4,6 +4,7 @@ import { ArrowDropDown, Notifications } from "@material-ui/icons";
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import SkeletonNavbar from '../skeleton/SkeletonNavbar';
+import { Trans, useTranslation } from 'react-i18next';
 
 const NavbarG = (props) => {
 
@@ -19,6 +20,9 @@ const NavbarG = (props) => {
 
     const [user, setUser] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    const { t } = useTranslation();
+    const { i18n } = useTranslation();
 
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true );
@@ -72,6 +76,10 @@ const NavbarG = (props) => {
         return () => clearTimeout(timer);
     }, []);
 
+    const changeLanguage = (e) => {
+        i18n.changeLanguage(e.target.value);
+    }
+
     return (
         <div className={ isScrolled ? "navBar scrolled" : "navBar"}>
             <div className="container">
@@ -80,22 +88,34 @@ const NavbarG = (props) => {
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png" alt="" />
                     </Link>
                     <Link to="/">
-                        <span>Homepage</span>
+                        <span>
+                            <Trans t={t}>Navbar-1</Trans>
+                        </span>
                     </Link>
                     <Link to="/series">
-                        <span>Series</span>
+                        <span>
+                            <Trans t={t}>Navbar-2</Trans>
+                        </span>
                     </Link>
                     <Link to="/movies">
-                        <span>Movies</span>
+                        <span>
+                            <Trans t={t}>Navbar-3</Trans>
+                        </span>
                     </Link>
                     <Link to="/newVideo">
-                        <span>New Movies</span>
+                        <span>
+                            <Trans t={t}>Navbar-4</Trans>
+                        </span>
                     </Link>
                     <Link to="/movieCart">
-                        <span>Liked Video</span>
+                        <span>
+                            <Trans t={t}>Navbar-5</Trans>
+                        </span>
                     </Link>
                     <Link to="/trending">
-                        <span>Trending</span>
+                        <span>
+                            <Trans t={t}>Navbar-6</Trans>
+                        </span>
                     </Link>
                 </div>
                 <div className="right">
@@ -105,7 +125,7 @@ const NavbarG = (props) => {
                                 id="search"
                                 name="search"
                                 type="text"
-                                placeholder="Search..."
+                                placeholder={t('Navbar-search')}
                                 value={seatchItem}
                                 onChange={handleChange}
                             />
@@ -132,9 +152,13 @@ const NavbarG = (props) => {
                         <ArrowDropDown className="icon" />
                         <div className="options">
                             <Link to={`/profile/${checkIdGoogle}`}>
-                                <span>Settings</span>
+                                <span style={{ display: 'flex', flexWrap: 'wrap', paddingRight: '2px' }}>
+                                    <Trans t={t}>Profile-setting</Trans>
+                                </span>
                             </Link>
-                            <span onClick={handleClick}>Logout Google</span>
+                            <span onClick={handleClick}>
+                                <Trans t={t}>Profile-logout</Trans>
+                            </span>
                         </div>
                     </div>
                 </div>

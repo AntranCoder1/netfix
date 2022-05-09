@@ -64,5 +64,9 @@
     "Navbar-5": "Phim đã thích",
     "Navbar-6": "Top thịnh hành",
     "Profile-setting": "Cài đặt",
-    "Profile-logout": "Thoát"
+    "Profile-logout": "Thoát",
+    "Navbar-search": "Tìm kiếm phim...",
+    "likeVideo-title": "Video đã thích",
+    "likeVideo-private": "Riêng tư",
+    "likeVideo-quantity": "Bộ phim"
 }
