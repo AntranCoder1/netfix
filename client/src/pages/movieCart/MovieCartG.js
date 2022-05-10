@@ -8,6 +8,8 @@ import axios from 'axios';
 import SkeletonLike from '../../components/skeleton/SkeletonLike';
 import MovieItem from '../../components/MovieItem/MovieItem';
 import { Trans, useTranslation } from 'react-i18next';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import LikeModal from '../../components/likeModal/LikeModal';
 
 const MovieCartG = () => {
 
@@ -25,6 +27,9 @@ const MovieCartG = () => {
 
     const { t } = useTranslation();
     const { i18n } = useTranslation();
+
+    const [isModal, setIsModal] = useState(false);
+    const [movieValue, setMovieValue] = useState();
 
     useEffect(() => {
         setLoading(true);
@@ -86,6 +91,15 @@ const MovieCartG = () => {
         window.history.replaceState('', '', `/movies/search?value=${value}`);
     }
 
+    const handleClick = (id) => {
+        check.some(function(entry, i) {
+            if (entry._id == id) {
+                setMovieValue(i);
+                setIsModal(!isModal);
+            }
+        });
+    }
+
     return (
         <div className="movie-cart">
             <NavbarG search={search} />
@@ -134,6 +148,13 @@ const MovieCartG = () => {
                                                     </div>
                                                 </>
                                             </Link>
+                                            <div className="right-content-dot">
+                                                <MoreVertIcon onClick={() => handleClick(movie._id)} />
+                                                {   check.map(a => a._id).indexOf(movie._id) === movieValue
+                                                    && isModal 
+                                                    && <LikeModal setIsModal={setIsModal} id={movie._id} /> 
+                                                }
+                                            </div>
                                         </div>
                                         <div className="right-bottom"></div>
                                     </div>

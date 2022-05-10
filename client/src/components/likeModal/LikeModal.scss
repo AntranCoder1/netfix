@@ -1,0 +1,26 @@
+.likeModal {
+    position: absolute;
+    border: 1px solid #fff;
+    right: -35px;
+    border-radius: 5px;
+    width: 252px;
+    background-color: #fff;
+    color: #030303;
+
+    .likeModal-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 10px 10px 10px;
+
+        .likeModal-container-icon {
+            font-size: 1.7rem;
+            margin-left: -20px;
+        }
+
+        .likeModal-container-p {
+            font-size: 1rem;
+            margin-left: 5px;
+        }
+    }
+}
