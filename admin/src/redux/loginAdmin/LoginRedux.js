@@ -20,7 +20,12 @@ const loginSlice = createSlice({
         loginFailure: (state) => {
             state.isFetching = false;
             state.error = true;
-        }
+        },
+
+        // LOGOUT
+        logout: (state) => {
+            state.currentAdmin = null
+        },
     }
 });
 
@@ -28,6 +33,7 @@ export const {
     loginStart,
     loginSuccess,
     loginFailure,
+    logout,
 } = loginSlice.actions;
 
 export default loginSlice.reducer;

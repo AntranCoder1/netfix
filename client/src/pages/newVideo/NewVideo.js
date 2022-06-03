@@ -10,13 +10,32 @@ import SkeletonNewMovie from '../../components/skeleton/SkeletonNewMovie';
 import MovieItem from '../../components/MovieItem/MovieItem';
 import LanguageIcon from '@material-ui/icons/Language';
 import { Trans ,useTranslation } from 'react-i18next';
+import { getMovie } from "../../redux/ApiMovieCall";
+import { useDispatch, useSelector } from "react-redux";
+
+const filterMovies = (movies, query) => {
+    if (!query) {
+      return movies;
+    }
+  
+    return movies.filter((movie) => {
+      const movieName =  movie.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+      return movieName;
+    });
+};
 
 const NewVideo = () => {
 
+    const movies = useSelector(state => state.movie.movies);
+
     const [movie, setMovie] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [movieSearch, setMovieSearch] = useState([]);
-    const [value, setValue] = useState("");
+    const dispatch = useDispatch();
+
+    const { search } = window.location;
+    const query = new URLSearchParams(search).get("search");
+    const [searchQuery, setSearchQuery] = useState(query || "");
+    const filteredMovie = filterMovies(movies, searchQuery);
 
     const admin = JSON.parse(localStorage.getItem("persist:root"))?.user;
     const currentUser = admin && JSON.parse(admin).currentUser;
@@ -44,37 +63,24 @@ const NewVideo = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    const search = async (searchValue) => {
-        try {
-            const res = await axios.get(`/movies/search?value=${searchValue}`, {
-                headers: {
-                    token: "Bearer " + TOKEN
-                }
-            })
-            setMovieSearch(res.data);
-            setValue(searchValue);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    if (movieSearch.length === 0) {
-        document.title = "Netflix - Trending"; 
-    } else {
-        document.title = `(${movieSearch.length}) ${value} - Netflix`;
-        window.history.replaceState('', '', `/movies/search?value=${value}`);   
-    }
+    useEffect(() => {
+        getMovie(dispatch);
+    }, [dispatch]);
 
     const changeLanguage = (e) => {
         i18n.changeLanguage(e.target.value);
     }
 
+    useEffect(() => {
+        document.title = "Netflix - New Movie"
+    });
+
     return (
         <div className="new-video">
-            <NavBar search={search} />
+            <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             <div className="new-video-container">
                 <div className="container">
-                    { movieSearch.length === 0 ? (
+                    { !searchQuery ? (
                         <>
                             { loading && <SkeletonNewMovie /> }
                             { !loading &&
@@ -102,7 +108,7 @@ const NewVideo = () => {
                         </>
                     ) : (
                         <div className="movie-search">
-                            { movieSearch.map((item, i) => (
+                            { filteredMovie.map((item, i) => (
                                 <MovieItem key={item._id} index={i} movie={item} />
                             )) }
                         </div>

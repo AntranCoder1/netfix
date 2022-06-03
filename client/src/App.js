@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.scss';
 import Home from './pages/home/Home';
 import Watch from './pages/watch/Watch';
@@ -29,7 +29,7 @@ import axios from 'axios';
 import './i18n/config';
 
 function App() {
-
+  
   const user = useSelector(state => state.user.currentUser);
   const [googleAccount, setGoogleAccount] = useState(null);
   const history = useHistory();

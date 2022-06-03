@@ -6,7 +6,7 @@ import axios from 'axios';
 import SkeletonNavbar from '../skeleton/SkeletonNavbar';
 import { Trans, useTranslation } from 'react-i18next';
 
-const NavbarG = (props) => {
+const NavbarG = ({ searchQuery, setSearchQuery }) => {
 
     const [isScrolled, setIsScrolled] = useState(false);
     const [seatchItem, setSearchItem] = useState("");
@@ -34,18 +34,14 @@ const NavbarG = (props) => {
         history.push("/register")
     }
 
-    const handleChange = e => {
-        setSearchItem(e.target.value)
-    }
-
-    const resetInputField = () => {
-        setSearchItem("")
-    }
-
-    const callSearchFunction = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
-        props.search(seatchItem);
-    }
+        if (!searchQuery) {
+            history.push("/newVideo");
+        } else {
+            history.push(`?search=${searchQuery}`);
+        }
+    };
 
     const handleView = async (id) => {
         try {
@@ -120,20 +116,19 @@ const NavbarG = (props) => {
                 </div>
                 <div className="right">
                     <div id="wrap">
-                        <form action="" autocomplete="on">
+                        <form action="" method="get" autocomplete="off" onSubmit={onSubmit}>
                             <input 
                                 id="search"
                                 name="search"
                                 type="text"
                                 placeholder={t('Navbar-search')}
-                                value={seatchItem}
-                                onChange={handleChange}
+                                value={searchQuery}
+                                onInput={(e) => setSearchQuery(e.target.value)}
                             />
                             <input 
                                 id="search_submit" 
                                 value="Rechercher" 
                                 type="submit"
-                                onClick={callSearchFunction}
                             />
                         </form>
                     </div>

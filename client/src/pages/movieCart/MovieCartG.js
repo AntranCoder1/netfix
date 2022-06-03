@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './MovieCart.scss';
 import NavbarG from '../../components/navBar/NavbarG';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import SkeletonLike from '../../components/skeleton/SkeletonLike';
@@ -17,7 +16,6 @@ const MovieCartG = () => {
     const userName = JSON.parse(localStorage.getItem("userGoogle"))?.name;
     const userImg = JSON.parse(localStorage.getItem("userGoogle"))?.picture;
     const TOKEN = JSON.parse(localStorage.getItem("userGoogle"))?.token;
-    const movies = useSelector(state => state.movie.movies);
     const [loading, setLoading] = useState(false);
     const [filtered, setFiltered] = useState([]);
 
@@ -152,7 +150,7 @@ const MovieCartG = () => {
                                                 <MoreVertIcon onClick={() => handleClick(movie._id)} />
                                                 {   check.map(a => a._id).indexOf(movie._id) === movieValue
                                                     && isModal 
-                                                    && <LikeModal setIsModal={setIsModal} id={movie._id} /> 
+                                                    && <LikeModal setIsModal={setIsModal} movieId={movie._id} /> 
                                                 }
                                             </div>
                                         </div>

@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import './Modal.scss';
 import { RiCloseLine } from 'react-icons/ri';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addFeedback } from '../../redux/ApiFeedbackCall';
 
 const Modal = ({ setIsOpen, movieName }) => {
 
     const [feedback, setFeedback] = useState(null);
+
+    const users = useSelector(state => 
+        state.users.users.filter((item) => {
+            return item.name === "admin"
+        })
+    );
+
+    var receiverName = users.reduce((a, b) => Object.assign(a, b), {})
+
 
     const dispatch = useDispatch();
 

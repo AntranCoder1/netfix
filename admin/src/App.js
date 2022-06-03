@@ -6,8 +6,7 @@ import Home from './pages/Home/Home';
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
-  Redirect
+  Switch
 } from 'react-router-dom';
 import UserList from './pages/userList/UserList';
 import UserEdit from './pages/userEdit/UserEdit';
@@ -30,7 +29,7 @@ function App() {
     <Router>
       <Switch>
         <Route path="/login">
-          { admin ? <Redirect to="/home" /> : <Login /> }
+          { admin ? <Home /> : <Login /> }
         </Route>
         { admin ? (
           <>

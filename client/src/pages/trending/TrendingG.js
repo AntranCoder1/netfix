@@ -8,10 +8,20 @@ import { Link } from 'react-router-dom';
 import { isEmpty, timestampParser } from '../../Utils';
 import Scroll from '../../components/scroll/Scroll';
 import SkeletonTrending from '../../components/skeleton/SkeletonTrending';
-import axios from 'axios';
 import MovieItem from '../../components/MovieItem/MovieItem';
 import LanguageIcon from '@material-ui/icons/Language';
 import { Trans, useTranslation } from 'react-i18next';
+
+const filterMovies = (movies, query) => {
+    if (!query) {
+      return movies;
+    }
+  
+    return movies.filter((movie) => {
+      const movieName =  movie.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+      return movieName;
+    });
+};
 
 const TrendingG = () => {
 
@@ -20,10 +30,10 @@ const TrendingG = () => {
     const [trend, setTrend] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const TOKEN = JSON.parse(localStorage.getItem("userGoogle"))?.token;
-
-    const [movieSearch, setMovieSearch] = useState([]);
-    const [value, setValue] = useState("");
+    const { search } = window.location;
+    const query = new URLSearchParams(search).get("search");
+    const [searchQuery, setSearchQuery] = useState(query || "");
+    const filteredMovie = filterMovies(movies, searchQuery);
 
     const { t } = useTranslation();
     const { i18n } = useTranslation();
@@ -45,39 +55,18 @@ const TrendingG = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    const search = async (searchValue) => {
-        try {
-            const res = await axios.get(`/movies/search?value=${searchValue}`, {
-                headers: {
-                    token: "Bearer " + TOKEN
-                }
-            });
-            setMovieSearch(res.data);
-            setValue(searchValue);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    if (movieSearch.length === 0) {
-        document.title = 'Netflix - Trending';
-    } else {
-        document.title = `(${movieSearch.length}) ${value} - Netflix`;
-        window.history.replaceState('', '', `/movies/search?value=${value}`);
-    }
-
     const changeLanguage = (e) => {
         i18n.changeLanguage(e.target.value);
     }
 
     return (
         <div className="trending">
-            <NavbarG search={search} />
+            <NavbarG searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             <div className="trending-container">
                 { loading && <SkeletonTrending /> }
                 { !loading && 
                     <div className="trending-container-loading">
-                        { movieSearch.length === 0 ? (
+                        { !searchQuery ? (
                             <>
                                 { trend.map((movie) => (
                                     <Link to={`/watch/${movie._id}`}>
@@ -106,7 +95,7 @@ const TrendingG = () => {
                         ) : (
                             
                             <div className="movie-search">
-                                { movieSearch.map((item, i) => (
+                                { filteredMovie.map((item, i) => (
                                     <MovieItem key={item._id} index={i} movie={item} />
                                 )) }
                             </div>

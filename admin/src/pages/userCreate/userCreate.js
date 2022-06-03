@@ -4,6 +4,7 @@ import storage from '../../firebase';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { addUser } from '../../redux/ApiCallUser';
+import { useSnackbar } from 'notistack';
 
 const UserCreate = () => {
 
@@ -12,6 +13,8 @@ const UserCreate = () => {
     const [uploaded, setUploaded] = useState(0);
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -45,9 +48,10 @@ const UserCreate = () => {
         ])
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (variant) => (e) => {
         e.preventDefault();
         addUser(user, dispatch);
+        enqueueSnackbar('Create a new user complete!', { variant });
         history.push("/users");
     };
 
@@ -91,7 +95,7 @@ const UserCreate = () => {
                         onChange={(e) => setPicture(e.target.files[0])}
                     />
                 </div>
-                { uploaded === 1 ? (
+                { uploaded === 0 ? (
                     <button 
                         className="userCreateButton"
                         onClick={handleUpload}
@@ -101,7 +105,7 @@ const UserCreate = () => {
                 ) : (
                     <button 
                         className="userCreateButton"
-                        onClick={handleSubmit}
+                        onClick={handleSubmit('success')}
                     >
                         Create
                     </button>
