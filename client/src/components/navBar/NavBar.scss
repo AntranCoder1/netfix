@@ -39,6 +39,14 @@
             }
         }
 
+        .left > .active-link {
+            color: #e50914;
+        }
+
+        // .left > .link {
+        //     color: #;
+        // }
+
         .right {
             display: flex;
             align-items: center;

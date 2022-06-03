@@ -13,14 +13,23 @@ import {
     WorkOutline,
     Report,  
     MovieFilter,
-    ListAlt
+    ListAlt,
 } from '@material-ui/icons';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link, NavLink } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/loginAdmin/LoginRedux";
 
 const SideBar = () => {
 
     const isActive = {
         backgroundColor: "rgb(240, 240, 255)",
+    };
+
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(logout());
     };
 
     return (
@@ -108,6 +117,10 @@ const SideBar = () => {
                         <li className="sidebarListItem">
                             <Report className="sidebarIcon" />
                             Reports
+                        </li>
+                        <li className="sidebarListItem" onClick={handleLogout}>
+                            <ExitToAppIcon className="sidebarIcon" />
+                            Logout
                         </li>
                     </ul>
                 </div>

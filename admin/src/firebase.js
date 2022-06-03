@@ -60,13 +60,21 @@ const firebaseConfig = {
     // appId: "1:1025405403342:web:72ef0b3ec7e5a846ea109f",
     // measurementId: "G-1VS7DWZDWT"
 
-    apiKey: "AIzaSyDNa6QR8KZ16hl0Byx6DeHP5mU71Rej6a0",
-    authDomain: "movie-8-ce023.firebaseapp.com",
-    projectId: "movie-8-ce023",
-    storageBucket: "movie-8-ce023.appspot.com",
-    messagingSenderId: "845928863152",
-    appId: "1:845928863152:web:b1bc6a82649135afd97275",
-    measurementId: "G-9JM0PCF10Y"
+    // apiKey: "AIzaSyDNa6QR8KZ16hl0Byx6DeHP5mU71Rej6a0",
+    // authDomain: "movie-8-ce023.firebaseapp.com",
+    // projectId: "movie-8-ce023",
+    // storageBucket: "movie-8-ce023.appspot.com",
+    // messagingSenderId: "845928863152",
+    // appId: "1:845928863152:web:b1bc6a82649135afd97275",
+    // measurementId: "G-9JM0PCF10Y"
+
+    apiKey: "AIzaSyCAkxoGkJY-lbPF9ciJVS6YNLoukXQR4eQ",
+    authDomain: "movie-9-43481.firebaseapp.com",
+    projectId: "movie-9-43481",
+    storageBucket: "movie-9-43481.appspot.com",
+    messagingSenderId: "338976396875",
+    appId: "1:338976396875:web:1e3b79c53ac4aad6b65fce",
+    measurementId: "G-E35FSYBETZ"
 };
 
 firebase.initializeApp(firebaseConfig);

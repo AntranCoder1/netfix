@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './NavBar.scss';
 import { ArrowDropDown, Notifications, Menu, Facebook } from "@material-ui/icons";
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, NavLink } from 'react-router-dom';
 import { logout } from '../../redux/User.redux';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import SkeletonNavbar from '../skeleton/SkeletonNavbar';
 import { Trans, useTranslation } from 'react-i18next';
 
-const NavBar = (props) => {
+const NavBar = ({ searchQuery, setSearchQuery }) => {
 
-    const [showMediaIcons, setShowMediaIcons] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    const [seatchItem, setSearchItem] = useState("");
     const user = useSelector(state => state.user.currentUser);
     const [users, setUsers] = useState([]);
     const dispatch = useDispatch(); 
@@ -27,24 +25,6 @@ const NavBar = (props) => {
     const handleLogout = () => {
         dispatch(logout())
         history.push("/register")
-    }
-
-    const handleClick = () => {
-        localStorage.removeItem("userGoogle");
-        history.push("/register")
-    }
-
-    const handleChange = e => {
-        setSearchItem(e.target.value)
-    }
-
-    const resetInputField = () => {
-        setSearchItem("")
-    }
-
-    const callSearchFunction = (e) => {
-        e.preventDefault();
-        props.search(seatchItem);
     }
 
     useEffect(() => {
@@ -67,6 +47,15 @@ const NavBar = (props) => {
     const { t } = useTranslation();
     const { i18n } = useTranslation();
 
+    const onSubmit = (e) => {
+        e.preventDefault();
+        if (!searchQuery) {
+            history.push("/newVideo");
+        } else {
+            history.push(`?search=${searchQuery}`);
+        }
+    };
+
     return (  
         <div className={ isScrolled ? "navBar scrolled" : "navBar"}>
             <div className="container">
@@ -74,53 +63,52 @@ const NavBar = (props) => {
                     <Link to="/">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png" alt="" />
                     </Link>
-                    <Link to="/">
+                    <NavLink to="/" exact activeClassName='active-link'>
                         <span>
                             <Trans t={t}>Navbar-1</Trans>
                         </span>
-                    </Link>
-                    <Link to="/series">
+                    </NavLink>
+                    <NavLink to="/series" activeClassName='active-link'>
                         <span>
                             <Trans t={t}>Navbar-2</Trans>
                         </span>
-                    </Link>
-                    <Link to="/movies">
+                    </NavLink>
+                    <NavLink to="/movies" activeClassName='active-link'>
                         <span>
                             <Trans t={t}>Navbar-3</Trans>
                         </span>
-                    </Link>
-                    <Link to="/newVideo">
+                    </NavLink>
+                    <NavLink to="/newVideo" activeClassName='active-link'>
                         <span>
                             <Trans t={t}>Navbar-4</Trans>
                         </span>
-                    </Link>
-                    <Link to="/movieCart">
+                    </NavLink>
+                    <NavLink to="/movieCart" activeClassName='active-link'>
                         <span>
                             <Trans t={t}>Navbar-5</Trans>
                         </span>
-                    </Link>
-                    <Link to="/trending">
+                    </NavLink>
+                    <NavLink to="/trending" activeClassName='active-link'>
                         <span>
                             <Trans t={t}>Navbar-6</Trans>
                         </span>
-                    </Link>
+                    </NavLink>
                 </div>
                 <div className="right">
                     <div id="wrap">
-                        <form action="" autocomplete="on">
+                        <form action="" method="get" autocomplete="off" onSubmit={onSubmit}>
                             <input 
                                 id="search"
                                 name="search"
                                 type="text"
                                 placeholder="Search..."
-                                value={seatchItem}
-                                onChange={handleChange}
+                                value={searchQuery}
+                                onInput={(e) => setSearchQuery(e.target.value)}
                             />
                             <input 
                                 id="search_submit" 
                                 value="Rechercher" 
                                 type="submit"
-                                onClick={callSearchFunction}
                             />
                         </form>
                     </div>

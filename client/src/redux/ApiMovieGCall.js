@@ -17,6 +17,9 @@ import {
     deleteCommentStart,
     deleteCommentSuccess,
     deleteCommentFailure,
+    getMovieLikeStart,
+    getMovieLikeSuccess,
+    getMovieLikeFailure
 } from './MovieRedux'; 
 import axios from 'axios';
 
@@ -108,5 +111,18 @@ export const deleteComment = async (dispatch, movieId, commentId) => {
         dispatch(deleteCommentSuccess(movieId, commentId));
     } catch (error) {
         dispatch(deleteCommentFailure());
+    }
+};
+
+export const getMovieLike = async (dispatch, userId) => {
+    dispatch(getMovieLikeStart());
+    try {
+        await axios.get("/getLikeMovie/" + userId, {
+            headers: {
+                token: "Bearer " + TOKEN
+            }
+        })
+    } catch (error) {
+        dispatch(getMovieLikeFailure());
     }
 };

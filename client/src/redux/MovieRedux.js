@@ -119,6 +119,20 @@ const movieSlice = createSlice({
             state.isFetching = false;
             state.error = true;
         },
+
+        // GET LIKE MOVIE
+        getMovieLikeStart: (state) => {
+            state.isFetching = true;
+            state.error = false;
+        },
+        getMovieLikeSuccess: (state, action) => {
+            state.isFetching = false;
+            state.movies = action.payload;
+        },
+        getMovieLikeFailure: (state) => {
+            state.isFetching = false;
+            state.error = true;
+        }
     }
 });
 
@@ -141,6 +155,9 @@ export const {
     deleteCommentStart,
     deleteCommentSuccess,
     deleteCommentFailure,
+    getMovieLikeStart,
+    getMovieLikeSuccess,
+    getMovieLikeFailure
 } = movieSlice.actions;
 
 export default movieSlice.reducer;

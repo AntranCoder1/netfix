@@ -12,14 +12,29 @@ import SkeletonSearch from '../../components/skeleton/SkeletonSearch';
 import LanguageIcon from '@material-ui/icons/Language';
 import { Trans, useTranslation } from 'react-i18next';
 
+const filterMovies = (movies, query) => {
+    if (!query) {
+      return movies;
+    }
+  
+    return movies.filter((movie) => {
+      const movieName =  movie.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+      return movieName;
+    });
+};
+
 const Home = ({ type }) => {
 
+    const movies = useSelector(state => state.movie.movies);
     const [lists, setLists] = useState([]);
     const [genre, setGenre] = useState(null);
-    const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(null);
     const user = useSelector(state => state.user.currentUser);
+
+    const { search } = window.location;
+    const query = new URLSearchParams(search).get("search");
+    const [searchQuery, setSearchQuery] = useState(query || "");
+    const filteredMovie = filterMovies(movies, searchQuery);
 
     const { t } = useTranslation();
     const { i18n } = useTranslation();
@@ -51,19 +66,6 @@ const Home = ({ type }) => {
         return () => clearTimeout(timer);
     }, [type, genre]);
 
-    const search = async (searchValue) => {
-        try {
-            const res = await axios.get(`/movies/search?value=${searchValue}`, {
-                headers: {
-                    token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZDJiOTgzNzg3Y2M5MGRmMDlmM2FhNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MjU0Mzg3OSwiZXhwIjoxOTAxNzQzODc5fQ.2Urif1oO5B4Kc_jnhmgmbuZVjpjcArhaQEpEF4dTYIA"
-                }
-            });
-            setMovies(res.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     const changeLanguage = (e) => {
         i18n.changeLanguage(e.target.value);
     }
@@ -71,11 +73,11 @@ const Home = ({ type }) => {
     return (
         <div className="home">
             { user ? (
-                <NavBar search={search} />
+                <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             ) : (
-                <NavbarG search={search} />
+                <NavbarG searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             ) }
-            { movies.length === 0 ? (
+            { !searchQuery ? (
                 <>
                     <Featured type={type} setGenre={setGenre} />
                     { loading && <SkeletonListItem /> }
@@ -89,7 +91,7 @@ const Home = ({ type }) => {
                 </>
             ) : (
                 <div className="movieSearch">
-                    { movies.map((item, i) => (
+                    { filteredMovie.map((item, i) => (
                         <MovieItem key={item._id} index={i} movie={item} />
                     )) }
                 </div>
